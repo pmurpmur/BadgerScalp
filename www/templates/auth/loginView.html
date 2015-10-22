@@ -1,0 +1,51 @@
+<ion-view cache-view="false" hide-nav-bar="true">
+	<ion-content id="authView" class="ionic login" scroll="false">
+
+		<div class="list text-center padding">
+	    	<i class="icon ion-pricetags larger positive"></i>
+	    	<span class="login-title">BadgerScalp</span>
+	    </div>
+
+	    <form novalidate name="loginForm" ng-submit="loginForm.$valid">
+	    	<div class="list list-inset">
+
+		        <label class="item item-input" ng-class="{ 'has-error' : loginForm.email.$invalid && loginForm.$submitted }">
+					<input name="email" type="email" ng-model="user.email" placeholder="Email"
+					ng-minlength="5"
+					ng-maxlength="30"
+					required>
+		        </label>
+				<div class="form-errors" ng-messages="loginForm.email.$error" ng-if="loginForm.$submitted">
+					<div class="form-error" ng-message="required">This field is required.</div>
+					<div class="form-error" ng-message="email">This field is must be an email.</div>
+					<div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
+					<div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
+				</div>
+
+				<label class="item item-input" ng-class="{ 'has-error' : loginForm.password.$invalid && loginForm.$submitted }">
+					<input name="password" type="password" ng-model="user.password" placeholder="Password"
+					ng-minlength="5"
+					ng-maxlength="30"
+					required>
+				</label>
+				<div class="form-errors" ng-messages="loginForm.password.$error" ng-if="loginForm.$submitted">
+					<div class="form-error" ng-message="required">This field is required.</div>
+					<div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
+					<div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
+				</div>
+			</div>
+
+		    <div class="padding-top">
+				<input type="submit" class="button button-block button-positive" value="Login" />
+				<div class="button-bar social-login">
+		            <button ng-click="loginViaGoogle()" class="button button-small button-outline button-assertive light-bg icon-left ion-social-google">Google+</button>
+		            <button ng-click="loginViaFacebook()" class="button button-small button-outline button-positive light-bg icon-left ion-social-facebook">Facebook</button>
+	        	</div>
+				<p class="text-center padding-top">
+				<a ui-sref="forgot" nav-direction="back" nav-transition="android" class="button button-small button-clear button-positive">Forgot Password</a>
+				<a ui-sref="register" nav-direction="forward" nav-transition="android" class="button button-small button-clear button-positive">Register</a>
+		    </div>
+		</form>
+
+	</ion-content>
+</ion-view>

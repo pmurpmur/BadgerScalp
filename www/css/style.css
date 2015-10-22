@@ -1,0 +1,87 @@
+/* AUTHORIZATION VIEW */
+
+#authView {
+/*	background: url("../img/randall.jpg");
+	background-repeat: no-repeat;
+	background-color: #000; */
+	padding: 10px;
+
+/*	background-position-x: -390px;
+	transition: background-position-x 1.5s ease-in-out, background-position-y 1.5s ease-in-out;*/
+}
+
+/*#authView.bgAnimate {
+	background-position-x: -790px;
+	background-position-y: -80px;
+}*/
+
+.social-login button.button.button-outline {
+	background-color: #fff;
+}
+
+.social-login .icon-left::before {
+	line-height: 20px;
+}
+
+.login-title {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 60%;
+	font-size: 40px;
+	font-style: oblique;
+	font-weight: 900;
+	font-variant: small-caps;
+}
+
+.button-positive:hover {
+	background-color: #387ef5;
+}
+
+label.item.item-input {
+    border: none;
+    border-bottom: 1px solid;
+    margin-bottom: 1px;
+}
+
+.list.list-inset {
+    margin: 0 1px;
+}
+
+/* Empty. Add your own CSS if you like */
+
+.larger {
+    font-size: 120px;
+}
+
+
+/** Error Messages **/
+
+/** Styling for the username field **/
+label.item.has-error {
+  border-bottom: 2px solid red;
+}
+
+/** Styling for the password field when an error exists**/
+label.item.has-error-lr {
+  border-bottom: 2px solid red;
+}
+
+/** Styling for the password field when an error has been resolved**/
+label.item.valid-lr {
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+}
+
+/** Styling for the error text and container **/
+.form-errors {
+  margin: 5px 0
+}
+.form-error {
+  padding: 2px 0 2px 16px;
+  color: red;
+}
+
+.button.button-positive.button-outline {
+	border-left-color: grey;
+}
