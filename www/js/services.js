@@ -8,7 +8,14 @@ angular.module('badgerscalp.services', [])
     }
 ])
 
-.factory('AuthUser', function ($state, Auth, $ionicPopup) {
+.factory('Ref', ['$firebaseArray', 'FBDB',
+    function($firebaseArray, FBDB) {
+        var FBRef = new Firebase(FBDB + 'users');
+        return $firebaseArray(FBRef);
+    }
+])
+
+.factory('AuthUser', function ($state, Auth, Ref, $ionicPopup) {
     Auth.$onAuth(function(authData) {
       if (authData) {
         $state.go('app.browse');
@@ -20,6 +27,20 @@ angular.module('badgerscalp.services', [])
     });
 
     return {
+        shitter: function() {
+            console.log('run shitter');
+            Ref.$add({
+                username:'',
+                firstName:'',
+                lastName:'',
+                email:'',
+                state:'ONLINE',
+                rating:5
+            }).then(function(ref) {
+                var id = ref.key();
+                console.log("added record with id " + id);
+            });
+        },
         password: function (email, password) {
             Auth.$authWithPassword({
                 email: email,

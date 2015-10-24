@@ -4,7 +4,10 @@ angular.module('badgerscalp', [
   'firebase',
   'ngMessages',
   'badgerscalp.services',
-  'badgerscalp.controllers'
+  'badgerscalp.controllers',
+  'services.auth',
+  'services.user',
+  'services.utils'
 
   ])
 
@@ -76,6 +79,26 @@ angular.module('badgerscalp', [
         'browse': {
           templateUrl: 'templates/browse.html',
           controller: 'BrowseCtrl'
+        }
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.chat', {
+      url: '/chat',
+      views: {
+        'chat': {
+          templateUrl: 'templates/chat.html',
+          controller: 'ChatCtrl'
+        }
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.map', {
+      url: '/map',
+      views: {
+        'map': {
+          templateUrl: 'templates/map.html',
+          controller: 'MapCtrl'
         }
       },
       resolve: authRequireResolve

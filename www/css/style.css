@@ -1,4 +1,4 @@
-/* AUTHORIZATION VIEW */
+/*** AUTHORIZATION VIEW ***/
 
 #authView {
 /*	background: url("../img/randall.jpg");
@@ -15,14 +15,8 @@
 	background-position-y: -80px;
 }*/
 
-.social-login button.button.button-outline {
-	background-color: #fff;
-}
 
-.social-login .icon-left::before {
-	line-height: 20px;
-}
-
+/* Auth Header */
 .login-title {
 	position: absolute;
 	left: 0;
@@ -34,10 +28,12 @@
 	font-variant: small-caps;
 }
 
-.button-positive:hover {
-	background-color: #387ef5;
+.ion-pricetags.larger {
+    font-size: 120px;
 }
 
+
+/* Auth Form */
 label.item.item-input {
     border: none;
     border-bottom: 1px solid;
@@ -48,40 +44,30 @@ label.item.item-input {
     margin: 0 1px;
 }
 
-/* Empty. Add your own CSS if you like */
 
-.larger {
-    font-size: 120px;
+/* Social Login */
+.social-login button.button.button-outline {
+	background-color: #fff;
+}
+
+.social-login .icon-left::before {
+	line-height: 20px;
+}
+
+.social-login .button-positive  {
+	border-left-color: grey;
 }
 
 
-/** Error Messages **/
-
-/** Styling for the username field **/
+/* Error Messages */
 label.item.has-error {
   border-bottom: 2px solid red;
 }
 
-/** Styling for the password field when an error exists**/
-label.item.has-error-lr {
-  border-bottom: 2px solid red;
-}
-
-/** Styling for the password field when an error has been resolved**/
-label.item.valid-lr {
-  border-left: 2px solid green;
-  border-right: 2px solid green;
-}
-
-/** Styling for the error text and container **/
-.form-errors {
-  margin: 5px 0
-}
 .form-error {
   padding: 2px 0 2px 16px;
   color: red;
 }
 
-.button.button-positive.button-outline {
-	border-left-color: grey;
-}
+/*** END AUTHORIZATION VIEW ***/
+

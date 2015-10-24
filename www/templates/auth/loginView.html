@@ -6,7 +6,7 @@
 	    	<span class="login-title">BadgerScalp</span>
 	    </div>
 
-	    <form novalidate name="loginForm" ng-submit="loginForm.$valid">
+	    <form novalidate name="loginForm" ng-submit="loginForm.$valid && loginViaPassword(user.email, user.password)">
 	    	<div class="list list-inset">
 
 		        <label class="item item-input" ng-class="{ 'has-error' : loginForm.email.$invalid && loginForm.$submitted }">
@@ -34,18 +34,20 @@
 					<div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
 				</div>
 			</div>
-
-		    <div class="padding-top">
+			<div class="padding-top">
 				<input type="submit" class="button button-block button-positive" value="Login" />
-				<div class="button-bar social-login">
-		            <button ng-click="loginViaGoogle()" class="button button-small button-outline button-assertive light-bg icon-left ion-social-google">Google+</button>
-		            <button ng-click="loginViaFacebook()" class="button button-small button-outline button-positive light-bg icon-left ion-social-facebook">Facebook</button>
-	        	</div>
-				<p class="text-center padding-top">
-				<a ui-sref="forgot" nav-direction="back" nav-transition="android" class="button button-small button-clear button-positive">Forgot Password</a>
-				<a ui-sref="register" nav-direction="forward" nav-transition="android" class="button button-small button-clear button-positive">Register</a>
-		    </div>
+			</div>
 		</form>
+
+		<div class="padding-top">
+			<div class="button-bar social-login">
+	            <button ng-click="loginVia('google')" class="button button-small button-outline button-assertive light-bg icon-left ion-social-google">Google+</button>
+	            <button ng-click="loginVia('facebook')" class="button button-small button-outline button-positive light-bg icon-left ion-social-facebook">Facebook</button>
+        	</div>
+			<p class="text-center padding-top">
+			<a ui-sref="forgot" nav-direction="back" nav-transition="android" class="button button-small button-clear button-positive">Forgot Password</a>
+			<a ui-sref="register" nav-direction="forward" nav-transition="android" class="button button-small button-clear button-positive">Register</a>
+	    </div>
 
 	</ion-content>
 </ion-view>

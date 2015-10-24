@@ -11,7 +11,6 @@
 
 	    		<label class="item item-input" ng-class="{ 'has-error' : loginForm.firstName.$invalid && loginForm.$submitted }">
 					<input name="firstName" type="text" ng-model="user.firstName" placeholder="First Name"
-					ng-minlength="5"
 					ng-maxlength="30"
 					required>
 				</label>
@@ -22,7 +21,6 @@
 
 				<label class="item item-input" ng-class="{ 'has-error' : loginForm.lastName.$invalid && loginForm.$submitted }">
 					<input name="lastName" type="text" ng-model="user.lastName" placeholder="Last Name"
-					ng-minlength="5"
 					ng-maxlength="30"
 					required>
 				</label>
