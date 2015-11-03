@@ -3,9 +3,16 @@ angular.module('badgerscalp', [
   'ionic',
   'firebase',
   'ngMessages',
-  'badgerscalp.services',
-  'badgerscalp.controllers',
+  'controllers.auth',
+  'controllers.bid',
+  'controllers.browse',
+  'controllers.chat',
+  'controllers.main',
+  'controllers.map',
+  'controllers.post',
+  'controllers.settings',
   'services.auth',
+  'services.localStorage',
   'services.user',
   'services.utils'
 
@@ -13,8 +20,7 @@ angular.module('badgerscalp', [
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -74,6 +80,7 @@ angular.module('badgerscalp', [
       templateUrl: 'templates/app.html'
     })
     .state('app.browse', {
+      cache: false,
       url: '/browse',
       views: {
         'browse': {
@@ -99,6 +106,36 @@ angular.module('badgerscalp', [
         'map': {
           templateUrl: 'templates/map.html',
           controller: 'MapCtrl'
+        }
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.settings', {
+      url: '/settings',
+      views: {
+        'settings': {
+          templateUrl: 'templates/settings.html',
+          controller: 'SettingsCtrl'
+        }
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.bid', {
+      url: '/bid',
+      views: {
+        'menucontent': {
+          templateUrl: 'templates/bid.html',
+          controller: 'BidCtrl'
+        }
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.post', {
+      url: '/post',
+      views: {
+        'menucontent': {
+          templateUrl: 'templates/post.html',
+          controller: 'PostCtrl'
         }
       },
       resolve: authRequireResolve

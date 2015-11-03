@@ -14,67 +14,57 @@ angular.module('services.auth', [])
     }
 ])
 
-.factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, ThisUser, Utils) {
+.factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, User, Utils, $timeout) {
     Auth.$onAuth(function(authData) {
         if (authData) {
-            $state.go('app.browse');
+            $timeout(function() {
+                User.setUser(UsersURL.$getRecord(authData.uid));
+                $state.go('app.browse');
+                console.log('Authorized');
+            }, 1000);          
         } else {
             $state.go('login');
-            console.log('logged out');
+            console.log('Unauthorized');
         }
     });
-
-    function isRegistered(uid) {
-        var reg = false;
-        UsersURL.forEach(function(user) {
-            if (uid == user.registration) {
-                ThisUser.set(user.$id); 
-                reg = true; return; }
-        }); return reg;
-    }
 
     return {
         authViaPassword: function(email, password) {
             Auth.$authWithPassword({
                 email: email,
                 password: password
+            }).then(function(authData) {
+                User.setUser(UsersURL.$getRecord(authData.uid));
             }).catch(function(error) {
                 Utils.errMessage('Authentication Failed', error);
             });
         },
         authViaOAuth: function(provider) {
             Auth.$authWithOAuthPopup(provider).then(function(authData) {
-                if (!isRegistered(authData.uid)) {
-                    console.log(authData);
+                if (UsersURL.$getRecord(authData.uid) == null) {
+                    var firstName, lastName;
                     switch (provider) {
                         case 'google':
                             var gl = authData.google.cachedUserProfile;
-                            UsersURL.$add({
-                                username: gl.given_name + gl.family_name.substring(0,1),
-                                firstName: gl.given_name,
-                                lastName: gl.family_name,
-                                rating: 5,
-                                state: 'ONLINE',
-                                registration: authData.uid
-                            }).then(function(ref) {
-                                ThisUser.set(ref.key());
-                            });
+                            firstName = gl.given_name;
+                            lastName = gl.family_name;
                             break;
                         case 'facebook':
                             var fb = authData.facebook.cachedUserProfile;
-                            UsersURL.$add({
-                                username: fb.first_name + fb.last_name.substring(0,1),
-                                firstName: fb.first_name,
-                                lastName: fb.last_name,
-                                rating: 5,
-                                state: 'ONLINE',
-                                registration: authData.uid
-                            }).then(function(ref) {
-                                ThisUser.set(ref.key());
-                            });
+                            firstName = fb.firsrt_name;
+                            lastName = fb.last_name;
                             break;
                     }
+
+                    UsersURL.$ref().child(authData.uid).set({
+                        firstName: firstName,
+                        lastName: lastName,
+                        rating: 5.0
+                    });
+                    console.log('REF: '+UsersURL.$ref());
                 }
+                console.log(UsersURL.$getRecord(authData.uid));
+                User.setUser(UsersURL.$getRecord(authData.uid));
             }).catch(function(error) {
                 Utils.errMessage('Authentication Failed', error);
             });
@@ -83,21 +73,17 @@ angular.module('services.auth', [])
             Auth.$createUser({
                 email: email,
                 password: password
+            }).then(function(authData) {
+                UsersURL.$ref().child(authData.uid).set({
+                    firstName: firstName,
+                    lastName: lastName,
+                    rating: 5.0
+                });
+                User.setUser(UsersURL.$getRecord(authData.uid));
             }).then(function(userData) {
                 Auth.$authWithPassword({
                     email: email,
                     password: password
-                });
-            }).then(function(userData) {
-                UsersURL.$add({
-                    username: email.substring(0, email.indexOf("@")),
-                    firstName: firstName,
-                    lastName: lastName,
-                    rating: 5,
-                    state: 'ONLINE',
-                    registration: email
-                }).then(function(ref) {
-                    ThisUser.set(ref.key());
                 });
             }).catch(function(error) {
                 Utils.errMessage('Authentication Failed', error);
