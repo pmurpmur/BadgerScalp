@@ -130,14 +130,11 @@ angular.module('badgerscalp', [
       },
       resolve: authRequireResolve
     })
-    .state('app.post', {
+    .state('post', {
+      cache: false,
       url: '/post',
-      views: {
-        'menucontent': {
-          templateUrl: 'templates/post.html',
-          controller: 'PostCtrl'
-        }
-      },
+      templateUrl: 'templates/post.html',
+      controller: 'PostCtrl',
       resolve: authRequireResolve
     })
 

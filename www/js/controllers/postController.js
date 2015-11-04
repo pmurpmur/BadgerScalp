@@ -1,5 +1,5 @@
 angular.module('controllers.post', [])
 
-.controller('PostCtrl', function($scope) {
+.controller('PostCtrl', function($scope, $ionicHistory) {
 
 });
