@@ -1,6 +1,31 @@
 <ion-view title="Sell Ticket">
 	<ion-content>
-		<div>Sell these tickets</div>
-		<button class="button button-large button-assertive" ui-sref="app.browse">Go Back</button>
+		<h3>Enter Ticket Details</h3>
+        <form novalidate name="postForm">
+            <div class="list list-inset">
+                <fieldset name="eventField">
+                    <p>Event</p>
+                    <input name="event" type="text" placeholder="Enter Event Name">
+                </fieldset>
+                <fieldset name="sportField">
+                    <p>Sport</p>
+                    <input name="sport" type="text" placeholder="Enter Sport">
+                </fieldset>
+                <fieldset name="priceField">
+                    <p>Price</p>
+                    <input name="price" type="text" placeholder="Enter Desired Price">
+                </fieldset>
+                <fieldset name="dateField">
+                    <p>Date</p>
+                    <input name="date" type="date" placeholder="Enter Date">
+                </fieldset>
+                <fieldset>
+                    <p>Time</p>
+                    <input name="time" type="time" placeholder="Enter Event Time">
+                </fieldset>
+            </div>
+        </form>
+		<button class="button button-large button-assertive" ui-sref="app.browse">Cancel</button>
+        <button class="button button-large button-assertive" ui-sref="app.browse">Post Ticket</button>
 	</ion-content>
 </ion-view>
