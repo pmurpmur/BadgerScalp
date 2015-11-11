@@ -45,7 +45,26 @@
 
         <ion-side-menu side="left">
             <ion-content>
-                <div>Account Settings</div>
+                <div id="left_bar">
+                    <div id="user_profile">
+                        <img src="img/default_profile.jpg">
+                        <div class="user_name">your name</div>
+                    </div>
+                    <div id="setting">
+                        <div id="view_bid">
+                            <div class="item">View Current Bid</div>
+                            <hr>
+                        </div>
+                        <div id="view_post">
+                            <div class="item">View Current Post</div>
+                            <hr>
+                        </div>
+                        <div id="account_setting">
+                            <div class="item">Account Setting</div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
                 <button ng-click="logout()" class="button button-large button-assertive" ng-cloak>Log Out</button>
             </ion-content>
         </ion-side-menu>

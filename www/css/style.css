@@ -71,3 +71,15 @@ label.item.has-error {
 
 /*** END AUTHORIZATION VIEW ***/
 
+/* Account Setting */
+
+#user_profile img{
+	width: 30%;
+	margin-top: 10%;
+	margin-left: 10%;
+}
+
+#user_profile .user_name{
+	display: inline;
+	margin-left: 10px;
+}
