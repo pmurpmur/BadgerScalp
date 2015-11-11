@@ -12,7 +12,6 @@
                                required>
                     </label>
                     <div class="form-errors" ng-messages="postForm.event.$error" ng-if="postForm.$submitted">
-					   <div class="form-error" ng-message="required">This field is required.</div>
 					   <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
 					   <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
 				    </div>
@@ -26,7 +25,6 @@
                                required>
                     </label>
                     <div class="form-errors" ng-messages="postForm.sport.$error" ng-if="postForm.$submitted">
-					   <div class="form-error" ng-message="required">This field is required.</div>
 					   <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
 					   <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
 				    </div>
@@ -35,25 +33,31 @@
                 <fieldset name="priceField">
                     <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
                         <span class="input-label">Ticket Price</span>
-                        <input name="price" type="text" placeholder="Enter Desired Price">
+                        <input name="price" type="text" placeholder="Enter Desired Price"
+                               required ng-model="post.price">
                     </label>
+                    <div class="form-errors" ng-messages="postFrom.price.$error" ng-if="postFrom.$submitted">
+                        <div class="form-error" ng-message="pattern">Please enter a valid price</div>
+                    </div>
                 </fieldset>
                 
                 <fieldset name="dateField">
-                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.sport.$invalid && postForm.$submitted }">
+                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
                         <span class="item-label">Event Date</span>
-                        <input name="eventDate" type="date" ng-model="post.eventDate">
+                        <input name="eventDate" type="date" ng-model="post.eventDate"
+                               min="2015-01-01" required>
                     </label>
-                    <div class="form-errors" ng-messages="postFrom.eventDate.$error" ng-if="postForm.$submitted">
-                        <div class="form-error"
+                    <div class="form-error" ng-messages="postForm.eventDate.$error" ng-if="postForm.$submitted">
                     </div>
                 </fieldset>
                 
                 <fieldset>
-                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.sport.$invalid && postForm.$submitted }">
+                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.eventTime.$invalid && postForm.$submitted }">
                         <span class="item-label">Event Time</span>
-                        <input name="time" type="time" placeholder="Enter Event Time">
+                        <input name="eventTime" type="time" placeholder="Enter Event Time" 
+                               ng-model="post.eventTime" required>
                     </label>
+                    <div class="form-error" ng-message="postForm.eventTime.$error" ng-if="postForm.$submitted"/>
                 </fieldset>
                 
             </div>
