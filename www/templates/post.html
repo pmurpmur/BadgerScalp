@@ -4,7 +4,7 @@
         <form novalidate name="postForm" ng-submit="postForm.$valid && postTicket">
             <div class="list list-inset">
                 
-                <fieldset name="eventField">
+  <!--               <fieldset name="eventField"> -->
                     <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.event.$invalid && postForm.$submitted }">
                         <span class="input-label">Event</span>
                         <input name="event" type="text" ng-model="post.event" placeholder="Enter Event Name"
@@ -15,9 +15,9 @@
 					   <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
 					   <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
 				    </div>
-                </fieldset>
+<!--                 </fieldset>
                 
-                <fieldset name="sportField">
+                <fieldset name="sportField"> -->
                     <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.sport.$invalid && postForm.$submitted }">
                         <span class="input-label">Event Sport</span>
                         <input name="sport" type="text" ng-model="post.sport" placeholder="Enter Sport"
@@ -28,9 +28,9 @@
 					   <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
 					   <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
 				    </div>
-                </fieldset>
+<!--                 </fieldset>
                 
-                <fieldset name="priceField">
+                <fieldset name="priceField"> -->
                     <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
                         <span class="input-label">Ticket Price</span>
                         <input name="price" type="text" placeholder="Enter Desired Price"
@@ -39,9 +39,9 @@
                     <div class="form-errors" ng-messages="postFrom.price.$error" ng-if="postFrom.$submitted">
                         <div class="form-error" ng-message="pattern">Please enter a valid price</div>
                     </div>
-                </fieldset>
+<!--                 </fieldset>
                 
-                <fieldset name="dateField">
+                <fieldset name="dateField"> -->
                     <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
                         <span class="item-label">Event Date</span>
                         <input name="eventDate" type="date" ng-model="post.eventDate"
@@ -49,16 +49,16 @@
                     </label>
                     <div class="form-error" ng-messages="postForm.eventDate.$error" ng-if="postForm.$submitted">
                     </div>
-                </fieldset>
+<!--                 </fieldset>
                 
-                <fieldset>
+                <fieldset> -->
                     <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.eventTime.$invalid && postForm.$submitted }">
                         <span class="item-label">Event Time</span>
                         <input name="eventTime" type="time" placeholder="Enter Event Time" 
                                ng-model="post.eventTime" required>
                     </label>
                     <div class="form-error" ng-message="postForm.eventTime.$error" ng-if="postForm.$submitted"/>
-                </fieldset>
+<!--                 </fieldset> -->
                 
             </div>
             
