@@ -1,12 +1,22 @@
  angular.module('services.listing', [])
 
-.factory('Listing', function (UserStorage, UsersURL, BidsURL, ListingsURL) {
+.factory('Listing', function (ListingsURL) {
     return {
-        getListing: function (user) {
-                 
+        getAllListings: function () {
+            return ListingsURL;
         },
-        createListing: function (listing) {
-
+        addListing: function (user, post) {
+            console.log('date: '+user.eventDate);
+            console.log('time: '+user.eventTime);
+            return ListingsURL.$add({
+                seller: user,
+                event: post.event,
+                type: post.sport,
+                price: post.price,
+                date: post.eventDate,
+                time: post.eventTime,
+                createdAt: Date()
+            });
         },
         getBid: function (user) {
 

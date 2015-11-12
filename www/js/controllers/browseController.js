@@ -1,11 +1,11 @@
 angular.module('controllers.browse', [])
 
-.controller('BrowseCtrl', function($scope, Auth, User) {
-    console.log(User.getUser());
-	$scope.name = User.getUser().firstName + ' ' + User.getUser().lastName;
+.controller('BrowseCtrl', function($scope, DBManager) {
+	$scope.device = window.screen.width;
 	
-	$scope.logout = function() { 
-        User.cleanUser();
-        Auth.$unauth(); 
-    }
+	$scope.tickets = DBManager.getAllListings();
+
+	$scope.scroll = function() {
+		console.log('is scrolling');
+	};
 });

@@ -3,16 +3,22 @@ angular.module('badgerscalp', [
   'ionic',
   'firebase',
   'ngMessages',
+  'controllers.app',
   'controllers.auth',
   'controllers.bid',
   'controllers.browse',
   'controllers.chat',
-  'controllers.main',
   'controllers.map',
   'controllers.post',
-  'controllers.settings',
+  'services.firebase',
+  'services.url',
   'services.auth',
+  'services.bid',
+  'services.event',
+  'services.listing',
   'services.localStorage',
+  'services.userStorage',
+  'services.user',
   'services.user',
   'services.utils'
 
@@ -77,10 +83,19 @@ angular.module('badgerscalp', [
     .state('app', {
       url: '/app',
       abstract: true,
-      templateUrl: 'templates/app.html'
+      templateUrl: 'templates/app.html',
+      controller: 'AppCtrl'
     })
-    .state('app.browse', {
-      cache: false,
+    .state('app.tabs', {
+      url: '/tabs',
+      views: {
+        'menucontent': {
+          templateUrl: 'templates/routes.html'
+        }
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.tabs.browse', {
       url: '/browse',
       views: {
         'browse': {
@@ -90,7 +105,7 @@ angular.module('badgerscalp', [
       },
       resolve: authRequireResolve
     })
-    .state('app.chat', {
+    .state('app.tabs.chat', {
       url: '/chat',
       views: {
         'chat': {
@@ -100,7 +115,7 @@ angular.module('badgerscalp', [
       },
       resolve: authRequireResolve
     })
-    .state('app.map', {
+    .state('app.tabs.map', {
       url: '/map',
       views: {
         'map': {
@@ -110,31 +125,18 @@ angular.module('badgerscalp', [
       },
       resolve: authRequireResolve
     })
-    .state('app.settings', {
-      url: '/settings',
+    .state('app.tabs.bid', {
+      url: '/bid/:listingId',
       views: {
-        'settings': {
-          templateUrl: 'templates/settings.html',
-          controller: 'SettingsCtrl'
-        }
-      },
-      resolve: authRequireResolve
-    })
-    .state('app.bid', {
-      url: '/bid',
-      views: {
-        'menucontent': {
+        'browse': {
           templateUrl: 'templates/bid.html',
           controller: 'BidCtrl'
         }
       },
-      resolve: authRequireResolve
-    })
-    .state('post', {
-      cache: false,
-      url: '/post',
-      templateUrl: 'templates/post.html',
-      controller: 'PostCtrl',
+      params: {
+        listingId: null,
+        ticket: null
+      },
       resolve: authRequireResolve
     })
 

@@ -6,7 +6,7 @@
 			rating: Number,
 			listings: [$listingId, $listingId, ...],
 			bids: [$bidId, $bidId, ...]
-		}
+		},
 		$userId: {...},
 		$userId: {...},
 		$userId: {...},
@@ -16,8 +16,13 @@
 
 	listings: {
 		$listingId: {
-
-		}
+			title: String,
+			event: String,
+			type: String,
+			price: Number,
+			date: Number,
+			time: Number
+		},
 		$listingId: {...},
 		$listingId: {...},
 		$listingId: {...},
@@ -31,7 +36,7 @@
 			listing: $listingId,
 			price: Number,
 			date: Number
-		}
+		},
 		$bidsId: {...},
 		$bidsId: {...},
 		$bidsId: {...},
