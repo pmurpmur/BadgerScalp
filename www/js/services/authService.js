@@ -56,14 +56,13 @@ angular.module('services.auth', [])
                             break;
                     }
 
-                    UsersURL.$ref().child(authData.uid).set({
+                    console.log(authData.uid.replace(':','-'));
+                    UsersURL.$ref().child((authData.uid).replace(':','-')).set({
                         firstName: firstName,
                         lastName: lastName,
                         rating: 5.0
                     });
-                    console.log('REF: '+UsersURL.$ref());
                 }
-                console.log(UsersURL.$getRecord(authData.uid));
                 User.setUser(UsersURL.$getRecord(authData.uid));
             }).catch(function(error) {
                 Utils.errMessage('Authentication Failed', error);
