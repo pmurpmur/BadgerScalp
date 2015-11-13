@@ -8,62 +8,51 @@
 
 	<ion-content>
 		<h3>Enter Ticket Details</h3>
-        <form novalidate name="postForm" ng-submit="postForm.$valid && postSale(post)">
+        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(post)">
             <div class="list list-inset">
                 
-                <fieldset name="eventField">
-                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.event.$invalid && postForm.$submitted }">
-                        <span class="input-label">Event</span>
-                        <input name="event" type="text" ng-model="post.event" placeholder="Enter Event Name"
-                               ng-minlength="5" ng-maxlength="30"
-                               required>
-                    </label>
-                    <div class="form-errors" ng-messages="postForm.event.$error" ng-if="postForm.$submitted">
-					   <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
-					   <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
-				    </div>
-                </fieldset>
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.event.$invalid && postForm.$submitted }">
+                    <span class="input-label">Event</span>
+                    <input name="event" type="text" ng-model="post.event" placeholder="Enter Event Name"
+                           ng-minlength="5" ng-maxlength="30"
+                           required>
+                </label>
+                <div class="form-errors" ng-messages="postForm.event.$error" ng-if="postForm.$submitted">
+				    <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
+				    <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
+				</div>
                 
-                <fieldset name="sportField">
-                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.sport.$invalid && postForm.$submitted }">
-                        <span class="input-label">Event Sport</span>
-                        <input name="sport" type="text" ng-model="post.sport" placeholder="Enter Sport"
-                               ng-minlength="5" ng-maxlength="30"
-                               required>
-                    </label>
-                    <div class="form-errors" ng-messages="postForm.sport.$error" ng-if="postForm.$submitted">
-					   <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
-					   <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
-				    </div>
-                </fieldset>
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.sport.$invalid && postForm.$submitted }">
+                    <span class="input-label">Event Sport</span>
+                    <input name="sport" type="text" ng-model="post.sport" placeholder="Enter Sport"
+                            ng-minlength="5" ng-maxlength="30"
+                            required>
+                </label>
+                <div class="form-errors" ng-messages="postForm.sport.$error" ng-if="postForm.$submitted">
+				    <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
+				    <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
+				</div>
                 
-                <fieldset name="priceField">
-                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
-                        <span class="input-label">Ticket Price</span>
-                        <input name="price" type="text" placeholder="Enter Desired Price"
-                               required ng-model="post.price">
-                    </label>
-                    <div class="form-errors" ng-messages="postFrom.price.$error" ng-if="postFrom.$submitted">
-                        <div class="form-error" ng-message="pattern">Please enter a valid price</div>
-                    </div>
-                </fieldset>
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
+                    <span class="input-label">Ticket Price</span>
+                    <input name="price" type="text" placeholder="Enter Desired Price"
+                           required ng-model="post.price">
+                </label>
+                <div class="form-errors" ng-messages="postFrom.price.$error" ng-if="postFrom.$submitted">
+                    <div class="form-error" ng-message="pattern">Please enter a valid price</div>
+                </div>
                 
-                <fieldset name="dateField">
-                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
-                        <span class="item-label">Event Date</span>
-                        <input name="eventDate" type="date" ng-model="post.eventDate"
-                               min="2015-01-01" required>
-                    </label>
-                </fieldset>
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
+                    <span class="item-label">Event Date</span>
+                    <input name="eventDate" type="date" ng-model="post.eventDate"
+                            min="2015-01-01" required>
+                </label>
                 
-                <fieldset>
-                    <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : postForm.eventTime.$invalid && postForm.$submitted }">
-                        <span class="item-label">Event Time</span>
-                        <input name="eventTime" type="time" placeholder="Enter Event Time" 
-                               ng-model="post.eventTime" required>
-                    </label>
-                </fieldset>
-                
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventTime.$invalid && postForm.$submitted }">
+                    <span class="item-label">Event Time</span>
+                    <input name="eventTime" type="time" placeholder="Enter Event Time" 
+                           ng-model="post.eventTime" required>
+                </label>                
             </div>
             
             <div class="padding-top">
