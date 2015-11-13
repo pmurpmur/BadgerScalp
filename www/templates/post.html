@@ -7,35 +7,32 @@
     </ion-header-bar>
 
 	<ion-content>
-		<h3>Enter Ticket Details</h3>
         <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(post)">
             <div class="list list-inset">
                 
                 <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.event.$invalid && postForm.$submitted }">
-                    <span class="input-label">Event</span>
+                    <span class="input-label">Event Title</span>
                     <input name="event" type="text" ng-model="post.event" placeholder="Enter Event Name"
-                           ng-minlength="5" ng-maxlength="30"
+                           ng-maxlength="30"
                            required>
                 </label>
                 <div class="form-errors" ng-messages="postForm.event.$error" ng-if="postForm.$submitted">
-				    <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
 				    <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
 				</div>
                 
                 <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.sport.$invalid && postForm.$submitted }">
                     <span class="input-label">Event Sport</span>
                     <input name="sport" type="text" ng-model="post.sport" placeholder="Enter Sport"
-                            ng-minlength="5" ng-maxlength="30"
+                            ng-maxlength="30"
                             required>
                 </label>
                 <div class="form-errors" ng-messages="postForm.sport.$error" ng-if="postForm.$submitted">
-				    <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
 				    <div class="form-error" ng-message="maxlength">This field is must be less than 30 characters.</div>
 				</div>
                 
                 <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
                     <span class="input-label">Ticket Price</span>
-                    <input name="price" type="text" placeholder="Enter Desired Price"
+                    <input name="price" type="number" placeholder="Enter Desired Price"
                            required ng-model="post.price">
                 </label>
                 <div class="form-errors" ng-messages="postFrom.price.$error" ng-if="postFrom.$submitted">

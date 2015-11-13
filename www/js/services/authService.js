@@ -44,7 +44,7 @@ angular.module('services.auth', [])
                             break;
                         case 'facebook':
                             var fb = authData.facebook.cachedUserProfile;
-                            firstName = fb.firsrt_name;
+                            firstName = fb.first_name;
                             lastName = fb.last_name;
                             break;
                     }
