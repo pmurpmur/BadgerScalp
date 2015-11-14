@@ -71,3 +71,12 @@ label.item.has-error {
 
 /*** END AUTHORIZATION VIEW ***/
 
+/* Modal */
+.modal.half {
+  bottom: 0;  
+  min-height: initial;
+  top: initial;
+  height: 60%;
+  border-width: 1px;
+  border-style: solid;
+}
