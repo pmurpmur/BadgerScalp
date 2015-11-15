@@ -7,19 +7,12 @@ angular.module('services.auth', [])
     }
 ])
 
-.factory('UsersURL', ['$firebaseArray', 'FBDB',
-    function($firebaseArray, FBDB) {
-        var FBRef = new Firebase(FBDB + 'users');
-        return $firebaseArray(FBRef);
-    }
-])
-
-.factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, User, Utils, $timeout) {
+.factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, UserStorage, Utils, $timeout) {
     Auth.$onAuth(function(authData) {
         if (authData) {
             $timeout(function() {
-                User.setUser(UsersURL.$getRecord(authData.uid));
-                $state.go('app.browse');
+                UserStorage.setUser(UsersURL.$getRecord(authData.uid));
+                $state.go('app.tabs.browse');
                 console.log('Authorized');
             }, 1000);          
         } else {
@@ -34,7 +27,7 @@ angular.module('services.auth', [])
                 email: email,
                 password: password
             }).then(function(authData) {
-                User.setUser(UsersURL.$getRecord(authData.uid));
+                UserStorage.setUser(UsersURL.$getRecord(authData.uid));
             }).catch(function(error) {
                 Utils.errMessage('Authentication Failed', error);
             });
@@ -51,7 +44,7 @@ angular.module('services.auth', [])
                             break;
                         case 'facebook':
                             var fb = authData.facebook.cachedUserProfile;
-                            firstName = fb.firsrt_name;
+                            firstName = fb.first_name;
                             lastName = fb.last_name;
                             break;
                     }
@@ -59,12 +52,11 @@ angular.module('services.auth', [])
                     UsersURL.$ref().child(authData.uid).set({
                         firstName: firstName,
                         lastName: lastName,
-                        rating: 5.0
+                        rating: 5.0,
+                        numReviews: 0
                     });
-                    console.log('REF: '+UsersURL.$ref());
                 }
-                console.log(UsersURL.$getRecord(authData.uid));
-                User.setUser(UsersURL.$getRecord(authData.uid));
+                UserStorage.setUser(UsersURL.$getRecord(authData.uid));
             }).catch(function(error) {
                 Utils.errMessage('Authentication Failed', error);
             });
@@ -77,9 +69,10 @@ angular.module('services.auth', [])
                 UsersURL.$ref().child(authData.uid).set({
                     firstName: firstName,
                     lastName: lastName,
-                    rating: 5.0
+                    rating: 5.0,
+                    numReviews: 0
                 });
-                User.setUser(UsersURL.$getRecord(authData.uid));
+                UserStorage.setUser(UsersURL.$getRecord(authData.uid));
             }).then(function(userData) {
                 Auth.$authWithPassword({
                     email: email,

@@ -1,6 +1,6 @@
-angular.module('controllers.browse', [])
+angular.module('controllers.currentpost', [])
 
-.controller('BrowseCtrl', function($scope, DBManager) {
+.controller('CurrentPostCtrl', function($scope, DBManager) {
 	$scope.device = window.screen.width;
 	
 	$scope.tickets = DBManager.getAllListings();

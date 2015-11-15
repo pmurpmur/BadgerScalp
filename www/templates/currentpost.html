@@ -1,11 +1,12 @@
-<ion-view title="BadgerScalp">
+<ion-view title="Current Post">
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
 			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
 				ui-sref="app.tabs.bid({listingId:ticket.$id, ticket:ticket})">
 				<img src="../img/ticket.png">
 				<h2>{{ticket.event}}</h2>
-				<span style="float:right">${{ticket.price}}</span>
+				<span style="float:right">${{ticket.price}}</span><br>
+				<button style="float:right; display:block">edit</button>
 				<p>{{ticket.type}}</p>
 				<p>{{ticket.date}}{{ticket.time}}</p>
 			</ion-item>

@@ -1,4 +1,4 @@
-<ion-view title="BadgerScalp">
+<ion-view title="Current Bid">
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
 			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
@@ -8,6 +8,7 @@
 				<span style="float:right">${{ticket.price}}</span>
 				<p>{{ticket.type}}</p>
 				<p>{{ticket.date}}{{ticket.time}}</p>
+				<p style="color:red">status</p>
 			</ion-item>
 		</ion-list>
 	</ion-content>

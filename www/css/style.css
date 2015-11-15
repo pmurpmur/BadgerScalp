@@ -71,6 +71,7 @@ label.item.has-error {
 
 /*** END AUTHORIZATION VIEW ***/
 
+
 /* Account Setting */
 
 #user_profile img{
@@ -82,4 +83,47 @@ label.item.has-error {
 #user_profile .user_name{
 	display: inline;
 	margin-left: 10px;
+}
+
+.setting_item {
+	margin-left: 20px;
+	padding-top: 25px;
+}
+
+#setting hr{
+	width: 90%;
+}
+
+.setting_block_item{
+	color: blue;
+	margin-left: 20px;
+	padding-top: 25px;
+}
+
+#disable_block{
+	margin-left: 20px;
+	padding-top: 25px;
+}
+
+#disable_block input{
+	margin-left: 40px;
+}
+
+#disable_block div{
+	display: inline;
+}
+
+#account_setting_block{
+	display: none;
+}
+
+/* Modal */
+.modal.half {
+  bottom: 0;  
+  min-height: initial;
+  top: initial;
+  height: 60%;
+  border-width: 1px;
+  border-style: solid;
+
 }

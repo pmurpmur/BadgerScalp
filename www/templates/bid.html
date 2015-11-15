@@ -1,5 +1,26 @@
 <ion-view title="Buy Ticket">
-	<ion-content class="has-header">
-		
+	<ion-content class="has-header padding">
+		<div class="card">
+			<div class="item item-divider">
+				{{ticket.event}}
+				<span style="float:right">${{ticket.price}}</span>
+			</div>
+			<div class="item item-thumbnail-left">
+				<img src="../img/ticket.png">
+				<p><b>Event:</b> {{ticket.type}}</p>
+				<p><b>Date:</b> {{ticket.date}}</p>
+				<p><b>Time:</b> {{ticket.time}}</p>
+			</div>
+			<div class="item item-divider">
+				Ticket Information
+			</div>
+			<div class="item item-text-wrap">
+				<h2><b>Ticket ID for DB ref:</b> {{ticket.$id}}</h2>
+				<h2><b>Seller:</b> {{ticket.seller}}</h2>
+				<h2><b>Detail:</b> ...</h2>
+				<br><br><br><br>
+			</div>
+		</div>
+		<button class="button button-block button-royal" ng-click="modal1.show()">Bid</button>
 	</ion-content>
 </ion-view>

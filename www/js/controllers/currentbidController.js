@@ -1,6 +1,6 @@
-angular.module('controllers.browse', [])
+angular.module('controllers.currentbid', [])
 
-.controller('BrowseCtrl', function($scope, DBManager) {
+.controller('CurrentBidCtrl', function($scope, DBManager) {
 	$scope.device = window.screen.width;
 	
 	$scope.tickets = DBManager.getAllListings();
