@@ -1,0 +1,52 @@
+<ion-modal-view>
+
+    <ion-header-bar class="bar bar-header bar-royal">  
+        <link href="css/star.css" rel="stylesheet">
+        <h1 class="title">Customer Review</h1>
+        <div class="buttons">
+            <button class="button button-icon icon ion-ios-close-empty" ng-click="modal.hide()"></button>
+        </div>
+    </ion-header-bar>
+
+	<ion-content>
+
+        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(post)">
+            <div class="list list-inset">
+                
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.event.$invalid && postForm.$submitted }">
+                    <span class="input-label">Event Title:</span>
+                    <h2>{{ticket.event}}</h2>
+                </label>
+               
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.sport.$invalid && postForm.$submitted }">
+                    <span class="input-label">Event Sport:</span>
+                    <p>{{ticket.type}}</p>
+                </label>
+                
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
+                    <span class="input-label">Top Bid:</span>
+                    <span style="float:left">${{ticket.price}}</span>
+                </label>
+               
+                <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
+                    <span class="item-label">Event Date:</span>
+                    <p>{{ticket.date}}</p>
+                </label>            
+            </div>
+
+
+            <div class="rating rating2">
+                <a href="#5" title="Give 5 stars"><i class="icon ion-star"></i></a>
+                <a href="#4" title="Give 4 stars"><i class="icon ion-star"></i></a>
+                <a href="#3" title="Give 3 stars"><i class="icon ion-star"></i></a>
+                <a href="#2" title="Give 2 stars"><i class="icon ion-star"></i></a>
+                <a href="#1" title="Give 1 star"><i class="icon ion-star"></i></a>
+            </div>
+
+            <div class="padding-top">
+                <input type="submit" class="button button-block button-positive" value="Post Ticket"/>            
+            </div>
+        </form>
+
+	</ion-content>
+</ion-modal-view>
