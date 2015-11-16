@@ -1,6 +1,9 @@
 angular.module('controllers.app', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $ionicSideMenuDelegate, Auth, DBManager, UserStorage) {
+
+	$scope.username = DBManager.getUserName();
+
 	function modalInitalize() {
 		$ionicModal.fromTemplateUrl('templates/post.html', {
 		    scope: $scope

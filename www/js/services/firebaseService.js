@@ -1,6 +1,6 @@
  angular.module('services.firebase', [])
 
-.factory('DBManager', function (User, Listing, Bid) {
+.factory('DBManager', function (User, Listing, Bid, UserStorage) {
     return {
         createListing: function (post) {
             var user = User.thisUser();
@@ -14,6 +14,9 @@
         },
         getAllListings: function () {
             return Listing.getAllListings();
+        },
+        getUserName: function(){
+            return UserStorage.getUserFirstName();
         },
         deleteListing: function (id) {
             User.removeListing(id);
