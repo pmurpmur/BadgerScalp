@@ -133,6 +133,8 @@ label.item.has-error {
   unicode-bidi: bidi-override;
   direction: rtl;
   text-align: center;
+  font-size: 55px;
+  xpadding-top: 25px;
 }
 .rating > span {
   display: inline-block;
