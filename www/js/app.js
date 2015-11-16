@@ -3,6 +3,7 @@ angular.module('badgerscalp', [
   'ionic',
   'firebase',
   'ngMessages',
+  'ngCordova',
   'controllers.app',
   'controllers.auth',
   'controllers.bid',
