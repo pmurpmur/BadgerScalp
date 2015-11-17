@@ -35,18 +35,18 @@
 				</div>
 			</div>
 			<div class="padding-top">
-				<input type="submit" class="button button-block button-positive" value="Login" />
+				<input id="loginButton" type="submit" class="button button-block button-positive" value="Login" />
 			</div>
 		</form>
 
 		<div class="padding-top">
 			<div class="button-bar social-login">
-	            <button ng-click="loginVia('google')" class="button button-small button-outline button-assertive light-bg icon-left ion-social-google">Google+</button>
-	            <button ng-click="loginVia('facebook')" class="button button-small button-outline button-positive light-bg icon-left ion-social-facebook">Facebook</button>
+	            <button id="googleButton" ng-click="loginVia('google')" class="button button-small button-outline button-assertive light-bg icon-left ion-social-google">Google+</button>
+	            <button id="facebookButton" ng-click="loginVia('facebook')" class="button button-small button-outline button-positive light-bg icon-left ion-social-facebook">Facebook</button>
         	</div>
 			<p class="text-center padding-top">
-			<a ui-sref="forgot" nav-direction="back" nav-transition="android" class="button button-small button-clear button-positive">Forgot Password</a>
-			<a ui-sref="register" nav-direction="forward" nav-transition="android" class="button button-small button-clear button-positive">Register</a>
+			<a id="fPasswordLink" ui-sref="forgot" nav-direction="back" nav-transition="android" class="button button-small button-clear button-positive">Forgot Password</a>
+			<a id="registerLink" ui-sref="register" nav-direction="forward" nav-transition="android" class="button button-small button-clear button-positive">Register</a>
 	    </div>
 
 	</ion-content>
