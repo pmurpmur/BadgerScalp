@@ -2,7 +2,7 @@
     <ion-header-bar class="bar bar-header bar-royal">
         <h1 class="title">Sell Your Tickets</h1>
         <div class="buttons">
-            <button class="button button-icon icon ion-ios-close-empty" ng-click="modal.hide()"></button>
+            <button class="button button-icon icon ion-ios-close-empty" ng-click="close()"></button>
         </div>
     </ion-header-bar>
 
@@ -51,7 +51,13 @@
                            ng-model="post.eventTime" required>
                 </label>                
             </div>
-            
+            <div>
+                <img ng-show="picture_post !== undefined" ng-src="{{picture_post}}" style="display: block;margin-left: auto;margin-right: auto;">
+            </div>
+            <div class="row">
+                <div class="col"><button class="button button-block button-royal" ng-click="choosePicturePost()">Album</button></div>
+                <div class="col"><button class="button button-block button-royal" ng-click="takePicturePost()">Take a picture</button></div>
+            </div>
             <div class="padding-top">
                 <input type="submit" class="button button-block button-positive" value="Post Ticket"/>            
             </div>

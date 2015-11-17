@@ -4,6 +4,7 @@ angular.module('controllers.app', [])
 
 	$scope.username = DBManager.getUserName();
     $scope.ProfilePic = "";
+    $scope.ticketPic = "";
 
 	function modalInitalize() {
 		$ionicModal.fromTemplateUrl('templates/post.html', {
@@ -40,6 +41,12 @@ angular.module('controllers.app', [])
     	$("#account_setting_block").toggle(1000);
     }
 
+    $scope.close = function() {
+        $scope.ticketPic = "";
+        if($scope.picture_post !== undefined)$scope.picture_post = undefined;
+        $scope.modal.hide();
+    }
+
     $ionicModal.fromTemplateUrl('templates/profilepic.html', {
         id: '2',
         scope: $scope,
@@ -50,6 +57,8 @@ angular.module('controllers.app', [])
     });
 
     $scope.closeModal = function() {
+        $scope.ProfilePic = "";
+        if($scope.picture !== undefined)$scope.picture = undefined;
         $scope.modal2.hide();
     }
 
@@ -121,5 +130,63 @@ angular.module('controllers.app', [])
             });
         }
     }
+
+
+    /* For picture in Post*/
+    $scope.choosePicturePost = function() {
+         document.addEventListener("deviceready", function () {
+            var options_post = {
+              quality: 50,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+              targetWidth: 200,
+              targetHeight: 200
+            };
+
+            $cordovaCamera.getPicture(options_post).then(function(imageData_post) {
+              var image_post = document.getElementById('myImage');
+              //image_post.src = "data:image/jpeg;base64," + imageData_post;
+              $scope.picture_post = "data:image/jpeg;base64," + imageData_post;       
+              $scope.ticketPic = $scope.picture_post;
+            }, function(err) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: 'Error woiii'
+                });
+            });
+
+          }, false); 
+    }
+
+    $scope.takePicturePost = function() {
+         document.addEventListener("deviceready", function () {
+            var options_post = {
+              quality: 50,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.CAMERA,
+              allowEdit: true,
+              encodingType: Camera.EncodingType.JPEG,
+              targetWidth: 200,
+              targetHeight: 200,
+              popoverOptions: CameraPopoverOptions,
+              saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options_post).then(function(imageData_post) {
+              var image_post = document.getElementById('myImage');
+              //image_post.src = "data:image/jpeg;base64," + imageData_post;
+              $scope.picture_post = "data:image/jpeg;base64," + imageData_post;    
+              $scope.ticketPic = $scope.picture_post;   
+            }, function(err) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: 'Error woiii'
+                });
+            });
+
+          }, false);    
+    }
+
+
 
 });
