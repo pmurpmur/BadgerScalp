@@ -5,10 +5,7 @@ exports.config = {
 
 exports.config = {  
         capabilities: {
-            'browserName': 'chrome',
-            'chromeOptions': {                
-                args: ['--disable-web-security']
-            } 
+            'browserName': 'chrome'
         },
         baseUrl: 'http://localhost:8100',
         specs: ['tests/*.test.js'],
