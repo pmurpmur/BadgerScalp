@@ -6,12 +6,32 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var istanbul = require('gulp-istanbul');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
 gulp.task('default', ['sass']);
+
+gulp.task('pre-test', function () {
+  return gulp.src(['lib/**/*.js'])
+    // Covering files 
+    .pipe(istanbul())
+    // Force `require` to return covered files 
+    .pipe(istanbul.hookRequire())
+    // Write the covered files to a temporary directory 
+    .pipe(gulp.dest('test-tmp/'));
+});
+ 
+gulp.task('test', ['pre-test'], function () {
+  // Make sure your tests files are requiring files from the 
+  // test-tmp/ directory 
+  return gulp.src(['../tests/*.js'])
+    // .pipe(testFramework())
+    // Creating the reports after tests ran 
+    .pipe(istanbul.writeReports());
+});
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
