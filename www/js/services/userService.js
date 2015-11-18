@@ -11,6 +11,12 @@
             data.$add(id);
         }
 
+        removeListing: function(id) {
+            var user = UserStorage.getUserId();
+            var data = UsersOBJ(user + '/listings');
+            data.$remove(id);
+        }
+
     //     getListings: function (user) {
     //         var listings = UsersURL.$getRecord(user).$getRecord('listings');
 

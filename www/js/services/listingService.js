@@ -18,17 +18,9 @@
                 createdAt: Date()
             });
         },
-        getBid: function (user) {
 
-        },
-        createBid: function (bid) {
-
-        },
-        getRating: function (user) {
-
-        },
-        addRating: function (user, rating) {
-
+        removeListing: function(id) {
+            ListingsURL.$ref().child(id).remove();
         }
     };
 });
