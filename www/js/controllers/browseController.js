@@ -5,8 +5,6 @@ angular.module('controllers.browse', [])
 	
 	$scope.tickets = DBManager.getAllListings();
 
-	console.log($scope.tickets);
-
 	$scope.scroll = function() {
 		console.log('is scrolling');
 	};

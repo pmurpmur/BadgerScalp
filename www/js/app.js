@@ -10,7 +10,6 @@ angular.module('badgerscalp', [
   'controllers.browse',
   'controllers.chat',
   'controllers.map',
-  'controllers.post',
   'controllers.currentbid',
   'controllers.currentpost',
   'services.firebase',
@@ -21,7 +20,6 @@ angular.module('badgerscalp', [
   'services.listing',
   'services.localStorage',
   'services.userStorage',
-  'services.user',
   'services.user',
   'services.utils'
 

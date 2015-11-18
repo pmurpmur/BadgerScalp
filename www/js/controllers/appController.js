@@ -1,6 +1,15 @@
 angular.module('controllers.app', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera, Auth, DBManager, UserStorage) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, DBManager, UserStorage) {
+
+  var today = new Date();
+  $scope.yesterday = (new Date(today.setDate(today.getDate() - 1))).toISOString().substring(0, 10);
+  $scope.oneYear = (new Date(today.setYear(today.getFullYear() + 1))).toISOString().substring(0, 10);
+  
+
+
+  console.log($scope.yesterday);
+  console.log($scope.oneYear);
 
 	$scope.username = DBManager.getUserName();
     $scope.ProfilePic = "";
@@ -26,9 +35,9 @@ angular.module('controllers.app', [])
     }
 
     $scope.postSale = function(post) {
-		DBManager.createListing(post);
-		$scope.modal.remove();
-		modalInitalize();
+  		DBManager.createListing(post);
+  		$scope.modal.remove();
+  		modalInitalize();
     }
 
     $scope.logout = function() { 
@@ -187,6 +196,31 @@ angular.module('controllers.app', [])
           }, false);    
     }
 
-
+    $scope.typeSelect = function() {
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [
+          { text: '<i class="icon ionic ion-ios-americanfootball"></i>Football' },
+          { text: '<i class="icon ionic ion-ios-basketball"></i>Basketball' },
+          { text: '<i class="icon ionic ion-ios-baseball"></i>Baseball' },
+          { text: '<i class="icon ionic ion-ios-football"></i>Soccer' },
+          { text: '<i class="icon ionic ion-ios-tennisball"></i>Tennis' },
+          { text: '<i class="icon ionic ion-ios-musical-notes"></i>Music' },
+          { text: '<i class="icon ionic ion-plus"></i>Other' }
+        ],
+        titleText: 'Event Type',
+        buttonClicked: function(index) {
+          switch(index) {
+            case 0: $scope.eventType = 'Football'; break;
+            case 1: $scope.eventType = 'Basketball'; break;
+            case 2: $scope.eventType = 'Baseball'; break;
+            case 3: $scope.eventType = 'Soccer'; break;
+            case 4: $scope.eventType = 'Tennis'; break;
+            case 5: $scope.eventType = 'Music'; break;
+            case 6: $scope.eventType = 'Other'; break;
+          }
+          hideSheet();
+        }
+      });
+    };
 
 });
