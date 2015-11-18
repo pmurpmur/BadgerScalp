@@ -6,16 +6,20 @@
             return ListingsURL;
         },
         addListing: function (user, post) {
+            console.log('date: '+user.eventDate);
+            console.log('time: '+user.eventTime);
             return ListingsURL.$add({
                 seller: user,
-                title: post.title,
-                date: post.date,
+                event: post.event,
+                type: post.sport,
                 price: post.price,
-                quantity: post.quantity,
-                type: post.type,
-                details: post.details,
+                date: post.eventDate,
+                time: post.eventTime,
                 createdAt: Date()
             });
+        },
+        removeListing: function(id) {
+            ListingsURL.$ref().child(id).remove();
         },
         getBid: function (user) {
 
