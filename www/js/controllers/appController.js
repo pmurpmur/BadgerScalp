@@ -61,9 +61,40 @@ angular.module('controllers.app', [])
       }
     });
   };
-		
+  $scope.close = function() {
+        $scope.ticketPic = "";
+        if($scope.picture_post !== undefined)$scope.picture_post = undefined;
+        $scope.modal.hide();
+    }
 
-  /** POST MODAL END **/
+  /** POST EDIT MODAL **/
+	
+  function editpostInitalize() {
+    $ionicModal.fromTemplateUrl('templates/editpost.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal_editpost = modal;     
+    });
+  }; editpostInitalize();
+
+  $scope.EditPostModal = function(title, price, type, quantity, date, detail){
+    $scope.title = title;
+    $scope.price = price;
+    $scope.type = type;
+    $scope.quantity = quantity;
+    $scope.detail = detail;
+    $scope.date = date;
+    $scope.modal_editpost.show();
+  }
+
+  $scope.close_editpost = function() {
+        $scope.ticketPic = "";
+        if($scope.picture_post !== undefined)$scope.picture_post = undefined;
+        $scope.modal_editpost.hide();
+    }
+ 
+
+  /** LEFT SLIDER **/
 
     $scope.ProfilePic = "";
     $scope.ticketPic = "";
@@ -78,11 +109,9 @@ angular.module('controllers.app', [])
     	$("#account_setting_block").toggle(1000);
     }
 
-    $scope.close = function() {
-        $scope.ticketPic = "";
-        if($scope.picture_post !== undefined)$scope.picture_post = undefined;
-        $scope.modal.hide();
-    }
+    
+
+    /** PICTURE MODAL **/
 
     $ionicModal.fromTemplateUrl('templates/profilepic.html', {
         id: '2',

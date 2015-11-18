@@ -5,10 +5,10 @@
             <ion-content>
                 <div id="left_bar">
                     <div id="user_profile">
-                        <img src="img/default_profile.jpg">
+                        <img src="img/default_profile.jpg" ng-click="modal2.show()">
                         <div class="user_name">{{username}}</div>
                     </div>
-                    <button class="button button-block button-royal" ng-click="modal2.show()">Change Picture</button>
+                    
                     <div id="setting">
                         <div id="view_bid" ui-sref="app.tabs.currentbid">
                             <div class="setting_item">View Current Bid</div>
@@ -22,14 +22,14 @@
                             <div class="setting_item" ng-click="toggleSetting()">Account Setting</div>
                             <hr>
                             <div id="account_setting_block">                                   
-                                <div class="setting_block_item" ui-sref="app.tabs.mailchange">change email</div>
-                                <div class="setting_block_item" ui-sref="app.tabs.passwardchange">change passward</div>
+                                <div class="setting_block_item">change email</div>
+                                <div class="setting_block_item">change passward</div>
+                                <div class="setting_block_item" ng-click="logout()">log out</div>
                                 <div class="setting_block_item">delete account</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button id="logoutButton" ng-click="logout()" class="button button-large button-assertive" ng-cloak>Log Out</button>
             </ion-content>
         </ion-side-menu>
 

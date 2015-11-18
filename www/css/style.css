@@ -86,10 +86,15 @@ label.item.has-error {
 
 /* Account Setting */
 
+#user_profile{
+	width: 90%;
+    margin: auto;
+	margin-top: 10% !important;
+}
+
 #user_profile img{
-	width: 30%;
-	margin-top: 10%;
-	margin-left: 10%;
+	width: 50%;
+
 }
 
 #user_profile .user_name{
@@ -108,7 +113,7 @@ label.item.has-error {
 
 .setting_block_item{
 	color: blue;
-	margin-left: 20px;
+	margin-left: 40px;
 	padding-top: 25px;
 }
 
@@ -128,6 +133,11 @@ label.item.has-error {
 #account_setting_block{
 	display: none;
 }
+
+
+
+
+
 
 /* Modal */
 .modal.half {

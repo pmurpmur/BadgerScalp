@@ -1,14 +1,15 @@
 <ion-view title="Current Post">
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
-				ui-sref="app.tabs.bid({listingId:ticket.$id, ticket:ticket})">
+			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px">
 				<img src="../img/ticket.png">
-				<h2>{{ticket.event}}</h2>
-				<span style="float:right">${{ticket.price}}</span><br>
-				<button style="float:right; display:block">edit</button>
+				<h2>{{ticket.title}}</h2>
+				<span style="float:right">${{ticket.price}}</span>
 				<p>{{ticket.type}}</p>
-				<p>{{ticket.date}}{{ticket.time}}</p>
+				<button style="float:right; display:inline" ng-click="EditPostModal(ticket.title,ticket.price,ticket.type,ticket.quantity,localDate(ticket.date),ticket.details)">edit</button>
+				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
+				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
+				<p>{{localDate(ticket.date)}}</p>
 			</ion-item>
 		</ion-list>
 	</ion-content>
