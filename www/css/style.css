@@ -169,7 +169,7 @@ label.item.has-error {
 /*** POST VIEW ***/
 
 .photoThumb {
-	width: 100px;
+	max-width: 100px;
 	height: 100px;
 	background-color: rgba(0,0,0,0.1);
 	margin: 5px;
@@ -180,7 +180,7 @@ label.item.has-error {
 	opacity: 0.8;
 	position: relative;
 	top: 20px;
-	left: 30px;
+	left: 29%;
 }
 
 /*** END POST VIEW ***/

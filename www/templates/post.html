@@ -6,14 +6,14 @@
         </div>
     </ion-header-bar>
 
-	<ion-content>
+	<ion-content scroll="false">
         <div class="header-hover"></div>
-        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(eventTitle, eventDate)">
+        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(eventTitle, eventDate, eventPrice, eventQuantity, eventType, eventDetails)">
 
             <div class="row">
                 <div class="col col-66">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventTitle.$invalid && postForm.$submitted }">
-                        <span class="input-label">Title</span>
+                        <span class="input-label">Event</span>
                         <input name="eventTitle" type="text" ng-model="eventTitle" placeholder="Event Title" ng-maxlength="30" required>
                     </label>
                     <div class="form-errors" ng-messages="postForm.eventTitle.$error" ng-if="postForm.$submitted">
@@ -32,35 +32,34 @@
                 <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
                         <span class="input-label">Price</span>
-                        <input name="price" type="number" placeholder="Ticket Price" ng-model="post.price" required>
+                        <input name="price" type="number" placeholder="Ticket Price" ng-model="eventPrice" min="0" required>
                     </label>
                 </div>
-
                 <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.quantity.$invalid && postForm.$submitted }">
                         <span class="input-label">Quantity</span>
-                        <input name="quantity" type="number" placeholder="Ticket Quantity" ng-model="post.quantity" required>
+                        <input name="quantity" type="number" placeholder="Ticket Quantity" ng-model="eventQuantity" min="1" max="99" required>
                     </label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.quantity.$invalid && postForm.$submitted }">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventType.$invalid && postForm.$submitted }">
                         <span class="input-label">Type</span>
-                        <input ng-click="typeSelect()" name="sport" type="text" ng-model="eventType" placeholder="Event Type" required readonly>
+                        <input ng-click="typeSelect()" name="eventType" type="text" ng-model="eventType" placeholder="Event Type" required readonly>
                     </label>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col photoThumb">
+                <div ng-click="takePicture()" class="col photoThumb">
                     <i class="postIcon icon ion-camera"></i>
                 </div>
-                <div class="col col-66">
+                <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.details.$invalid }">
                         <span class="input-label">Details</span>
-                        <textarea name="details" placeholder="Write a short description of the event/tickets here..." ng-model="post.details" ng-maxlength="160"></textarea> 
+                        <textarea name="details" placeholder="Write a short description of the event/tickets here..." ng-model="eventDetails" ng-maxlength="160"></textarea> 
                     </label>
                     <div class="form-errors" ng-messages="postForm.details.$error">
                         <div class="form-error" ng-message="maxlength">Keep details under 100 characters</div>

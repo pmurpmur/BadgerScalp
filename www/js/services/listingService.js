@@ -6,15 +6,14 @@
             return ListingsURL;
         },
         addListing: function (user, post) {
-            console.log('date: '+user.eventDate);
-            console.log('time: '+user.eventTime);
             return ListingsURL.$add({
                 seller: user,
-                event: post.event,
-                type: post.sport,
+                title: post.title,
+                date: post.date,
                 price: post.price,
-                date: post.eventDate,
-                time: post.eventTime,
+                quantity: post.quantity,
+                type: post.type,
+                details: post.details,
                 createdAt: Date()
             });
         },
