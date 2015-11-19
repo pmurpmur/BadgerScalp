@@ -9,13 +9,26 @@
             console.log('date: '+user.eventDate);
             console.log('time: '+user.eventTime);
             return ListingsURL.$add({
-                seller: user,
+                seller: user, 
                 event: post.event,
                 type: post.sport,
                 price: post.price,
                 date: post.eventDate,
                 time: post.eventTime,
                 createdAt: Date()
+            });
+        },
+        updateListing: function(id, user, title, date, price, quantity, type, details){
+            var fredNameRef = new Firebase('https://badgerscalp.firebaseio.com/listings');
+            return fredNameRef.child(id).set({                
+                type: type,
+                title: title,
+                seller: user,
+                quantity: quantity,
+                price: price,
+                details: details,
+                date: date,
+                createdAt: date                            
             });
         },
         removeListing: function(id) {

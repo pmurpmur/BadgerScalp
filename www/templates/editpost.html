@@ -8,7 +8,7 @@
 
 	<ion-content scroll="false">
         <div class="header-hover"></div>
-        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(eventTitle, eventDate, eventPrice, eventQuantity, eventType, eventDetails)">
+        <form novalidate name="postForm" title="Post" ng-submit="updatePost(id, title, date, price, quantity, type, details)">
 
             <div class="row">
                 <div class="col col-56">

@@ -8,9 +8,10 @@
                 User.addListing(ref.key());
             });
         },
-        updateListing: function (id, listing) {
-            User.removeListing(id);
-            Listing.removeListing(id);
+        updateListing: function (id, title, date, price, quantity, type, details) {  
+            var user = User.thisUser();  
+
+            Listing.updateListing(id, user, title, date, price, quantity, type, details);
         },
         getAllListings: function () {
             return Listing.getAllListings();

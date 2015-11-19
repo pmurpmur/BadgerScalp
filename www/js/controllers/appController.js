@@ -77,12 +77,13 @@ angular.module('controllers.app', [])
     });
   }; editpostInitalize();
 
-  $scope.EditPostModal = function(title, price, type, quantity, date, detail){
+  $scope.EditPostModal = function(id, title, price, type, quantity, date, detail){
+    $scope.id = id;
     $scope.title = title;
     $scope.price = price;
     $scope.type = type;
     $scope.quantity = quantity;
-    $scope.detail = detail;
+    $scope.details = detail;
     $scope.date = date;
     $scope.modal_editpost.show();
   }
@@ -92,6 +93,16 @@ angular.module('controllers.app', [])
         if($scope.picture_post !== undefined)$scope.picture_post = undefined;
         $scope.modal_editpost.hide();
     }
+
+  $scope.updatePost = function(id, title, date, price, quantity, type, details) {
+
+    var date = date.toUTCString();
+    var ticketpic = $scope.ticketPic;
+
+    DBManager.updateListing(id, title, date, price, quantity, type, details);
+    $scope.modal_editpost.hide();
+    editpostInitalize();
+  };
  
 
   /** LEFT SLIDER **/
