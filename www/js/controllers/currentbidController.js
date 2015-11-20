@@ -1,13 +1,20 @@
 angular.module('controllers.currentbid', [])
 
-.controller('CurrentBidCtrl', function($scope, DBManager) {
+.controller('CurrentBidCtrl', function($scope, DBManager, UserStorage) {
 	$scope.device = window.screen.width;
 	
 	$scope.tickets = DBManager.getAllListings();
+	$scope.userId = UserStorage.getUserId();
 
-	console.log($scope.tickets);
-
-	$scope.scroll = function() {
-		console.log('is scrolling');
-	};
+	$scope.localDate = function(date) {
+		if (date === undefined) {
+			return 'n/a';
+		} else {
+			return (new Date(date)).toLocaleDateString();
+		}
+	}
+ 
+	$scope.toDateObj = function(dateStr) {
+		return new Date(dateStr);
+	}
 });

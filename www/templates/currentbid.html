@@ -9,15 +9,15 @@
 
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
-				ui-sref="app.bid({listingId:ticket.$id, ticket:ticket})">
+			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | thisUser:userId | orderBy:'-$id'" item-width="device" item-height="100px" 
+				>
 				<img src="../img/ticket.png">
-				<h2>{{ticket.event}}</h2>
-				<span style="float:right">${{ticket.price}}</span>
+				<h2>{{ticket.title}}</h2>
+				<span style="float:right">$15</span>
 				<p>{{ticket.type}}</p>
-				<p>{{ticket.date}}{{ticket.time}}</p>
+				<p>{{localDate(ticket.date)}}</p>
 				<p style="color:red">status</p>
 			</ion-item>
 		</ion-list>
-	</ion-content>
+	</ion-content> 
 </ion-view>

@@ -1,7 +1,9 @@
 angular.module('controllers.bid', [])
 
-.controller('BidCtrl', function($stateParams,$ionicModal, $scope,$ionicPopup) {
+.controller('BidCtrl', function($stateParams,$ionicModal, $scope,$ionicPopup, DBManager) {
 	angular.element(document.querySelector('.bs-fab')).addClass('fab-hide');
+
+
 
 	$scope.localDate = function(date) {
 		if (date === undefined) {
@@ -29,7 +31,7 @@ angular.module('controllers.bid', [])
 	/*Check if the bidding price is lower than the original price
 	Stored in $scope.bidding.val
 	*/
-	$scope.checkBid = function(){
+	$scope.checkBid = function(ticketId, bidPrice){
 		if($scope.bidding.val > $scope.ticket.price){
 			var alertPopup = $ionicPopup.alert({
 				title: 'Error',
@@ -37,9 +39,15 @@ angular.module('controllers.bid', [])
 			});
 		}
 		else {
+
+			DBManager.createBid({
+		      relateTicket: ticketId,
+		      bid: bidPrice
+		    });
+
 			var alertPopup = $ionicPopup.alert({
 				title: 'Success',
-				template: 'Bid \"' + $scope.ticket.event + '\" for ' + $scope.bidding.val.toString()
+				template: 'Bid \"' + $scope.ticket.title + '\" for ' + $scope.bidding.val.toString()
 			});
 			$scope.modal1.hide()
 		}

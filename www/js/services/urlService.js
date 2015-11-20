@@ -14,6 +14,13 @@
     } 
 }])
 
+ .factory('ListingsOBJ', ['$firebaseArray', 'FBDB', function($firebaseArray, FBDB) {
+    return function(list) {
+        var FBRef = new Firebase(FBDB + 'listings/' + list);
+        return $firebaseArray(FBRef);
+    } 
+}])
+
  .factory('BidsURL', ['$firebaseArray', 'FBDB',
     function($firebaseArray, FBDB) {
         var FBRef = new Firebase(FBDB + 'bids');

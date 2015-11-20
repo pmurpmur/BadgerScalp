@@ -26,9 +26,16 @@
             User.removeListing(id);
             Listing.removeListing(id);
         },
-        createBid: function (bidder, listing, price, date, time) {
-            var id = User.addBid();
-            Bid.addBid(id, bidder, listing, price, date, time);
+        createBid: function (bid) {
+            //var id = User.addBid();
+            var user = User.thisUser();  
+            Bid.createBid(user, bid).then(function(ref) {
+                Listing.addBid(ref.key());
+            });
+            //Bid.addBid(id, bidder, listing, price, date, time);
+        },
+        getAllBids: function () {
+            return Bid.getListing();
         },
         updateRating: function (user, rating) {
             User.updateRating(user, rating);
