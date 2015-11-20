@@ -16,8 +16,11 @@
         getAllListings: function () {
             return Listing.getAllListings();
         },
+        getUserListings: function (user) {
+            return User.getListings();
+        },
         getUserName: function(){
-            return UserStorage.getUserFirstName();
+            return UserStorage.getUserFirstName() + ' ' + UserStorage.getUserLastName();
         },
         deleteListing: function (id) {
             User.removeListing(id);
@@ -29,6 +32,9 @@
         },
         updateRating: function (user, rating) {
             User.updateRating(user, rating);
+        },
+        deleteUser: function () {
+            // and all its associated data
         }
     };
 });

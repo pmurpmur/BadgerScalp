@@ -1,8 +1,41 @@
 angular.module('controllers.app', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, DBManager, UserStorage) {
+.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, DBManager, UserStorage) {
+
+  $scope.filtC = 'all';
+  $scope.sorter = '-$id';
 
   $scope.username = DBManager.getUserName();
+  $scope.recent = {};
+
+  var lastPos = 0;
+  $scope.fabControl = function ($event) {
+      var elem = event.target.attributes['delegate-handle'].value;
+      var pos = $ionicScrollDelegate.$getByHandle(elem).getScrollPosition().top;
+
+      if (pos > 75 && pos > lastPos + 5) {
+        var tmp = angular.element(document.querySelectorAll('.bs-fab'));
+        tmp.addClass('fab-hide');
+      }
+      else if (pos < lastPos - 5) {
+        var tmp = angular.element(document.querySelectorAll('.bs-fab'));
+        tmp.removeClass('fab-hide');
+      }
+    lastPos = pos;
+  }
+
+  $scope.closeMenu = function(hide) {
+    $ionicSideMenuDelegate.toggleLeft();
+    if (hide) {
+      angular.element(document.querySelector('.bs-fab')).addClass('fab-hide');
+    } else {
+      angular.element(document.querySelector('.bs-fab')).removeClass('fab-hide');
+    }
+  };
+
+  $scope.getProfilePicture = function() {
+    return UserStorage.getProfilePicture();
+  };
 
   /** POST MODAL **/
 
@@ -10,28 +43,26 @@ angular.module('controllers.app', [])
   $scope.yesterday = (new Date(today.setDate(today.getDate() - 1))).toISOString().substring(0, 10);
   $scope.oneYear = (new Date(today.setYear(today.getFullYear() + 1))).toISOString().substring(0, 10);
 
-
-	function modalInitalize() {
+	(function postModalInitalize() {
 		$ionicModal.fromTemplateUrl('templates/post.html', {
 		    scope: $scope
 		}).then(function(modal) {
-		    $scope.modal = modal;
+		    $scope.postModal = modal;
 		});
-	}; modalInitalize();
-
+	})();
 
   $scope.postSale = function(title, date, price, quantity, type, details) {
     DBManager.createListing({
       title: title,
-      date: date.toUTCString(),
+      date: date.toString(),
       price: price,
       quantity: quantity,
       type: type,
       details: details,
       image: $scope.ticketPic
     });
-    $scope.modal.remove();
-    modalInitalize();
+    $scope.postModal.remove();
+    postModalInitalize();
   };
 
 
@@ -107,17 +138,76 @@ angular.module('controllers.app', [])
 
   /** LEFT SLIDER **/
 
+  /** SEARCH MODAL **/
+
+  $scope.category;
+  $scope.categories = [
+    { text: "All", value: "all", icon: "ion-ios-circle-outline" },
+    { text: "Football", value: "football", icon: "ion-ios-americanfootball" },
+    { text: "Basketball", value: "basketball", icon: "ion-ios-basketball" },
+    { text: "Baseball", value: "baseball", icon: "ion-ios-baseball" },
+    { text: "Soccer", value: "soccer", icon: "ion-ios-football" },
+    { text: "Tennis", value: "tennis", icon: "ion-ios-tennisball" },
+    { text: "Music", value: "music", icon: "ion-ios-musical-notes" },
+    { text: "Other", value: "other", icon: "ion-plus" }
+  ];
+
+  function searchModalInitalize() {
+    $ionicModal.fromTemplateUrl('templates/search.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.searchModal = modal;
+        $scope.category = 'all';
+        $scope.sorting = 'recent';
+    });
+  }; searchModalInitalize();
+
+  $scope.orderByDate = function(item) {
+    return new Date(item.date);
+  };
+
+  $scope.resetSearch = function() {
+    $scope.searchModal.remove().then(function() {
+      searchModalInitalize();
+
+      $scope.filtQ = undefined;
+      $scope.filtC = 'all';
+      $scope.filtD = undefined;
+      $scope.filtMinP = undefined;
+      $scope.filtMaxP = undefined;
+      $scope.sorter = '-$id';
+    });
+  }
+
+  $scope.applySearch = function(query, category, exactDate, minPrice, maxPrice, sorting) {
+    $scope.filtQ = query;
+    $scope.filtC = category;
+    $scope.filtD = exactDate;
+    $scope.filtMinP = minPrice;
+    $scope.filtMaxP = maxPrice;
+
+    if (sorting == 'recent')            { $scope.sorter = '-$id'; }
+    else if (sorting == 'next')         { $scope.sorter = $scope.orderByDate; }
+    else if (sorting == 'lowPrice')     { $scope.sorter = 'price'; }
+    else if (sorting == 'highPrice')    { $scope.sorter = '-price'; }
+
+    $scope.searchModal.hide();
+  }
+
+
+  /** SEARCH MODAL END **/
+
+
+  
+
+  
     $scope.ProfilePic = "";
     $scope.ticketPic = "";
 
-    $scope.logout = function() { 
-        UserStorage.cleanUser();
-        Auth.$unauth(); 
-        $ionicSideMenuDelegate.toggleLeft();
-    }
+
 
     $scope.toggleSetting = function() {
-    	$("#account_setting_block").toggle(1000);
+    	$("#account_setting_block").toggle(500);
     }
 
     
@@ -133,10 +223,20 @@ angular.module('controllers.app', [])
         $scope.modal2 = modal;
     });
 
+    $ionicModal.fromTemplateUrl('templates/profilepic.html', {
+        id: '3',
+        scope: $scope,
+        backdropClickToClose: false,
+        animation: 'slide-in-up'
+    }).then(function(modal){
+        $scope.modal3 = modal;
+    });
+
     $scope.closeModal = function() {
         $scope.ProfilePic = "";
         if($scope.picture !== undefined)$scope.picture = undefined;
         $scope.modal2.hide();
+        $scope.modal3.hide();
     }
 
     $scope.choosePicture = function() {
@@ -265,5 +365,57 @@ angular.module('controllers.app', [])
     }
 
 
+    /** Account Settings **/
 
+    $scope.logout = function() { 
+        $scope.toggleSetting();
+        $ionicSideMenuDelegate.toggleLeft();
+        UserStorage.cleanUser();
+    }
+
+    $scope.changePassword = function() { 
+        var email = UserStorage.getEmail();
+        if (email === undefined) {
+          var passwordChangeFail = $ionicPopup.alert({
+            title: 'Sorry!',
+            template: 'This account is associated with either Google or Facebook! Consult the primary account for changing your password.'
+          });
+        } else {
+          var myPopup = $ionicPopup.show({
+            template: '<input type="password" placeholder="Old Password" ng-model="oldPass"><br/><input type="password" placeholder="New Password" ng-model="newPass">',
+            title: 'Change Password',
+            subTitle: 'Please use over 5 characters',
+            scope: $scope,
+            buttons: [
+              { text: 'Cancel' },
+              { text: '<b>Save</b>',
+                type: 'button-positive',
+                onTap: function(e) {
+                  console.log($scope.oldPass)
+                  if ($scope.oldPass == UserStorage.getPassword()) {
+                    Auth.changePassword(email, $scope.oldPass, $scope.newPass); 
+                  } 
+                }
+              }
+            ]
+          });
+        } 
+    }
+
+    $scope.removeUser = function() {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Delete Account',
+        template: 'Are you sure you want to delete your account?'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          var email = UserStorage.getEmail();
+          var pass = UserStorage.getPassword();
+          Auth.removeUser(email, pass);
+          DBManager.deleteUser();
+          UserStorage.cleanUser();
+        }
+      });
+    };
+  
 });

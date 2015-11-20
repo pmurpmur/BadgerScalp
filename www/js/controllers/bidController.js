@@ -1,6 +1,15 @@
 angular.module('controllers.bid', [])
 
 .controller('BidCtrl', function($stateParams,$ionicModal, $scope,$ionicPopup) {
+	angular.element(document.querySelector('.bs-fab')).addClass('fab-hide');
+
+	$scope.localDate = function(date) {
+		if (date === undefined) {
+			return 'n/a';
+		} else {
+			return (new Date(date)).toLocaleDateString();
+		}
+	}
 
 	$scope.initt = function(){
 		$scope.ticket = $stateParams.ticket;

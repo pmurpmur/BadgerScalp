@@ -1,8 +1,12 @@
-<ion-view title="BadgerScalp">
-	<ion-content class="has-header" scroll="true">
+<ion-view title="BadgerScalp" hide-back-button="true">
+	<ion-content delegate-handle="browse-scroll" class="has-header" scroll="true" on-scroll="fabControl($event)">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
+			<ion-item class="item-thumbnail-left" 
+				collection-repeat="ticket in tickets | ticketFilter:filtQ:filtC:filtD:filtMinP:filtMaxP | orderBy:sorter"
+				item-width="device" 
+				item-height="100px" 
 				ui-sref="app.tabs.bid({listingId:ticket.$id, ticket:ticket})">
+
 				<img src="../img/ticket.png">
 				<h2>{{ticket.title}}</h2>
 				<span style="float:right">${{ticket.price}}</span>

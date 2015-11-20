@@ -23,6 +23,21 @@ angular.module('services.userStorage', [])
         getUserNumReviews: function () {
             return LocalStorage.get(userKey).numReviews;
         },
+        getEmail: function () {
+            return LocalStorage.get(userKey).email;
+        },
+        getPassword: function () {
+            return LocalStorage.get(userKey).password;
+        },
+        getProfilePicture: function () {
+            var img = LocalStorage.get(userKey).profImg;
+            var imgUrl = LocalStorage.get(userKey).imgUrl;
+            var defaultImg = 'img/default_profile.jpg';
+
+            if (img !== undefined) { return img; } 
+            else if (imgUrl !== undefined) { return imgUrl; }
+            else { return defaultImg; }
+        },
         cleanUser: function () {
             return LocalStorage.remove(userKey);
         }

@@ -2,12 +2,12 @@
     <ion-header-bar class="bar bar-header bar-royal">
         <h1 class="title">Sell Your Tickets</h1>
         <div class="buttons">
-            <button class="button button-icon icon ion-ios-close-empty" ng-click="close()"></button>
+            <button class="button button-icon icon ion-ios-close-empty" ng-click="postModal.hide()"></button>
         </div>
     </ion-header-bar>
+    <div class="header-hover post-hover"></div>
 
-	<ion-content scroll="false">
-        <div class="header-hover"></div>
+	<ion-content scroll="true">
         <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(eventTitle, eventDate, eventPrice, eventQuantity, eventType, eventDetails)">
 
             <div class="row">
@@ -30,15 +30,16 @@
 
             <div class="row">
                 <div class="col">
-                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
-                        <span class="input-label">Price</span>
-                        <input name="price" type="number" placeholder="Ticket Price" ng-model="eventPrice" min="0" required>
-                    </label>
-                </div>
-                <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.quantity.$invalid && postForm.$submitted }">
                         <span class="input-label">Quantity</span>
                         <input name="quantity" type="number" placeholder="Ticket Quantity" ng-model="eventQuantity" min="1" max="99" required>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
+                        <span class="input-label">Price</span>
+                        <input name="price" type="number" placeholder="Ticket Price" ng-model="eventPrice" min="0" required>
+                        <div ng-if="postForm.price.$valid && postForm.quantity.$valid && eventPrice != undefined && eventQuantity != undefined" class="floatingPrice" ng-model="floatingPrice">(${{eventQuantity * eventPrice}})</div>
                     </label>
                 </div>
             </div>
@@ -53,7 +54,7 @@
             </div>
 
             <div class="row">
-                <div ng-click="takePicture()" class="col photoThumb">
+                <div ng-click="modal3.show()"  class="col photoThumb">
                     <i class="postIcon icon ion-camera"></i>
                 </div>
                 <div class="col">

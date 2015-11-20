@@ -15,17 +15,11 @@
             var user = UserStorage.getUserId();
             var data = UsersOBJ(user + 'listings');
             data.remove();
-        }
+        },
 
-    //     getListings: function (user) {
-    //         var listings = UsersURL.$getRecord(user).$getRecord('listings');
-
-    //         var list = [];
-    //         for (var i = 0; i < listings.length; i++) {
-    //             list[i] = BidsURL.$getRecord(listings[i]);
-    //         }
-    //         return list;
-    //     },
+        getListings: function (user) {
+            return UsersOBJ(user + 'listings');
+        },
     //     createListing: function (listing) {
     //         ListingsURL.$add(listing);
     //     },

@@ -10,11 +10,12 @@
             console.log('time: '+user.eventTime);
             return ListingsURL.$add({
                 seller: user, 
-                event: post.event,
-                type: post.sport,
+                title: post.title,
+                type: post.type,
                 price: post.price,
-                date: post.eventDate,
-                time: post.eventTime,
+                quantity: post.quantity,
+                date: post.date,
+                image: post.image,
                 createdAt: Date()
             });
         },

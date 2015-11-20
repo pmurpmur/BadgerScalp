@@ -1,34 +1,38 @@
 <ion-view>
     <ion-side-menus>
 
-        <ion-side-menu side="left">
-            <ion-content>
-                <div id="left_bar">
-                    <div id="user_profile">
-                        <img src="img/default_profile.jpg" ng-click="modal2.show()">
-                        <div class="user_name">{{username}}</div>
+        <ion-side-menu side="left" cache-view="false">
+            <ion-content scroll="false">
+                <div class="list">
+
+                    <ion-item class="item item-avatar">
+                        <img ng-click="modal2.show()" ng-src="{{getProfilePicture()}}">
+                        <h2>{{username}}</h2>
+                        <p>Welcome to BadgerScalp!</p>
+                    </ion-item>
+
+                    <a class="item item-icon-left" ng-click="closeMenu(false)" nav-direction="enter" ui-sref="app.tabs.browse">
+                        <i class="icon ion-ios-home"></i>
+                        Home
+                    </a>
+
+                    <a class="item item-icon-left" ng-click="closeMenu(true)" nav-direction="enter" ui-sref="app.currentbid">
+                        <i class="icon ion-social-usd"></i>
+                        Current Bids
+                    </a>
+
+                    <a class="item item-icon-left" ng-click="closeMenu(true)" nav-direction="enter" ui-sref="app.currentpost">
+                        <i class="icon ion-ios-compose"></i>
+                        Current Posts
+                    </a>
+
+                    <div class="item item-divider" ng-click="toggleSetting()">Account</div>
+                    <div id="account_setting_block">  
+                        <a class="item" ng-click="logout()" ui-sref="login">Log Out</a>
+                        <a class="item" ng-click="changePassword()">Change Password</a>
+                        <a class="item item-assertive" ng-click="removeUser()">Delete Account</a>
                     </div>
-                    
-                    <div id="setting">
-                        <div id="view_bid" ui-sref="app.tabs.currentbid">
-                            <div class="setting_item">View Current Bid</div>
-                            <hr>
-                        </div>
-                        <div id="view_post" ui-sref="app.tabs.currentpost">
-                            <div class="setting_item">View Current Post</div>
-                            <hr>
-                        </div>
-                        <div id="account_setting">
-                            <div class="setting_item" ng-click="toggleSetting()">Account Setting</div>
-                            <hr>
-                            <div id="account_setting_block">                                   
-                                <div class="setting_block_item">change email</div>
-                                <div class="setting_block_item">change passward</div>
-                                <div class="setting_block_item" ng-click="logout()">log out</div>
-                                <div class="setting_block_item">delete account</div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </ion-content>
         </ion-side-menu>
@@ -44,11 +48,15 @@
                 </ion-nav-buttons>
 
                 <ion-nav-buttons side="right">
-                   <button class="button button-icon icon ion-ios-plus-empty" ng-click="modal.show()"></button>
+                   <button class="button button-icon icon ion-ios-search" ng-click="searchModal.show()"></button>
                 </ion-nav-buttons>
             </ion-nav-bar>
 
             <ion-nav-view name="menucontent"></ion-nav-view>
+
+            <div class="bs-fab" ng-click="postModal.show()">
+                <img src="img/bs-fab.png" />
+            </div>
 
         </ion-side-menu-content>
 

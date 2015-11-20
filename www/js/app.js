@@ -4,6 +4,7 @@ angular.module('badgerscalp', [
   'firebase',
   'ngMessages',
   'ngCordova',
+  'filters',
   'controllers.app',
   'controllers.auth',
   'controllers.bid',
@@ -16,7 +17,6 @@ angular.module('badgerscalp', [
   'services.url',
   'services.auth',
   'services.bid',
-  'services.event',
   'services.listing',
   'services.localStorage',
   'services.userStorage',
@@ -140,27 +140,40 @@ angular.module('badgerscalp', [
       },
       resolve: authRequireResolve
     })
-    .state('app.tabs.currentbid', {
+    .state('app.bid', {
+      url: '/bid/:listingId',
+      views: {
+        'menucontent': {
+          templateUrl: 'templates/bid.html',
+          controller: 'BidCtrl'
+        }
+      },
+      params: {
+        listingId: null,
+        ticket: null
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.currentbid', {
       url: '/currentbid',
       views: {
-        'browse': {
+        'menucontent': {
           templateUrl: 'templates/currentbid.html',
           controller: 'CurrentBidCtrl'
         }
       },
       resolve: authRequireResolve
     })
-    .state('app.tabs.currentpost', {
+    .state('app.currentpost', {
       url: '/currentpost',
       views: {
-        'browse': {
+        'menucontent': {
           templateUrl: 'templates/currentpost.html',
           controller: 'CurrentPostCtrl'
         }
       },
       resolve: authRequireResolve
     })
-    
 
     $urlRouterProvider.otherwise('/login');
 })

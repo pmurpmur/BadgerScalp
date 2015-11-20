@@ -1,6 +1,7 @@
 angular.module('controllers.browse', [])
 
-.controller('BrowseCtrl', function($scope, DBManager) {
+.controller('BrowseCtrl', function($scope, $ionicScrollDelegate, DBManager) {
+	angular.element(document.querySelector('.bs-fab')).removeClass('fab-hide');
 	$scope.device = window.screen.width;
 	
 	$scope.tickets = DBManager.getAllListings();
@@ -12,4 +13,5 @@ angular.module('controllers.browse', [])
 			return (new Date(date)).toLocaleDateString();
 		}
 	}
+	
 });

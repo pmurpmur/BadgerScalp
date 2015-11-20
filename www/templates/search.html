@@ -1,0 +1,98 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-royal item-input-inset">
+        <label class="item-input-wrapper">
+		    <i class="icon ion-ios-search placeholder-icon"></i>
+		    <input type="search" ng-model="query" placeholder="Search">
+		  </label>
+        <div class="buttons">
+            <button class="button button-icon icon ion-ios-close-empty" ng-click="searchModal.hide()"></button>
+        </div>
+    </ion-header-bar>
+    <div class="header-hover"></div>
+
+	<ion-content scroll="true">
+        
+
+        <div class="list card">
+        	<div class="item item-divider">
+				Categories
+			</div>
+
+			<ion-radio class="item-icon-left item-icon-right" 
+				ng-repeat="item in categories" 
+				ng-model="$parent.$parent.category" 
+				ng-value="item.value" 
+				name="categoryName">
+
+			    <i class="icon ionic" ng-class="item.icon"></i>
+			    {{item.text}}
+			</ion-radio>
+			
+		</div>
+
+
+
+		<div class="list card">
+        	<div class="item item-divider">
+				Date
+			</div>
+			<div class="item item-input-inset">
+			    <label class="item-input-wrapper">
+			    	<input type="date" ng-model="$parent.exactDate">
+			    </label>
+			</div>
+		</div>
+
+		<div class="list card">
+        	<div class="item item-divider">
+				Price Per Ticket
+			</div>
+			<div class="item item-input-inset">
+			    <label class="item-input-wrapper">
+			    	<span class="input-label">Min Value</span>
+			    	<input type="number" ng-model="$parent.minPrice">
+			    </label>
+			</div>
+			<div class="item item-input-inset">
+			    <label class="item-input-wrapper">
+			    	<span class="input-label">Max Value</span>
+			    	<input type="number" ng-model="$parent.maxPrice">
+			    </label>
+			</div>
+		</div>
+
+		<div class="list card">
+        	<div class="item item-divider">
+				Sort By
+			</div>
+			<label class="item item-radio">
+    			<input type="radio" name="sorting" ng-model="$parent.sorting" value="recent">
+    			<div class="item-content">Most recently posted</div>
+    			<i class="radio-icon ion-checkmark"></i>
+  			</label>
+			<label class="item item-radio">
+    			<input type="radio" name="sorting" ng-model="$parent.sorting" value="next">
+    			<div class="item-content">Closest Event Date</div>
+    			<i class="radio-icon ion-checkmark"></i>
+  			</label>
+  			<label class="item item-radio">
+    			<input type="radio" name="sorting" ng-model="$parent.sorting" value="lowPrice">
+    			<div class="item-content">Price: low to high</div>
+    			<i class="radio-icon ion-checkmark"></i>
+  			</label>
+			<label class="item item-radio">
+    			<input type="radio" name="sorting" ng-model="$parent.sorting" value="highPrice">
+    			<div class="item-content">Price: high to low</div>
+    			<i class="radio-icon ion-checkmark"></i>
+  			</label>
+		</div>        
+
+	</ion-content>
+
+	<ion-footer-bar>
+		<div class="button-bar">
+	    	<a class="button" ng-click="resetSearch()"><i class="icon ion-ios-close-empty"></i>RESET</a>
+	    	<a class="button button-assertive" ng-click="applySearch(query, category, exactDate, minPrice, maxPrice, sorting)"><i class="icon ion-ios-checkmark-empty"></i>APPLY</a>
+	    </div>
+    </ion-footer-bar>
+</ion-modal-view>
