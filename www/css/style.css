@@ -8,7 +8,8 @@ textarea {
 	background-color: #f8f8f8;
 }
 
-input.button-assertive {
+input.button-assertive,
+input.button-positive {
 	font-weight: 500;
 }
 

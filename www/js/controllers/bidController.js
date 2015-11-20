@@ -1,13 +1,14 @@
 angular.module('controllers.bid', [])
 
-.controller('BidCtrl', function($stateParams,$ionicModal, $scope,$ionicPopup) {
+.controller('BidCtrl', function($stateParams,$ionicModal, $scope,$ionicPopup,DBManager,UserStorage,Utils) {
 	angular.element(document.querySelector('.bs-fab')).addClass('fab-hide');
 
 	$scope.localDate = function(date) {
 		if (date === undefined) {
 			return 'n/a';
 		} else {
-			return (new Date(date)).toLocaleDateString();
+			var tmp = new Date(date);	
+			return (Utils.getMonth(tmp.getMonth()) + ' ' + tmp.getDay() + ', ' + tmp.getFullYear());
 		}
 	}
 
@@ -29,20 +30,40 @@ angular.module('controllers.bid', [])
 	/*Check if the bidding price is lower than the original price
 	Stored in $scope.bidding.val
 	*/
-	$scope.checkBid = function(){
-		if($scope.bidding.val > $scope.ticket.price){
+	$scope.checkBid = function(bidValue){
+		if(bidValue > $scope.ticket.price){
 			var alertPopup = $ionicPopup.alert({
 				title: 'Error',
 				template: 'Your bid must be lower than the original price ($' + $scope.ticket.price.toString() + ')'
 			});
 		}
 		else {
-			var alertPopup = $ionicPopup.alert({
-				title: 'Success',
-				template: 'Bid \"' + $scope.ticket.event + '\" for ' + $scope.bidding.val.toString()
-			});
-			$scope.modal1.hide()
+			DBManager.createBid($scope.ticket.$id, bidValue);
+			$scope.getHighestBidder();
+			$scope.modal1.hide();
 		}
 	}
+
+	$scope.getProfilePicture = function() {
+    	return UserStorage.getProfilePicture();
+  	};
+
+  	$scope.getHighestBidder = function() {		
+  		var all = DBManager.getAllBids();
+
+  		var topPrice = -1;
+  		var topBid = {};
+
+  			angular.forEach(all, function(item) {
+  				var bid = DBManager.getListingBid($scope.ticket.$id, item.$id)
+		        if (bid !== undefined && item.price > topPrice) {
+		        	topPrice = item.price;
+		        	topBid = item;
+		        }
+	    });
+
+  		$scope.bidderPrice = topPrice;
+  		$scope.bidderName = DBManager.getUserName(topBid.buyer);
+  	}; $scope.getHighestBidder();
 
 });

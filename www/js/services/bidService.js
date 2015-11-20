@@ -1,24 +1,16 @@
  angular.module('services.bid', [])
 
-.factory('Bid', function (UserStorage, UsersURL, BidsURL, ListingsURL) {
+.factory('Bid', function (BidsURL) {
     return {
-        getListing: function (user) {
-                 
+        addBid: function (user, price) {
+            return BidsURL.$add({
+                buyer: user,
+                price: price,
+                createdAt: Date()
+            });
         },
-        createListing: function (listing) {
-
-        },
-        getBid: function (user) {
-
-        },
-        createBid: function (bid) {
-
-        },
-        getRating: function (user) {
-
-        },
-        addRating: function (user, rating) {
-
+        getAllBids: function() {
+        	return BidsURL;
         }
     };
 });

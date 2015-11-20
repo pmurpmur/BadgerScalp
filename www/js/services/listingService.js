@@ -1,13 +1,11 @@
  angular.module('services.listing', [])
 
-.factory('Listing', function (ListingsURL) {
+.factory('Listing', function (ListingsURL, ListingsOBJ) {
     return {
         getAllListings: function () {
             return ListingsURL;
         },
         addListing: function (user, post) {
-            console.log('date: '+user.eventDate);
-            console.log('time: '+user.eventTime);
             return ListingsURL.$add({
                 seller: user, 
                 title: post.title,
@@ -16,36 +14,35 @@
                 quantity: post.quantity,
                 date: post.date,
                 image: post.image,
+                details: details,
                 createdAt: Date()
             });
         },
-        updateListing: function(id, user, title, date, price, quantity, type, details){
-            var fredNameRef = new Firebase('https://badgerscalp.firebaseio.com/listings');
-            return fredNameRef.child(id).set({                
-                type: type,
-                title: title,
-                seller: user,
-                quantity: quantity,
-                price: price,
+        updateListing: function(user, post){
+            return ListingsURL.$ref().child(post.id).set({                
+                seller: user, 
+                title: post.title,
+                type: post.type,
+                price: post.price,
+                quantity: post.quantity,
+                date: post.date,
+                image: post.image,
                 details: details,
-                date: date,
-                createdAt: date                            
+                updatedAt: Date()                          
             });
+        },
+        addBid: function(listingId, bidId) {
+            var data = ListingsOBJ(listingId + '/bids');
+            data.$add(bidId);
+        },
+        getBids: function(listingId) {
+            return ListingsOBJ(listingId + '/bids');
+        },
+        getBid: function(listingId, bid) {
+            return ListingsOBJ(listingId + '/' + bid);
         },
         removeListing: function(id) {
             ListingsURL.$ref().child(id).remove();
-        },
-        getBid: function (user) {
-
-        },
-        createBid: function (bid) {
-
-        },
-        getRating: function (user) {
-
-        },
-        addRating: function (user, rating) {
-
         }
     };
 });

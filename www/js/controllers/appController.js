@@ -126,11 +126,24 @@ angular.module('controllers.app', [])
     }
 
   $scope.updatePost = function(id, title, date, price, quantity, type, details) {
+    console.log(details)
+    DBManager.updateListing({
+      id: id,
+      title: title,
+      date: date.toString(),
+      price: price,
+      quantity: quantity,
+      type: type,
+      details: ((details === undefined) ? '' : details),
+      image: $scope.ticketPic
+    });
 
-    var date = date.toUTCString();
-    var ticketpic = $scope.ticketPic;
+    $scope.modal_editpost.hide();
+    editpostInitalize();
+  };
 
-    DBManager.updateListing(id, title, date, price, quantity, type, details);
+    $scope.removePost = function(id) {
+    DBManager.removeListing(id);
     $scope.modal_editpost.hide();
     editpostInitalize();
   };

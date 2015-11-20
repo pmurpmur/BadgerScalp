@@ -18,4 +18,5 @@ angular.module('controllers.currentpost', [])
 		return new Date(dateStr);
 	}
 
+
 });

@@ -8,8 +8,8 @@
 				ui-sref="app.tabs.bid({listingId:ticket.$id, ticket:ticket})">
 
 				<img src="../img/ticket.png">
-				<h2>{{ticket.title}}</h2>
 				<span style="float:right">${{ticket.price}}</span>
+				<h2>{{ticket.title}}</h2>
 				<p>{{ticket.type}}</p>
 				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
 				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>

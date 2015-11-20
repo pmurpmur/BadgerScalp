@@ -71,11 +71,12 @@
                 
             <div class="row">
                 <div class="col">
-                    <div class="padding-top">
-                        <input type="submit" class="button button-block button-assertive" value="SAVE"/>
+                    <div class="padding-top button-bar">
+                        <input ng-click="removePost(id)" class="button button-block button-assertive" value="DELETE"/>
+                        <input type="submit" class="button button-block button-positive" value="SAVE"/>
                     </div>         
                 </div>
-            </div>       
+            </div>     
         </form>
 	</ion-content>
 </ion-modal-view>

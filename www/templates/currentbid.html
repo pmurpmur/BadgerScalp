@@ -9,14 +9,14 @@
 
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
-				ui-sref="app.bid({listingId:ticket.$id, ticket:ticket})">
+			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | thisUser:userBids | orderBy:'-$id'" item-width="device" item-height="100px">
 				<img src="../img/ticket.png">
-				<h2>{{ticket.event}}</h2>
+				<h2>{{ticket.title}}</h2>
 				<span style="float:right">${{ticket.price}}</span>
 				<p>{{ticket.type}}</p>
-				<p>{{ticket.date}}{{ticket.time}}</p>
-				<p style="color:red">status</p>
+				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
+				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
+				<p>{{localDate(ticket.date)}}</p>
 			</ion-item>
 		</ion-list>
 	</ion-content>

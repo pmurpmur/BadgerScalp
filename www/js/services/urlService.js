@@ -1,29 +1,36 @@
-  angular.module('services.url', [])
+angular.module('services.url', [])
 
- .factory('UsersURL', ['$firebaseArray', 'FBDB',
+.factory('UsersURL', ['$firebaseArray', 'FBDB',
     function($firebaseArray, FBDB) {
         var FBRef = new Firebase(FBDB + 'users');
         return $firebaseArray(FBRef);
     }
 ])
 
- .factory('UsersOBJ', ['$firebaseArray', 'FBDB', function($firebaseArray, FBDB) {
+.factory('UsersOBJ', ['$firebaseArray', 'FBDB', function($firebaseArray, FBDB) {
     return function(user) {
         var FBRef = new Firebase(FBDB + 'users/' + user);
         return $firebaseArray(FBRef);
     } 
 }])
 
- .factory('BidsURL', ['$firebaseArray', 'FBDB',
+.factory('BidsURL', ['$firebaseArray', 'FBDB',
     function($firebaseArray, FBDB) {
         var FBRef = new Firebase(FBDB + 'bids');
         return $firebaseArray(FBRef);
     }
 ])
 
-  .factory('ListingsURL', ['$firebaseArray', 'FBDB',
+.factory('ListingsURL', ['$firebaseArray', 'FBDB',
     function($firebaseArray, FBDB) {
         var FBRef = new Firebase(FBDB + 'listings');
         return $firebaseArray(FBRef);
     }
-]);
+])
+
+.factory('ListingsOBJ', ['$firebaseArray', 'FBDB', function($firebaseArray, FBDB) {
+    return function(listing) {
+        var FBRef = new Firebase(FBDB + 'listings/' + listing);
+        return $firebaseArray(FBRef);
+    } 
+}])

@@ -8,10 +8,13 @@
                 User.addListing(ref.key());
             });
         },
-        updateListing: function (id, title, date, price, quantity, type, details) {  
-            var user = User.thisUser();  
-
-            Listing.updateListing(id, user, title, date, price, quantity, type, details);
+        updateListing: function (post) {
+            var user = User.thisUser();
+            Listing.updateListing(user, post);
+        },
+        removeListing: function(id) {
+            User.removeListing(id);
+            Listing.removeListing(id);
         },
         getAllListings: function () {
             return Listing.getAllListings();
@@ -22,19 +25,40 @@
         getUserName: function(){
             return UserStorage.getUserFirstName() + ' ' + UserStorage.getUserLastName();
         },
-        deleteListing: function (id) {
-            User.removeListing(id);
-            Listing.removeListing(id);
+        getUserName: function(user){
+            var first = User.getUserFirst(user);
+            var last = User.getUserLast(user);
+            console.log(first);
+            console.log(last);
+            return first + ' ' + last;
         },
-        createBid: function (bidder, listing, price, date, time) {
-            var id = User.addBid();
-            Bid.addBid(id, bidder, listing, price, date, time);
+        createBid: function (id, price) {
+            var user = User.thisUser();
+            Bid.addBid(user, price).then(function(ref) {
+                User.addBid(ref.key());
+                Listing.addBid(id, ref.key())
+            });
+        },
+        getAllBids: function () {
+            return Bid.getAllBids();
+        },
+        getListingBids: function (listing) {
+            return Listing.getBids(listing);
+        },
+        getListingBid: function (listing, bid) {
+            return Listing.getBid(listing, bid);
+        },
+        getUserBids: function (listing) {
+            // todo
+        },
+        deleteUser: function () {
+            // and all its associated data. todo
+        },
+        getUserImage: function (user) {
+            // todo
         },
         updateRating: function (user, rating) {
             User.updateRating(user, rating);
         },
-        deleteUser: function () {
-            // and all its associated data
-        }
     };
 });

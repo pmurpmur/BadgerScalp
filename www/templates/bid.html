@@ -1,6 +1,6 @@
 <ion-view title="Buy Ticket">
 	<ion-content class="has-header padding">
-		<div class="card">
+<!-- 		<div class="card">
 			<div class="item item-divider">
 				{{ticket.title}}
 				<span style="float:right">${{ticket.price}} (${{ticket.price * ticket.quantity}})</span>
@@ -19,7 +19,70 @@
 				<h2><b>Details:</b> {{ticket.details}}</h2>
 				<br><br><br><br>
 			</div>
+		</div> -->
+
+		<div class="card">
+
+			<div class="item item-avatar">
+				<img ng-src="{{getProfilePicture()}}">
+		    	<h2>{{ticket.title}}</h2>
+		    	<p>{{localDate(ticket.date)}}</p>
+		  	</div>
+		  	<div class="item item-thumbnail-left">
+				<img src="../img/ticket.png">
+				<p><b>Category:</b> {{ticket.type}}</p>
+				<p><b>Price:</b> ${{ticket.price}}</p>
+				<p ng-if="ticket.quantity > 1"><b>Quantity:</b> {{ticket.quantity}} tickets</p>
+				<p ng-if="ticket.quantity == 1"><b>Quantity:</b> {{ticket.quantity}} ticket</p>
+			</div>
+			<div class="item item-divider">
+				Ticket Information
+			</div>
+			<div class="item item-text-wrap">
+				<h2>{{ticket.details}}</h2>
+				<br><br><br><br>
+				<p ng-if="bidderPrice > 0">Highest Bid: {{bidderName}} for ${{bidderPrice}}</p>
+			</div>
+
+
+<!-- 			<div class="item item-image">
+		    	<img src="../img/ticket.png">
+			</div> 
+
+			<a class="item item-icon-left" href="#">
+				<h2>{{ticket.price}} ({{ticket.quantity}})</h2>
+		    	<p>{{ticket.details}}</p>
+		  	</a>-->
+
 		</div>
+
+<!-- 		<div class="card">
+			<div class="item item-avatar">
+			    <img ng-src="{{getProfilePicture()}}">
+			    <h2>{{ticket.title}}</h2>
+			    <p>{{localDate(ticket.date)}}</p>
+			</div>
+
+	 		<div class="item item-body">
+			    <img class="full-image" src="../img/ticket.png">
+			    <p>{{ticket.details}}</p>
+			</div>
+
+			<div class="item tabs tabs-secondary tabs-icon-left">
+			    <a class="tab-item" href="#">
+			      	<i class="icon ion-thumbsup"></i>
+			    	Like
+			    </a>
+			    <a class="tab-item" href="#">
+			    	<i class="icon ion-chatbox"></i>
+			    	Comment
+			    </a>
+			    <a class="tab-item" href="#">
+			      	<i class="icon ion-share"></i>
+			    	Share
+				</a>
+			</div> 
+		</div> -->
 		<button class="button button-block button-royal" ng-click="modal1.show()">Bid</button>
 	</ion-content>
 </ion-view>

@@ -5,8 +5,22 @@ angular.module('filters', [])
     var out = [];
     angular.forEach(tickets, function(ticket) {
       if (ticket.seller === user) {
-        out.push(ticket)
+        out.push(ticket);
       } 
+    });
+    return out;
+  }
+})
+
+.filter('userBids', function() {
+  return function(tickets, bids) {
+    var out = [];
+    angular.forEach(bids, function(bic) {
+      angular.forEach(tickets, function(ticket) {
+        if (bid == ticket.$id) {
+          out.push(ticket);
+        }
+      });
     });
     return out;
   }
