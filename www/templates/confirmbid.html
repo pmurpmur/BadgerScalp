@@ -1,6 +1,6 @@
 <ion-modal-view class="half">
 	<ion-header-bar class="bar bar-header bar-royal">
-		<h1 class="title">Confirm bid for {{ticket.event}}</h1>
+		<h1 class="title">Confirm bid for {{ticket.title}}</h1>
 		<!-- <button class="button button-clear button-primary" ng-click="closeModal(1)">Cancel</button> -->
 	</ion-header-bar>
 	<ion-content class="padding">
@@ -13,7 +13,11 @@
   				</label>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<button class="button button-block button-royal" ng-click="checkBid(bidValue)">Confirm</button>
+=======
+		<button class="button button-block button-royal" ng-click="checkBid(ticket.$id, bidding.val)">Confirm</button>
+>>>>>>> origin/development
 	</ion-content>
 
 </ion-modal-view>

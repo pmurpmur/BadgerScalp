@@ -14,7 +14,18 @@ angular.module('services.url', [])
     } 
 }])
 
+<<<<<<< HEAD
 .factory('BidsURL', ['$firebaseArray', 'FBDB',
+=======
+ .factory('ListingsOBJ', ['$firebaseArray', 'FBDB', function($firebaseArray, FBDB) {
+    return function(list) {
+        var FBRef = new Firebase(FBDB + 'listings/' + list);
+        return $firebaseArray(FBRef);
+    } 
+}])
+
+ .factory('BidsURL', ['$firebaseArray', 'FBDB',
+>>>>>>> origin/development
     function($firebaseArray, FBDB) {
         var FBRef = new Firebase(FBDB + 'bids');
         return $firebaseArray(FBRef);

@@ -13,7 +13,7 @@ angular.module('controllers.currentpost', [])
 			return (new Date(date)).toLocaleDateString();
 		}
 	}
-
+ 
 	$scope.toDateObj = function(dateStr) {
 		return new Date(dateStr);
 	}
