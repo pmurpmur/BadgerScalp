@@ -148,6 +148,15 @@ label.item.has-error {
 	display: none;
 }
 
+.edit_btn{
+	float: right;
+    display: inline;
+    min-height: 20px;
+    height: 30px;
+    line-height: 0;
+    margin-top: 5px;
+}
+
 
 
 
