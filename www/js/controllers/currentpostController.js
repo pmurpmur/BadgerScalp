@@ -14,4 +14,8 @@ angular.module('controllers.currentpost', [])
 		}
 	}
 
+	$scope.toDateObj = function(dateStr) {
+		return new Date(dateStr);
+	}
+
 });
