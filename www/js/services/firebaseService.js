@@ -25,14 +25,13 @@
         getUserName: function(){
             return UserStorage.getUserFirstName() + ' ' + UserStorage.getUserLastName();
         },
-        getUserName: function(user){
-            var first = User.getUserFirst(user);
-            var last = User.getUserLast(user);
-            console.log(first);
-            console.log(last);
-            return first + ' ' + last;
-        },
-<<<<<<< HEAD
+        // getUserName: function(user){
+        //     var first = User.getUserFirst(user);
+        //     var last = User.getUserLast(user);
+        //     console.log(first);
+        //     console.log(last);
+        //     return first + ' ' + last;
+        // },
         createBid: function (id, price) {
             var user = User.thisUser();
             Bid.addBid(user, price).then(function(ref) {
@@ -57,18 +56,6 @@
         },
         getUserImage: function (user) {
             // todo
-=======
-        createBid: function (bid) {
-            //var id = User.addBid();
-            var user = User.thisUser();  
-            Bid.createBid(user, bid).then(function(ref) {
-                Listing.addBid(ref.key());
-            });
-            //Bid.addBid(id, bidder, listing, price, date, time);
-        },
-        getAllBids: function () {
-            return Bid.getListing();
->>>>>>> origin/development
         },
         updateRating: function (user, rating) {
             User.updateRating(user, rating);

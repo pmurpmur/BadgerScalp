@@ -1,10 +1,6 @@
  angular.module('services.listing', [])
 
-<<<<<<< HEAD
 .factory('Listing', function (ListingsURL, ListingsOBJ) {
-=======
-.factory('Listing', function (ListingsURL, UsersURL) {
->>>>>>> origin/development
     return {
         getAllListings: function () {
             return ListingsURL;
@@ -35,22 +31,9 @@
                 updatedAt: Date()                          
             });
         },
-<<<<<<< HEAD
         addBid: function(listingId, bidId) {
             var data = ListingsOBJ(listingId + '/bids');
             data.$add(bidId);
-=======
-        addBid: function(id){
-            var user = UserStorage.getUserId();
-            var data = UsersOBJ(user + '/listings');
-            data.$add(id);
-        },
-        removeListing: function(id) {
-            ListingsURL.$ref().child(id).remove();
-        },
-        getBid: function (user) {
-
->>>>>>> origin/development
         },
         getBids: function(listingId) {
             return ListingsOBJ(listingId + '/bids');
