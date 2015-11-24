@@ -1,6 +1,6 @@
 angular.module('controllers.app', [])
 
-.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, DBManager, UserStorage) {
+.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, DBManager, UserStorage) {
 
   $scope.filtC = 'all';
   $scope.sorter = '-$id';
@@ -424,9 +424,14 @@ angular.module('controllers.app', [])
         if(res) {
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
-          Auth.removeUser(email, pass);
-          DBManager.deleteUser();
+          var userId = UserStorage.getUserId();
+
+          $location.path("/login"); 
+          $scope.toggleSetting();
+          $ionicSideMenuDelegate.toggleLeft();
+          //Auth.removeUser(email, pass);
           UserStorage.cleanUser();
+          DBManager.deleteUser(userId);
         }
       });
     };

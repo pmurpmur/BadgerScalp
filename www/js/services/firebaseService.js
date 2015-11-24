@@ -51,8 +51,9 @@
         getUserBids: function (listing) {
             // todo
         },
-        deleteUser: function () {
-            // and all its associated data. todo
+        deleteUser: function (userid) {
+            var fredRef = new Firebase('https://badgerscalp.firebaseio.com/users/' + userid);
+            fredRef.remove();
         },
         getUserImage: function (user) {
             // todo

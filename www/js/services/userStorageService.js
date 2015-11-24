@@ -40,6 +40,6 @@ angular.module('services.userStorage', [])
         },
         cleanUser: function () {
             return LocalStorage.remove(userKey);
-        }
+        } 
     };
 }]);
