@@ -270,7 +270,7 @@ angular.module('controllers.app', [])
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Error',
-                    template: 'Error woiii'
+                    template: 'Error'
                 });
             });
 
@@ -341,7 +341,7 @@ angular.module('controllers.app', [])
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Error',
-                    template: 'Error woiii'
+                    template: 'Error'
                 });
             });
 
