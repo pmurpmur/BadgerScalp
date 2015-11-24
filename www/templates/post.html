@@ -39,7 +39,6 @@
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.price.$invalid && postForm.$submitted }">
                         <span class="input-label">Price</span>
                         <input name="price" type="number" placeholder="Ticket Price" ng-model="eventPrice" min="0" required>
-                        <div ng-if="postForm.price.$valid && postForm.quantity.$valid && eventPrice != undefined && eventQuantity != undefined" class="floatingPrice" ng-model="floatingPrice">(${{eventQuantity * eventPrice}})</div>
                     </label>
                 </div>
             </div>

@@ -13,14 +13,10 @@ angular.module('badgerscalp', [
   'controllers.map',
   'controllers.currentbid',
   'controllers.currentpost',
-  'services.firebase',
-  'services.url',
+  'services.fire',
+  'services.data',
   'services.auth',
-  'services.bid',
-  'services.listing',
   'services.localStorage',
-  'services.userStorage',
-  'services.user',
   'services.utils'
 
   ])
@@ -135,8 +131,7 @@ angular.module('badgerscalp', [
         }
       },
       params: {
-        listingId: null,
-        ticket: null
+        listingId: null
       },
       resolve: authRequireResolve
     })
@@ -149,8 +144,7 @@ angular.module('badgerscalp', [
         }
       },
       params: {
-        listingId: null,
-        ticket: null
+        listingId: null
       },
       resolve: authRequireResolve
     })
