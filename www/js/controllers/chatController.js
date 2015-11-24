@@ -1,32 +1,31 @@
 angular.module('controllers.chat', [])
 
-.controller('ChatCtrl', function($scope,$cordovaPush) {
+.controller('ChatCtrl', function($scope,$cordovaLocalNotification,$ionicPlatform) {
+
+	$scope.noti = {};
+	$scope.noti.ntitle = "";
+	$scope.noti.ntext = "";
+
+	$scope.pushNoti = function(){
+
+		$ionicPlatform.ready(function() {
+			$cordovaLocalNotification.schedule({
+				id: 1,
+				title: $scope.noti.ntitle,
+				text: $scope.noti.ntext,
+				sound: null,
+				data: { customProperty: 'custom value' }
+			});
+		});
 
 
-	// $scope.pushNoti = function(){
+	}
 
-	// 	var push = PushNotification.init({ "android": {"senderID": "12345679"},
-	// 	         "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
-
-	// 	    push.on('registration', function(data) {
-	// 	        // data.registrationId
-	// 	    });
-
-	// 	    push.on('notification', function(data) {
-	// 	        // data.message,
-	// 	        // data.title,
-	// 	        // data.count,
-	// 	        // data.sound,
-	// 	        // data.image,
-	// 	        // data.additionalData
-	// 	    });
-
-	// 	    push.on('error', function(e) {
-	// 	        // e.message
-	// 	    });
+	$scope.clearNoti = function(){
+		$scope.noti.ntitle = "";
+		$scope.noti.ntext = "";		
+	}
 
 
-	// }
 
-	
 });
