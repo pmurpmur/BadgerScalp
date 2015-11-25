@@ -10,7 +10,7 @@
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
 			<ion-item class="item-thumbnail-left" 
-			collection-repeat="ticket in tickets | userBids:userId | orderBy:'-$id'" 
+			collection-repeat="ticket in tickets | userBids:bids | orderBy:'-$id'" 
 			item-width="device" 
 			item-height="100px"
 			ui-sref="app.bid({listingId:ticket.$id})">

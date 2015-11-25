@@ -13,12 +13,17 @@ angular.module('filters', [])
 })
 
 .filter('userBids', function() {
-  return function(bids, user) {
+  return function(tickets, bids) {
     var out = [];
     angular.forEach(bids, function(bid) {
-      if (bid.buyer === user && out.indexOf(bid.listing) == -1) {
-        out.push(bid.listing);
-      } 
+      angular.forEach(tickets, function(ticket) {
+        // if (bid.buyer === user && out.indexOf(bid.listing) == -1) {
+        //   out.push(bid.listing);
+        // } 
+        if (ticket.$id == bid.listing && out.indexOf(ticket) == -1) {
+          out.push(ticket);
+        }
+      });
     });
     return out;
   }
