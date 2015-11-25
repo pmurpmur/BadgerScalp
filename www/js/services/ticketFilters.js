@@ -17,10 +17,7 @@ angular.module('filters', [])
     var out = [];
     angular.forEach(bids, function(bid) {
       angular.forEach(tickets, function(ticket) {
-        // if (bid.buyer === user && out.indexOf(bid.listing) == -1) {
-        //   out.push(bid.listing);
-        // } 
-        if (ticket.$id == bid.listing && out.indexOf(ticket) == -1) {
+        if (ticket.$id == bid) {
           out.push(ticket);
         }
       });

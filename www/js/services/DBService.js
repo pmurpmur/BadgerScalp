@@ -58,6 +58,15 @@
         getBids: function() {
             return FB.$get('bids');
         },
+        getYourBids: function() {
+            return FB.$get('bids/' + UserStorage.thisUser());
+        },
+        getOneBid: function(id) {
+            return FB.$get('listings/' + id + '/bids/' + UserStorage.thisUser());
+        },
+        getListingBids: function(id) {
+            return FB.$get('listings/' + id + '/bids');
+        },
         getTicket: function(id) {
             var listing, seller, sData;
 

@@ -44,12 +44,8 @@
             fredRef.remove();
         },
         createBid: function(data) {
-            $firebaseArray(URL(B))
-            .$add(data)
-            .then(function(ref) {
-                $firebaseArray(URL(U + data.buyer + '/bids')).$add(ref.key());
-                $firebaseArray(URL(L + data.listing + '/bids')).$add(ref.key());
-            });
+            URL(B).child(data.buyer).child(data.listing).set(data);
+            URL(L + data.listing + '/bids').child(data.buyer).set(data.price);
         },
         updateBid: function(id, data) {
             URL(B + id).update(data);
@@ -58,7 +54,6 @@
             var user = URL(B + id + '/buyer');
             URL(B + id).remove(function() {
                 $firebaseArray(URL(U + user + '/bids')).$remove(id);
-                $firebaseArray(URL(L + user + '/bids')).$remove(id);
             });
         }
     };

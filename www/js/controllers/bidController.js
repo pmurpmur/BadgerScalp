@@ -16,12 +16,12 @@ angular.module('controllers.bid', [])
 
 	function getHighestBidder() {
 		var topBuyer = {};
-        DB.getBids().on('child_added', function(data) {
-        	var d = data.val();
-            if (d.listing == thisTicket && d.price > $scope.topPrice) {
-                $scope.topPrice = d.price;
+        DB.getListingBids(thisTicket).on('child_added', function(data) {
+        	var price = data.val();
+            if (price > $scope.topPrice) {
+                $scope.topPrice = price;
                  
-                DB.getUser(d.buyer)
+                DB.getUser(data.key())
 				.once('value', function(data) {
                 	$scope.topBuyer = data.val();
             	});

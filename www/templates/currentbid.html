@@ -16,12 +16,10 @@
 			ui-sref="app.bid({listingId:ticket.$id})">
 
 				<img src="../img/ticket.png">
+				<p style="float:right">{{localDate(ticket.date)}}</p>
 				<h2>{{ticket.title}}</h2>
-				<span style="float:right">${{ticket.price}}</span>
-				<p>{{ticket.type}}</p>
-				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
-				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
-				<p>{{localDate(ticket.date)}}</p>
+				<p>Asking Price: <b>${{ticket.price}}</b></p>
+				<p>Current Offer: <b>${{getYourBid(ticket.$id)}}</b></p>
 
 			</ion-item>
 		</ion-list>
