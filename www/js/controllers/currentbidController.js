@@ -1,14 +1,11 @@
 angular.module('controllers.currentbid', [])
 
-.controller('CurrentBidCtrl', function($scope, DBManager, UserStorage) {
+.controller('CurrentBidCtrl', function($scope, DB, UserStorage) {
 	$scope.device = window.screen.width;
 	
 
-	$scope.tickets = DBManager.getAllListings();
-	$scope.bids = DBManager.getAllBids();
-	$scope.userId = UserStorage.getUserId();
-
-	
-
+	$scope.tickets = DB.readTickets();
+	$scope.bids = DB.readBids();
+	$scope.userId = UserStorage.thisUser();
 
 });

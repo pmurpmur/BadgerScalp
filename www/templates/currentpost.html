@@ -9,7 +9,13 @@
 
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | filter: { seller: userId } | orderBy:'-$id'" item-width="device" item-height="100px">
+
+			<ion-item class="item-thumbnail-left" 
+			collection-repeat="ticket in tickets | thisUser:userId | orderBy:'-$id'" 
+			item-width="device" 
+			item-height="100px"
+			ui-sref="app.bid({listingId:ticket.$id})">
+
 				<img src="../img/ticket.png">
 				<span style="float:right">${{ticket.price}}</span>
 				<h2>{{ticket.title}}</h2>
