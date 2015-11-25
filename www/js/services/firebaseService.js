@@ -7,11 +7,6 @@
     var B = 'bids/';
 
     function URL(path) {
-<<<<<<< HEAD
-        var i = new Firebase(FBDB + path);
-        console.log(FBDB + path);
-=======
->>>>>>> aa2c0aa124109603d3ebb30253970d4361e0dba4
         return new Firebase(FBDB + path);
     };
 
@@ -33,11 +28,9 @@
             });
         },
         updateListing: function(id, data) {
-<<<<<<< HEAD
-            URL(L + id).update({price: data.price});
-=======
+
             URL(L + id).update(data);
->>>>>>> aa2c0aa124109603d3ebb30253970d4361e0dba4
+
         },
         deleteListing: function(id) {
             var user = URL(L + id + '/seller');

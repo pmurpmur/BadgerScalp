@@ -5,11 +5,7 @@ angular.module('controllers.currentpost', [])
 	
 	$scope.tickets = DB.readTickets();
 	$scope.userId = UserStorage.thisUser();
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> aa2c0aa124109603d3ebb30253970d4361e0dba4
 	$scope.localDate = function(date) {
 		if (date === undefined) {
 			return 'n/a';
@@ -61,10 +57,7 @@ angular.module('controllers.currentpost', [])
   }; editpostInitalize();
 
   $scope.EditPostModal = function(id, title, price, type, quantity, date, details){
-<<<<<<< HEAD
     $scope.eventId = id;
-=======
->>>>>>> aa2c0aa124109603d3ebb30253970d4361e0dba4
     $scope.eventTitle = title;
     $scope.eventPrice = price;
     $scope.eventType = type;
