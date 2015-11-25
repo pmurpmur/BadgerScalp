@@ -284,3 +284,9 @@ label.item.has-error {
 }
 
 /*** END FAB VIEW ***/
+
+/*** Current Bid ***/
+.bid_refine{
+	padding-left: 0px;
+	padding-top: 0px;
+}

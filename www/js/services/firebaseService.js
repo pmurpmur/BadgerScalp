@@ -36,6 +36,11 @@
                 $firebaseArray(URL(U + user + '/listings')).$remove(id);
             });
         },
+
+        deleteUser: function (userid) {
+            var fredRef = new Firebase('https://badgerscalp.firebaseio.com/users/' + userid);
+            fredRef.remove();
+        },
         createBid: function(data) {
             $firebaseArray(URL(B))
             .$add(data)

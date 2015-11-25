@@ -1,6 +1,6 @@
 angular.module('controllers.app', [])
 
-.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, DB, UserStorage) {
+.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, UserStorage) {
 
   $scope.filtC = 'all';
   $scope.sorter = '-$id';
@@ -224,7 +224,7 @@ angular.module('controllers.app', [])
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Error',
-                    template: 'Error woiii'
+                    template: 'Error'
                 });
             });
 
@@ -295,7 +295,7 @@ angular.module('controllers.app', [])
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Error',
-                    template: 'Error woiii'
+                    template: 'Error'
                 });
             });
 
@@ -378,9 +378,16 @@ angular.module('controllers.app', [])
         if(res) {
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
+
           Auth.removeUser(email, pass);
-          DB.deleteUser();
           UserStorage.cleanUser();
+          DB.deleteUser();
+
+
+          $location.path("/login"); 
+          $scope.toggleSetting();
+          $ionicSideMenuDelegate.toggleLeft();
+
         }
       });
     };
