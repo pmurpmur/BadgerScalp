@@ -175,28 +175,34 @@ label.item.has-error {
 }
 
 /* Star Rating */
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
+
+form p,
+form input[type="submit"] {
   text-align: center;
-  font-size: 55px;
-  xpadding-top: 25px;
+  font-size: 20px;
 }
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
+
+input[type="radio"] {
+  display: none;
+  font-size: 25px;
 }
-.rating > span:hover,
-.rating > span:hover ~ span {
-  color: transparent;
+
+label {
+  color: grey;
 }
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-   left: 0; 
-   color: gold;
+
+.clasification {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+label:hover,
+label:hover ~ label {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
 }
 
 
