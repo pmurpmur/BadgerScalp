@@ -15,9 +15,9 @@ angular.module('filters', [])
 .filter('userBids', function() {
   return function(tickets, bids) {
     var out = [];
-    angular.forEach(bids, function(bic) {
+    angular.forEach(bids, function(bid) {
       angular.forEach(tickets, function(ticket) {
-        if (bid == ticket.$id) {
+        if (ticket.$id == bid) {
           out.push(ticket);
         }
       });
@@ -32,14 +32,14 @@ angular.module('filters', [])
     var yesterday = new Date(today.setDate(today.getDate() - 1));
     
     var out = [];
-    // angular.forEach(tickets, function(ticket) {
-    //   if ((new Date(ticket.date)) > yesterday) {
-    //     out.push(ticket);
-    //   }
-    // });
-    // tickets = out;
+    angular.forEach(tickets, function(ticket) {
+      if ((new Date(ticket.date)) > yesterday) {
+        out.push(ticket);
+      }
+    });
+    tickets = out;
 
-    // out = [];
+    out = [];
     if (category != 'all') {
       angular.forEach(tickets, function(ticket) {
         if (ticket.type.toLowerCase() == category) {

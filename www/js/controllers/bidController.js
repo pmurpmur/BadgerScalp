@@ -1,8 +1,33 @@
 angular.module('controllers.bid', [])
 
-.controller('BidCtrl', function($stateParams,$ionicModal, $scope,$ionicPopup,DBManager,UserStorage,Utils) {
+.controller('BidCtrl', function($stateParams,$ionicModal,$ionicActionSheet,$scope,$ionicPopup,DB,UserStorage,Utils) {
 	angular.element(document.querySelector('.bs-fab')).addClass('fab-hide');
 
+	var thisTicket = $stateParams.listingId;
+	$scope.thisUser = UserStorage.thisUser();
+
+	var view = DB.getTicket(thisTicket);
+	$scope.ticket = view.listing;
+	$scope.seller = view.seller;
+
+	$scope.topPrice = -1;
+	getHighestBidder();
+
+
+	function getHighestBidder() {
+		var topBuyer = {};
+        DB.getListingBids(thisTicket).on('child_added', function(data) {
+        	var price = data.val();
+            if (price > $scope.topPrice) {
+                $scope.topPrice = price;
+                 
+                DB.getUser(data.key())
+				.once('value', function(data) {
+                	$scope.topBuyer = data.val();
+            	});
+            }
+    	});
+	};
 
 
 	$scope.localDate = function(date) {
@@ -14,20 +39,16 @@ angular.module('controllers.bid', [])
 		}
 	}
 
-	$scope.initt = function(){
-		$scope.ticket = $stateParams.ticket;
-		$scope.bidding = {};
-	}
-	$scope.initt();
-
 	$ionicModal.fromTemplateUrl('templates/confirmbid.html', {
 		id: '1',
 		scope: $scope,
-		backdropClickToClose: false,
+		backdropClickToClose: true,
 		animation: 'slide-in-up'
 	}).then(function(modal){
 		$scope.modal1 = modal;
 	});
+
+
 
 	/*Check if the bidding price is lower than the original price
 	Stored in $scope.bidding.val
@@ -40,32 +61,39 @@ angular.module('controllers.bid', [])
 			});
 		}
 		else {
-			DBManager.createBid($scope.ticket.$id, bidValue);
-			$scope.getHighestBidder();
+			DB.createBid({price:bidValue, listing:thisTicket});
+			getHighestBidder();
 			$scope.modal1.hide();
 		}
 	}
 
 	$scope.getProfilePicture = function() {
-    	return UserStorage.getProfilePicture();
+    	var defaultImg = 'img/default_profile.jpg';
+
+        var user = $scope.seller;
+        if (user !== null) {
+            var img = user.profImg;
+            var imgUrl = user.imgUrl;
+
+            if (img !== undefined) { return img; } 
+            else if (imgUrl !== undefined) { return imgUrl; }
+            else { return defaultImg; }
+        }
+        return defaultImg;
   	};
 
-  	$scope.getHighestBidder = function() {		
-  		var all = DBManager.getAllBids();
-
-  		var topPrice = -1;
-  		var topBid = {};
-
-  			angular.forEach(all, function(item) {
-  				var bid = DBManager.getListingBid($scope.ticket.$id, item.$id)
-		        if (bid !== undefined && item.price > topPrice) {
-		        	topPrice = item.price;
-		        	topBid = item;
-		        }
-	    });
-
-  		$scope.bidderPrice = topPrice;
-  		$scope.bidderName = DBManager.getUserName(topBid.buyer);
-  	}; $scope.getHighestBidder();
+  	$scope.confirmSale = function() {
+		var hideSheet = $ionicActionSheet.show({
+	     destructiveText: 'Accept Offer For $' + $scope.topPrice,
+	     titleText: 'Are you sure?',
+	     cancelText: 'Cancel',
+	     cancel: function() {
+	     	hideSheet();
+	     },
+	     destructiveButtonClicked: function() {
+	       return true;
+	     }
+	   });
+	};
 
 });

@@ -1,25 +1,5 @@
 <ion-view title="Buy Ticket">
 	<ion-content class="has-header padding">
-<!-- 		<div class="card">
-			<div class="item item-divider">
-				{{ticket.title}}
-				<span style="float:right">${{ticket.price}} (${{ticket.price * ticket.quantity}})</span>
-			</div>
-			<div class="item item-thumbnail-left">
-				<img src="../img/ticket.png">
-				<p><b>Category:</b> {{ticket.type}}</p>
-				<p><b>Quantity:</b> {{ticket.quantity}} tickets available</p>
-				<p><b>Date:</b> {{localDate(ticket.date)}}</p>
-			</div>
-			<div class="item item-divider">
-				Ticket Information
-			</div>
-			<div class="item item-text-wrap">
-				<h2><b>Seller:</b> {{ticket.seller}}</h2>
-				<h2><b>Details:</b> {{ticket.details}}</h2>
-				<br><br><br><br>
-			</div>
-		</div> -->
 
 		<div class="card">
 
@@ -30,50 +10,30 @@
 		  	</div>
 		  	<div class="item item-thumbnail-left">
 				<img src="../img/ticket.png">
-				<p><b>Category:</b> {{ticket.type}}</p>
-				<p><b>Price:</b> ${{ticket.price}}</p>
-				<p ng-if="ticket.quantity > 1"><b>Quantity:</b> {{ticket.quantity}} tickets</p>
-				<p ng-if="ticket.quantity == 1"><b>Quantity:</b> {{ticket.quantity}} ticket</p>
+				<p>{{seller.firstName}} {{seller.lastName}} is selling</p>
+				<p ng-if="ticket.quantity > 1"><b>{{ticket.quantity}}</b> tickets for <b>${{ticket.price}}</b></p>
+				<p ng-if="ticket.quantity == 1"><b>{{ticket.quantity}}</b> ticket for <b>${{ticket.price}}</b></p>
 			</div>
 			<div class="item item-divider">
-				Ticket Information
+				Details
 			</div>
 			<div class="item item-text-wrap">
 				<h2>{{ticket.details}}</h2>
-				<br><br><br><br>
-				<p ng-if="bidderPrice > 0">Highest Bid: {{bidderName}} for ${{bidderPrice}}</p>
+				<br><br>
+				<div ng-if="topPrice > 0" class="item item-avatar">
+					<img ng-src="{{topBuyer.imgUrl}}">
+					<h2>{{topBuyer.firstName}} {{topBuyer.lastName}}</h2>
+		    		<p>Highest Bid: ${{topPrice}}</p>
+				</div>
 			</div>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> development
 		</div>
 
-<!-- 		<div class="card">
-			<div class="item item-avatar">
-			    <img ng-src="{{getProfilePicture()}}">
-			    <h2>{{ticket.title}}</h2>
-			    <p>{{localDate(ticket.date)}}</p>
-			</div>
-
-	 		<div class="item item-body">
-			    <img class="full-image" src="../img/ticket.png">
-			    <p>{{ticket.details}}</p>
-			</div>
-
-			<div class="item tabs tabs-secondary tabs-icon-left">
-			    <a class="tab-item" href="#">
-			      	<i class="icon ion-thumbsup"></i>
-			    	Like
-			    </a>
-			    <a class="tab-item" href="#">
-			    	<i class="icon ion-chatbox"></i>
-			    	Comment
-			    </a>
-			    <a class="tab-item" href="#">
-			      	<i class="icon ion-share"></i>
-			    	Share
-				</a>
-			</div> 
-		</div> -->
-		<button class="button button-block button-royal" ng-click="modal1.show()">Bid</button>
+		<button ng-if="thisUser != ticket.seller" class="button button-block button-royal" ng-click="modal1.show()">BID</button>
+		<button ng-if="thisUser == ticket.seller" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
 	</ion-content>
 </ion-view>

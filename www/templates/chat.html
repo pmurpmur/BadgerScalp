@@ -5,9 +5,26 @@
     </ion-nav-buttons>
 
     <ion-nav-buttons side="right">
+       <button class="button button-icon icon ion-ios-search" ng-click="searchModal.show()"></button>
     </ion-nav-buttons>
 
 	<ion-content>
-		<div>Chat Dude</div>
+		<div class="card">
+			<div class="item item-divider">[Temporary] Local Push Notification</div>
+			<div class="item item-text-wrap">
+				<label class="item item-input" >
+					<input type="text" placeholder="Title" ng-model="noti.ntitle">
+				</label>
+				<label class="item item-input" >
+					<input type="text" ng-model="noti.ntext" placeholder="Text">
+				</label>
+				<button class="button button-block button-calm" ng-click="pushNoti()">Push Notification</button> 
+				<button class="button button-block button-calm" ng-click="clearNoti()">Clear</button> 
+			</div>
+			<div class="item item-text-wrap">
+				<h2 style="word-wrap:break-word; white-space:normal">Work on mobile device only. For android, connect mobile device to PC then type "ionic run android" in the command line.</h2>
+			</div>
+		</div>
+		
 	</ion-content>
 </ion-view>

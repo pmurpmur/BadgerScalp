@@ -7,6 +7,13 @@ angular.module('services.auth', [])
     }
 ])
 
+.factory('UsersURL', ['$firebaseArray', 'FBDB',
+    function($firebaseArray, FBDB) {
+        var FBRef = new Firebase(FBDB + 'users/');
+        return $firebaseArray(FBRef);
+    }
+])
+
 .factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, UserStorage, Utils, $timeout) {
     Auth.$onAuth(function(authData) {
         if (authData) {

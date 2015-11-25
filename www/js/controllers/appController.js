@@ -1,11 +1,12 @@
 angular.module('controllers.app', [])
-
-.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet, Auth, DBManager, UserStorage) {
+.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet,DB, Auth, UserStorage) {
 
   $scope.filtC = 'all';
   $scope.sorter = '-$id';
 
-  $scope.username = DBManager.getUserName();
+  var full = UserStorage.getFullName();
+  $scope.username = full.first + ' ' + full.last;
+
   $scope.recent = {};
 
   var lastPos = 0;
@@ -43,16 +44,16 @@ angular.module('controllers.app', [])
   $scope.yesterday = (new Date(today.setDate(today.getDate() - 1))).toISOString().substring(0, 10);
   $scope.oneYear = (new Date(today.setYear(today.getFullYear() + 1))).toISOString().substring(0, 10);
 
-	(function postModalInitalize() {
+	function postModalInitalize() {
 		$ionicModal.fromTemplateUrl('templates/post.html', {
 		    scope: $scope
 		}).then(function(modal) {
 		    $scope.postModal = modal;
 		});
-	})();
+	}; postModalInitalize();
 
   $scope.postSale = function(title, date, price, quantity, type, details) {
-    DBManager.createListing({
+    DB.createListing({
       title: title,
       date: date.toString(),
       price: price,
@@ -98,55 +99,7 @@ angular.module('controllers.app', [])
         $scope.modal.hide();
     }
 
-  /** POST EDIT MODAL **/
-	
-  function editpostInitalize() {
-    $ionicModal.fromTemplateUrl('templates/editpost.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $scope.modal_editpost = modal;     
-    });
-  }; editpostInitalize();
 
-  $scope.EditPostModal = function(id, title, price, type, quantity, date, detail){
-    $scope.id = id;
-    $scope.title = title;
-    $scope.price = price;
-    $scope.type = type;
-    $scope.quantity = quantity;
-    $scope.details = detail;
-    $scope.date = date;
-    $scope.modal_editpost.show();
-  }
-
-  $scope.close_editpost = function() {
-        $scope.ticketPic = "";
-        if($scope.picture_post !== undefined)$scope.picture_post = undefined;
-        $scope.modal_editpost.hide();
-    }
-
-  $scope.updatePost = function(id, title, date, price, quantity, type, details) {
-    console.log(details)
-    DBManager.updateListing({
-      id: id,
-      title: title,
-      date: date.toString(),
-      price: price,
-      quantity: quantity,
-      type: type,
-      details: ((details === undefined) ? '' : details),
-      image: $scope.ticketPic
-    });
-
-    $scope.modal_editpost.hide();
-    editpostInitalize();
-  };
-
-    $scope.removePost = function(id) {
-    DBManager.removeListing(id);
-    $scope.modal_editpost.hide();
-    editpostInitalize();
-  };
  
 
   /** LEFT SLIDER **/
@@ -270,7 +223,7 @@ angular.module('controllers.app', [])
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Error',
-                    template: 'Error woiii'
+                    template: 'Error'
                 });
             });
 
@@ -341,7 +294,7 @@ angular.module('controllers.app', [])
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Error',
-                    template: 'Error woiii'
+                    template: 'Error'
                 });
             });
 
@@ -424,9 +377,16 @@ angular.module('controllers.app', [])
         if(res) {
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
+
           Auth.removeUser(email, pass);
-          DBManager.deleteUser();
           UserStorage.cleanUser();
+          DB.deleteUser();
+
+
+          $location.path("/login"); 
+          $scope.toggleSetting();
+          $ionicSideMenuDelegate.toggleLeft();
+
         }
       });
     };
