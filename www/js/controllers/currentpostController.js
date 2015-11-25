@@ -43,6 +43,7 @@ angular.module('controllers.currentpost', [])
           case 5: $scope.eventType = 'Music'; break;
           case 6: $scope.eventType = 'Other'; break;
         }
+        $scope.$apply();
         hideSheet();
       }
     });

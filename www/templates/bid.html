@@ -20,7 +20,7 @@
 			<div class="item item-text-wrap">
 				<h2>{{ticket.details}}</h2>
 				<br><br>
-				<div ng-if="topPrice > 0" class="item item-avatar">
+				<div ng-if="topPrice > 0" class="top-bidder item item-avatar">
 					<img ng-src="{{topBuyer.imgUrl}}">
 					<h2>{{topBuyer.firstName}} {{topBuyer.lastName}}</h2>
 		    		<p>Highest Bid: ${{topPrice}}</p>
@@ -30,6 +30,6 @@
 		</div>
 
 		<button ng-if="thisUser != ticket.seller" class="button button-block button-royal" ng-click="modal1.show()">BID</button>
-		<button ng-if="thisUser == ticket.seller" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
+		<button ng-if="thisUser == ticket.seller" ng-disabled="topPrice < 0" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
 	</ion-content>
 </ion-view>

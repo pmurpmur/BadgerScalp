@@ -49,15 +49,31 @@ angular.module('controllers.bid', [])
 	});
 
 
+	function getYourBid() {
+		var result = 0;
+		DB.getOneBid(thisTicket).once('value', function(data) {
+			result = data.val();
+		});
+		return result;
+	};
+
+
 
 	/*Check if the bidding price is lower than the original price
 	Stored in $scope.bidding.val
 	*/
 	$scope.checkBid = function(bidValue){
+		var prev = getYourBid();
 		if(bidValue > $scope.ticket.price){
 			var alertPopup = $ionicPopup.alert({
-				title: 'Error',
-				template: 'Your bid must be lower than the original price ($' + $scope.ticket.price.toString() + ')'
+				title: 'Sorry!',
+				template: 'You must bid lower than the asking price ($' + $scope.ticket.price.toString() + ')'
+			});
+		}
+		else if(bidValue <= prev) {
+			var alertPopup = $ionicPopup.alert({
+				title: 'Sorry!',
+				template: 'You must bid higher than your previous bid ($' + prev + ')'
 			});
 		}
 		else {

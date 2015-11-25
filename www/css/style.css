@@ -296,3 +296,15 @@ input[type="radio"]:checked ~ label {
 	padding-left: 0px;
 	padding-top: 0px;
 }
+
+ion-option-button {
+	width: 70px;
+}
+
+ion-option-button .icon{
+	margin-left: 13px;
+}
+
+.top-bidder {
+	border-top: 0;
+}
