@@ -1,14 +1,29 @@
-<ion-view title="Current Post">
+<ion-view title="Current Post" hide-back-button="true">
+	
+	<ion-nav-buttons side="left">
+       <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
-				ui-sref="app.tabs.bid({listingId:ticket.$id, ticket:ticket})">
+
+			<ion-item class="item-thumbnail-left" 
+			collection-repeat="ticket in tickets | thisUser:userId | orderBy:'-$id'" 
+			item-width="device" 
+			item-height="100px"
+			ui-sref="app.bid({listingId:ticket.$id})">
+
 				<img src="../img/ticket.png">
-				<h2>{{ticket.event}}</h2>
-				<span style="float:right">${{ticket.price}}</span><br>
-				<button style="float:right; display:block">edit</button>
+				<span style="float:right">${{ticket.price}}</span>
+				<h2>{{ticket.title}}</h2>
 				<p>{{ticket.type}}</p>
-				<p>{{ticket.date}}{{ticket.time}}</p>
+				<button class="button button-royal edit_btn" ng-click="EditPostModal(ticket.$id, ticket.title,ticket.price,ticket.type,ticket.quantity,toDateObj(ticket.date),ticket.details)">Edit</button>
+				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
+				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
+				<p>{{localDate(ticket.date)}}</p>
 			</ion-item>
 		</ion-list>
 	</ion-content>

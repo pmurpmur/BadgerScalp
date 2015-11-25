@@ -1,6 +1,6 @@
 <ion-modal-view class="half">
 	<ion-header-bar class="bar bar-header bar-royal">
-		<h1 class="title">Confirm bid for {{ticket.event}}</h1>
+		<h1 class="title">Confirm Bid</h1>
 		<!-- <button class="button button-clear button-primary" ng-click="closeModal(1)">Cancel</button> -->
 	</ion-header-bar>
 	<ion-content class="padding">
@@ -9,11 +9,11 @@
 			<div class="item item-text-wrap">
 				<label class="item item-input item-stacked-label">
     				<span class="input-label">Price</span>
-   				 	<input type="number" ng-model="bidding.val">
+   				 	<input type="number" ng-model="bidValue">
   				</label>
 			</div>
 		</div>
-		<button class="button button-block button-royal" ng-click="checkBid()">Confirm</button>
+		<button class="button button-block button-royal" ng-click="checkBid(bidValue)">Confirm</button>
 	</ion-content>
 
 </ion-modal-view>

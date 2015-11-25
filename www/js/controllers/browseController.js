@@ -1,13 +1,17 @@
 angular.module('controllers.browse', [])
 
-.controller('BrowseCtrl', function($scope, DBManager) {
+.controller('BrowseCtrl', function($scope, $ionicScrollDelegate, DB) {
+	angular.element(document.querySelector('.bs-fab')).removeClass('fab-hide');
 	$scope.device = window.screen.width;
 	
-	$scope.tickets = DBManager.getAllListings();
+	$scope.tickets = DB.readTickets();
 
-	console.log($scope.tickets);
-
-	$scope.scroll = function() {
-		console.log('is scrolling');
-	};
+	$scope.localDate = function(date) {
+		if (date === undefined) {
+			return 'n/a';
+		} else {
+			return (new Date(date)).toLocaleDateString();
+		}
+	}
+	
 });

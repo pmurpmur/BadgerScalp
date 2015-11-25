@@ -4,25 +4,19 @@ angular.module('badgerscalp', [
   'firebase',
   'ngMessages',
   'ngCordova',
+  'filters',
   'controllers.app',
   'controllers.auth',
   'controllers.bid',
   'controllers.browse',
   'controllers.chat',
   'controllers.map',
-  'controllers.post',
   'controllers.currentbid',
   'controllers.currentpost',
-  'services.firebase',
-  'services.url',
+  'services.fire',
+  'services.data',
   'services.auth',
-  'services.bid',
-  'services.event',
-  'services.listing',
   'services.localStorage',
-  'services.userStorage',
-  'services.user',
-  'services.user',
   'services.utils'
 
   ])
@@ -137,32 +131,43 @@ angular.module('badgerscalp', [
         }
       },
       params: {
-        listingId: null,
-        ticket: null
+        listingId: null
       },
       resolve: authRequireResolve
     })
-    .state('app.tabs.currentbid', {
+    .state('app.bid', {
+      url: '/bid/:listingId',
+      views: {
+        'menucontent': {
+          templateUrl: 'templates/bid.html',
+          controller: 'BidCtrl'
+        }
+      },
+      params: {
+        listingId: null
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.currentbid', {
       url: '/currentbid',
       views: {
-        'browse': {
+        'menucontent': {
           templateUrl: 'templates/currentbid.html',
           controller: 'CurrentBidCtrl'
         }
       },
       resolve: authRequireResolve
     })
-    .state('app.tabs.currentpost', {
+    .state('app.currentpost', {
       url: '/currentpost',
       views: {
-        'browse': {
+        'menucontent': {
           templateUrl: 'templates/currentpost.html',
           controller: 'CurrentPostCtrl'
         }
       },
       resolve: authRequireResolve
     })
-    
 
     $urlRouterProvider.otherwise('/login');
 })

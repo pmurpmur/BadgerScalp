@@ -7,6 +7,13 @@ angular.module('services.auth', [])
     }
 ])
 
+.factory('UsersURL', ['$firebaseArray', 'FBDB',
+    function($firebaseArray, FBDB) {
+        var FBRef = new Firebase(FBDB + 'users/');
+        return $firebaseArray(FBRef);
+    }
+])
+
 .factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, UserStorage, Utils, $timeout) {
     Auth.$onAuth(function(authData) {
         if (authData) {
@@ -41,11 +48,13 @@ angular.module('services.auth', [])
                             var gl = authData.google.cachedUserProfile;
                             firstName = gl.given_name;
                             lastName = gl.family_name;
+                            imgUrl = gl.picture;
                             break;
                         case 'facebook':
                             var fb = authData.facebook.cachedUserProfile;
                             firstName = fb.first_name;
                             lastName = fb.last_name;
+                            imgUrl = fb.picture.data.url;
                             break;
                     }
 
@@ -53,7 +62,8 @@ angular.module('services.auth', [])
                         firstName: firstName,
                         lastName: lastName,
                         rating: 5.0,
-                        numReviews: 0
+                        numReviews: 0,
+                        imgUrl: imgUrl
                     });
                 }
                 UserStorage.setUser(UsersURL.$getRecord(authData.uid));
@@ -70,7 +80,9 @@ angular.module('services.auth', [])
                     firstName: firstName,
                     lastName: lastName,
                     rating: 5.0,
-                    numReviews: 0
+                    numReviews: 0,
+                    email: email,
+                    password: password
                 });
                 UserStorage.setUser(UsersURL.$getRecord(authData.uid));
             }).then(function(userData) {

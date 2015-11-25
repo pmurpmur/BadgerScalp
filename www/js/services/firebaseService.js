@@ -1,33 +1,60 @@
- angular.module('services.firebase', [])
+ angular.module('services.fire', [])
 
-.factory('DBManager', function (User, Listing, Bid, UserStorage) {
+.factory('FB', ['FBDB', '$firebaseArray', function (FBDB, $firebaseArray) {
+
+    var U = 'users/';
+    var L = 'listings/';
+    var B = 'bids/';
+
+    function URL(path) {
+        return new Firebase(FBDB + path);
+    };
+
     return {
-        createListing: function (post) {
-            var user = User.thisUser();
-            Listing.addListing(user, post).then(function(ref) {
-                User.addListing(ref.key());
+        $read: function(path) {
+            return $firebaseArray(new Firebase(FBDB + path));
+        },
+        $get: function(path) {
+            return new Firebase(FBDB + path);
+        },
+        updateUser: function(id, data) {
+            URL(U + id).update(data);
+        },
+        createListing: function(data) {
+            $firebaseArray(URL(L))
+            .$add(data)
+            .then(function(ref) {
+                $firebaseArray(URL(U + data.seller + '/listings')).$add(ref.key());
             });
         },
-        updateListing: function (id, listing) {
-            User.removeListing(id);
-            Listing.removeListing(id);
+        updateListing: function(id, data) {
+
+            URL(L + id).update(data);
+
         },
-        getAllListings: function () {
-            return Listing.getAllListings();
+        deleteListing: function(id) {
+            var user = URL(L + id + '/seller');
+            URL(L + id).remove(function() {
+                $firebaseArray(URL(U + user + '/listings')).$remove(id);
+            });
         },
-        getUserName: function(){
-            return UserStorage.getUserFirstName();
+
+        deleteUser: function (userid) {
+            var fredRef = new Firebase('https://badgerscalp.firebaseio.com/users/' + userid);
+            fredRef.remove();
         },
-        deleteListing: function (id) {
-            User.removeListing(id);
-            Listing.removeListing(id);
+        createBid: function(data) {
+            URL(B).child(data.buyer).child(data.listing).set(data);
+            URL(L + data.listing + '/bids').child(data.buyer).set(data.price);
         },
-        createBid: function (bidder, listing, price, date, time) {
-            var id = User.addBid();
-            Bid.addBid(id, bidder, listing, price, date, time);
+        updateBid: function(id, data) {
+            URL(B + id).update(data);
         },
-        updateRating: function (user, rating) {
-            User.updateRating(user, rating);
+        deleteBid: function(id) {
+            var user = URL(B + id + '/buyer');
+            URL(B + id).remove(function() {
+                $firebaseArray(URL(U + user + '/bids')).$remove(id);
+            });
         }
     };
-});
+}]);

@@ -1,13 +1,26 @@
-<ion-view title="BadgerScalp">
-	<ion-content class="has-header" scroll="true">
+<ion-view title="BadgerScalp" hide-back-button="true">
+	<ion-nav-buttons side="left">
+       <button id="menuButton "menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+       <button class="button button-icon icon ion-ios-search" ng-click="searchModal.show()"></button>
+    </ion-nav-buttons>
+	<ion-content delegate-handle="browse-scroll" class="has-header" scroll="true" on-scroll="fabControl($event)">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" collection-repeat="ticket in tickets | orderBy:'-$id'" item-width="device" item-height="100px" 
-				ui-sref="app.tabs.bid({listingId:ticket.$id, ticket:ticket})">
+			<ion-item class="item-thumbnail-left" 
+				collection-repeat="ticket in tickets | ticketFilter:filtQ:filtC:filtD:filtMinP:filtMaxP | orderBy:sorter"
+				item-width="device" 
+				item-height="100px" 
+				ui-sref="app.tabs.bid({listingId:ticket.$id})">
+
 				<img src="../img/ticket.png">
-				<h2>{{ticket.event}}</h2>
 				<span style="float:right">${{ticket.price}}</span>
+				<h2>{{ticket.title}}</h2>
 				<p>{{ticket.type}}</p>
-				<p>{{ticket.date}}{{ticket.time}}</p>
+				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
+				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
+				<p>{{localDate(ticket.date)}}</p>
 			</ion-item>
 		</ion-list>
 	</ion-content>

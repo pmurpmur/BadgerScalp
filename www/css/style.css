@@ -1,20 +1,47 @@
+ion-content.has-header {
+	background-color: #f8f8f8;
+}
+
+textarea {
+	height: 61px;
+	max-height: 61px;
+	background-color: #f8f8f8;
+}
+
+input.button-assertive,
+input.button-positive {
+	font-weight: 500;
+}
+
+.title.header-item {
+	font-family: 'Nunito', sans-serif;
+}
+
+.header-hover {
+	height: 5px;
+	width: 100%;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0) 100%);
+	z-index: 10;
+	position: fixed;
+}
+
+.post-hover {
+	top: 44px;
+}
+
+.action-sheet .button {
+	color: black;
+}
+
+.item.item-avatar {
+	background-color: #f5f5f5;
+}
+
 /*** AUTHORIZATION VIEW ***/
 
 #authView {
-/*	background: url("../img/randall.jpg");
-	background-repeat: no-repeat;
-	background-color: #000; */
 	padding: 10px;
-
-/*	background-position-x: -390px;
-	transition: background-position-x 1.5s ease-in-out, background-position-y 1.5s ease-in-out;*/
 }
-
-/*#authView.bgAnimate {
-	background-position-x: -790px;
-	background-position-y: -80px;
-}*/
-
 
 /* Auth Header */
 .login-title {
@@ -74,10 +101,15 @@ label.item.has-error {
 
 /* Account Setting */
 
+#user_profile{
+	width: 90%;
+    margin: auto;
+	margin-top: 10% !important;
+}
+
 #user_profile img{
-	width: 30%;
-	margin-top: 10%;
-	margin-left: 10%;
+	width: 50%;
+
 }
 
 #user_profile .user_name{
@@ -96,7 +128,7 @@ label.item.has-error {
 
 .setting_block_item{
 	color: blue;
-	margin-left: 20px;
+	margin-left: 40px;
 	padding-top: 25px;
 }
 
@@ -117,12 +149,26 @@ label.item.has-error {
 	display: none;
 }
 
+.edit_btn{
+	float: right;
+    display: inline;
+    min-height: 20px;
+    height: 30px;
+    line-height: 0;
+    margin-top: 5px;
+}
+
+
+
+
+
+
 /* Modal */
 .modal.half {
   bottom: 0;  
   min-height: initial;
   top: initial;
-  height: 60%;
+  height: 69%;
   border-width: 1px;
   border-style: solid;
 
@@ -159,10 +205,94 @@ input[type="radio"]:checked ~ label {
   color: orange;
 }
 
-<<<<<<< HEAD
-=======
+
+/*** POST VIEW ***/
+
+.photoThumb {
+	max-width: 100px;
+	height: 100px;
+	background-color: rgba(0,0,0,0.1);
+	margin: 5px;
+}
+
+.photoThumb .icon {
+	font-size: 48px;
+	opacity: 0.8;
+	position: relative;
+	top: 20px;
+	left: 29%;
+}
+
+.floatingPrice {
+	position: absolute;
+	right: 10px;
+	bottom: 11px;
+	font-size: 14px;
+}
+
+/*** END POST VIEW ***/
 
 
+/*** SEARCH VIEW ***/
 
-/*body { padding: 100px; }*/
->>>>>>> ec035db2314283f1da298e1981d1bd1563ee72d7
+.bar-footer {
+	padding: 0;
+	bottom: -1px;
+}
+
+.bar-footer .button-bar > .button {
+	line-height: 42px;
+}
+
+.bar-footer .button-bar .icon::before {
+	font-size: 40px;
+	line-height: 36px;
+	margin-right: 5px;
+}
+
+.item-radio .item-content {
+	padding-left: 56px;
+}
+
+/*** END SEARCH VIEW ***/
+
+
+/*** FAB VIEW ***/
+
+.bs-fab {
+	position: fixed;
+	bottom: 15px;
+	right: 20px;
+	margin: 0;
+	z-index: 100;
+	transition: bottom 0.3s ease-in-out;
+}
+
+.bs-fab img {
+	max-height: 75px;
+	max-width: 75px;
+	border-radius: 50%;
+	box-shadow: 0 4px 14px gray;
+	background-color: #886aea;
+	transition: box-shadow 0.2s;
+}
+
+.bs-fab.activated img {
+	box-shadow: 0 1px 1px gray;
+}
+
+.bs-fab.fab-hide {
+	bottom: -100px;
+}
+
+.right-buttons .icon.ion-ios-search::before {
+	font-size: 25px;
+}
+
+/*** END FAB VIEW ***/
+
+/*** Current Bid ***/
+.bid_refine{
+	padding-left: 0px;
+	padding-top: 0px;
+}
