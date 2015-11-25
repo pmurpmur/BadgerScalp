@@ -1,5 +1,4 @@
 angular.module('controllers.app', [])
- 
 .controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet,DB, Auth, UserStorage) {
 
   $scope.filtC = 'all';
