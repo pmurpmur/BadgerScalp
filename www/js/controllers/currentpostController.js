@@ -1,6 +1,6 @@
 angular.module('controllers.currentpost', [])
 
-.controller('CurrentPostCtrl', function($scope,$ionicModal,$ionicActionSheet,$stateParams, UserStorage, DB) {
+.controller('CurrentPostCtrl', function($scope,$ionicModal,$ionicActionSheet, UserStorage, DB) {
 	$scope.device = window.screen.width;
 	
 	$scope.tickets = DB.readTickets();
@@ -92,8 +92,7 @@ angular.module('controllers.currentpost', [])
   };
 
   $scope.removePost = function() {
-  	console.log($stateParams.listingId)
-    DB.removeListing($stateParams.listingId);
+    DB.removeListing($scope.eventId);
     $scope.modal_editpost.remove();
     editpostInitalize();
   };

@@ -308,3 +308,7 @@ ion-option-button .icon{
 .top-bidder {
 	border-top: 0;
 }
+
+.current-post-item {
+	background-color: #387ef5;
+}
