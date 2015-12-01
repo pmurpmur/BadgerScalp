@@ -36,6 +36,15 @@
                 createdAt: Firebase.ServerValue.TIMESTAMP
             });
         },
+		createEvent: function (post) {
+			FB.createEvent({
+				title: "vs " + post.opponent,
+				dateTime: Date(),
+				sport: post.sport,
+				opponent: post.opponent,
+				listings: []
+			});
+		},
 
         
         // READ
@@ -46,6 +55,9 @@
         readBids: function() {
             return FB.$read('bids');
         },
+		readEvents: function() {
+			return FB.$read('events');
+		},
         readPosts: function() {
             return FB.$read('users/' + UserStorage.thisUser() + '/listings');
         },
@@ -67,6 +79,9 @@
         getListingBids: function(id) {
             return FB.$get('listings/' + id + '/bids');
         },
+		getEvent: function(id) {
+			return FB.$get('events/' + id);
+		},
         getTicket: function(id) {
             var listing, seller, sData;
 
@@ -105,11 +120,25 @@
                 updatedAt: Firebase.ServerValue.TIMESTAMP
             }));
         },
+		updateEvent: function (id, post) {
+			FB.updateEvent(id, extend(post, {
+				updatedAt: Firebase.ServerValue.TIMESTAMP
+			}));
+		},
         
 
         // DELETE
 
         removeListing: function(id) {
+			
+			var listing = FB.$get('listings/' + id);
+			var eventRef = FB.$get('events/' + listing.eventId);
+			var index = eventRef.listings.indexOf(id);
+			eventRef.listings.splice(index, 1);
+			if (eventRef.listings.length < 1) {
+				FB.deleteEvent(listing.eventId)
+			}
+			
             FB.deleteListing(id);
         },
         removeUser: function (id) {
@@ -129,6 +158,16 @@
                 UserAuth.removeUser(user.child('email'), user.child('password'));
             }
             
-        }
+        },
+		removeEvent: function(id) {
+			var eventRef = FB.$get('events/' + id);
+			var listings = eventRef.child(listings);
+			
+			angular.forEach(listings, function(item) {
+                FB.deleteListing(item);
+            });
+			
+			FB.deleteEvent(id);
+		}
     };
 });
