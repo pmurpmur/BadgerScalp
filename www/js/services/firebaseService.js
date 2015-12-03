@@ -24,10 +24,11 @@
         },
 		
         createListing: function(data) {
-            $firebaseArray(URL(L))
+			$firebaseArray(URL(L))
             .$add(data)
             .then(function(ref) {
                 $firebaseArray(URL(U + data.seller + '/listings')).$add(ref.key());
+//				$firebaseArray(URL(E + data.eventId + '/listings')).$add(ref.key());
             });
         },
         updateListing: function(id, data) {
@@ -62,20 +63,17 @@
         },
 		
 		createEvent: function(data) {
-            $firebaseArray(URL(E))
-            .$add(data)
-            .then(function(ref) {
-                $firebaseArray(URL(U + data.seller + '/listings')).$add(ref.key());
-            });
-        },
+            return $firebaseArray(URL(E))
+			.$add(data)
+			.then( function( ref ) {
+				return ref.key();
+			});
+		},
         updateEvent: function(id, data) {
-
             URL(E + id).update(data);
-
         },
         deleteEvent: function(id) {
-            var fredRef = new Firebase('https://badgerscalp.firebaseio.com/events/' + id);
-            fredRef.remove();
+            $firebaseArray(URL(E)).$remove(id)
         }
     };
 }]);

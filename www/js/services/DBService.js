@@ -14,37 +14,39 @@
         // CREATE
 
         createListing: function (post) {
-            FB.createListing({
-                date: post.date,
-                image: post.image,
-                price: post.price,
-                quantity: post.quantity,
-                title: post.title,
-                type: post.type,
-                details: post.details,
-                seller: UserStorage.thisUser(), 
-                createdAt: Firebase.ServerValue.TIMESTAMP,
-                updatedAt: Firebase.ServerValue.TIMESTAMP
-            });
+			var id;
+			
+			if (!post.eventId)
+			{
+				var eventData = {};
+				eventData.title = post.opponent? "VS" + post.opponent : post.title;
+				eventData.dateTime = post.dateTime? post.dateTime : "GAMETIME";
+				eventData.sport = post.type;
+				eventData.opponent = post.opponent? post.opponent : "OPPONENT";
+				eventData.listings = [];
+				eventData.createdAt = Firebase.ServerValue.TIMESTAMP;
+				eventData.updatedAt = Firebase.ServerValue.TIMESTAMP;
+				id = FB.createEvent(eventData);
+				console.log("eventId: " + id);
+			}
+			else {
+				id = post.eventId;
+			}
+			
+			post.details = post.details? post.details : "" 
+			post.seller = UserStorage.thisUser();
+			post.eventId = id;
+			post.createdAt = Firebase.ServerValue.TIMESTAMP;
+            post.updatedAt = Firebase.ServerValue.TIMESTAMP;
+			FB.createListing(post);
         },
         createBid: function (post) {
-            FB.createBid({
-                price: post.price,
-                listing: post.listing,
-                buyer: UserStorage.thisUser(), 
-                status: 'ACTIVE',
-                createdAt: Firebase.ServerValue.TIMESTAMP
-            });
+            post.status = 'ACTIVE';
+			post.buyer = UserStorage.thisUser();
+			post.createdAt = Firebase.ServerValue.TIMESTAMP;
+			post.updatedAt = Firebase.ServerValue.TIMESTAMP;
+			FB.createBid(post);
         },
-		createEvent: function (post) {
-			FB.createEvent({
-				title: "vs " + post.opponent,
-				dateTime: Date(),
-				sport: post.sport,
-				opponent: post.opponent,
-				listings: []
-			});
-		},
 
         
         // READ
@@ -162,10 +164,6 @@
 		removeEvent: function(id) {
 			var eventRef = FB.$get('events/' + id);
 			var listings = eventRef.child(listings);
-			
-			angular.forEach(listings, function(item) {
-                FB.deleteListing(item);
-            });
 			
 			FB.deleteEvent(id);
 		}
