@@ -1,26 +1,28 @@
-
 <ion-view title="BadgerScalp" hide-back-button="true">
 	<ion-nav-buttons side="left">
        <button id="menuButton "menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
 
-<!--     <ion-nav-buttons side="right">
+    <ion-nav-buttons side="right">
        <button class="button button-icon icon ion-ios-search" ng-click="searchModal.show()"></button>
-    </ion-nav-buttons> -->
-	<ion-content delegate-handle="browse-scroll" class="has-header" scroll="true">
+    </ion-nav-buttons>
+
+	<ion-content delegate-handle="browse-scroll" class="has-header" scroll="true" on-scroll="fabControl($event)">
 		<ion-list>
-			<ion-item class="item-thumbnail-left" 
-				ng-repeat="ticket in tickets"
-				item-width="device" 
-				item-height="100px" >
+			<ion-item class="item-avatar" 
+				collection-repeat="notif in notifications | orderBy:'-$id'"
+				ng-href="{{$state.href(app.tabs.bid2, notif.listing)}}">
 
 				<img src="../img/ticket.png">
-				<span style="float:right">${{ticket.price}}</span>
-				<h2>{{ticket.title}}</h2>
-				<p>{{ticket.type}}</p>
-				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
-				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
-				<p>{{localDate(ticket.date)}}</p>
+
+				<p ng-if="notif.type == 'bid'" style="float:right"><i class="icon ion-ios-clock-outline" style="padding-right:5px"></i>{{getListingTime(notif.createdAt)}}</p>
+				<h2 ng-if="notif.type == 'bid'">{{getListingTitle(notif.listing)}}</h2>
+				<p ng-if="notif.type == 'bid'">You bid <b>${{notif.price}}</b> on this listing</p>
+
+				<p ng-if="notif.type == 'post'" style="float:right">{{getListingDate(notif.listing)}}</p>
+				<h2 ng-if="notif.type == 'post'">{{getListingTitle(notif.listing)}}</h2>
+				<p ng-if="notif.type == 'post'">You posted this listing {{getListingTime(notif.createdAt)}}</p>
+
 			</ion-item>
 		</ion-list>
 	</ion-content>

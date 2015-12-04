@@ -114,22 +114,15 @@ angular.module('services.auth', [])
             });
         },
         changePassword: function(email, oldPassword, newPassword) {
-            Auth.$changePassword({
+            return Auth.$changePassword({
                 email: email,
                 oldPassword: oldPassword,
                 newPassword: newPassword
-            }).then(function() {
-                $ionicPopup.alert({
-                    title: 'Success!',
-                    template: 'Password has been changed!'
-                }).then(function() {
-                    $state.go('app.browse');
-                });
             }).catch(function(error) {
-                $ionicPopup.alert({
-                    title: 'Password Change Failed',
-                    template: 'Sorry there was an error. Please try again.'
-                });
+                // $ionicPopup.alert({
+                //     title: 'Password Change Failed',
+                //     template: 'Sorry there was an error. Please try again.'
+                // });
             });
         },
         resetPassword: function(email) {

@@ -7,6 +7,21 @@ angular.module('controllers.browse', [])
 	$scope.tickets = DB.readTickets();
 	console.log($scope.tickets);
 
+	$scope.getTimePassed = function(time) {
+		var then = new Date(time);
+		var now = new Date();
+
+		var diff = Math.floor(Math.abs(now - then) / 36e5);
+		var days = Math.floor(diff / 24);
+		var hours = Math.floor(diff % 24);
+
+		if (days == 0) {
+			return hours + 'h'
+		} else {
+			return days + 'd';
+		}
+	}
+
 	$scope.localDate = function(date) {
 		if (date === undefined) {
 			return 'n/a';

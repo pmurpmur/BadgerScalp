@@ -5,6 +5,7 @@
     var U = 'users/';
     var L = 'listings/';
     var B = 'bids/';
+    var N = 'notifications/';
 
     function URL(path) {
         return new Firebase(FBDB + path);
@@ -55,6 +56,9 @@
             URL(B + id).remove(function() {
                 $firebaseArray(URL(U + user + '/bids')).$remove(id);
             });
+        },
+        createNotification: function(id, notif) {
+            $firebaseArray(URL(N + id)).$add(notif);
         }
     };
 }]);

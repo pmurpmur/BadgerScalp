@@ -26,6 +26,19 @@
                 createdAt: Firebase.ServerValue.TIMESTAMP,
                 updatedAt: Firebase.ServerValue.TIMESTAMP
             });
+
+            FB.createNotification(UserStorage.thisUser(), {
+                type: 'post',
+                date: post.date,
+                image: post.image,
+                price: post.price,
+                quantity: post.quantity,
+                title: post.title,
+                type: post.type,
+                details: post.details,
+                seller: UserStorage.thisUser(), 
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
         },
         createBid: function (post) {
             FB.createBid({
@@ -35,11 +48,22 @@
                 status: 'ACTIVE',
                 createdAt: Firebase.ServerValue.TIMESTAMP
             });
+
+            FB.createNotification(UserStorage.thisUser(), {
+                type: 'bid',
+                price: post.price,
+                listing: post.listing,
+                buyer: UserStorage.thisUser(), 
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
         },
 
         
         // READ
 
+        readNotifications: function() {
+            return FB.$read('notifications/' + UserStorage.thisUser());
+        },
         readTickets: function() {
             return FB.$read('listings');
         },
@@ -64,9 +88,27 @@
         getOneBid: function(id) {
             return FB.$get('listings/' + id + '/bids/' + UserStorage.thisUser());
         },
+
         getListingBids: function(id) {
             return FB.$get('listings/' + id + '/bids');
         },
+        getListingTitle: function(id) {
+            var ret = '';
+            FB.$get('listings/' + id + '/title')
+            .once('value', function(data) {
+                ret = data.val();
+            });
+            return ret;
+        },
+        getListingDate: function(id) {
+            var ret = '';
+            FB.$get('listings/' + id + '/date')
+            .once('value', function(data) {
+                ret = data.val();
+            });
+            return ret;
+        },
+
         getTicket: function(id) {
             var listing, seller, sData;
 

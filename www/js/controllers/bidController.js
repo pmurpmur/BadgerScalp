@@ -63,17 +63,16 @@ angular.module('controllers.bid', [])
 	Stored in $scope.bidding.val
 	*/
 	$scope.checkBid = function(bidValue){
-		var prev = getYourBid();
 		if(bidValue > $scope.ticket.price){
 			var alertPopup = $ionicPopup.alert({
 				title: 'Sorry!',
 				template: 'You must bid lower than the asking price ($' + $scope.ticket.price.toString() + ')'
 			});
 		}
-		else if(bidValue <= prev) {
+		else if(bidValue <= $scope.topPrice ) {
 			var alertPopup = $ionicPopup.alert({
 				title: 'Sorry!',
-				template: 'You must bid higher than your previous bid ($' + prev + ')'
+				template: 'You must bid higher than the top bid ($' + $scope.topPrice  + ')'
 			});
 		}
 		else {
