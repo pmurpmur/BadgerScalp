@@ -28,7 +28,7 @@
             .$add(data)
             .then(function(ref) {
                 $firebaseArray(URL(U + data.seller + '/listings')).$add(ref.key());
-//				$firebaseArray(URL(E + data.eventId + '/listings')).$add(ref.key());
+				URL(E + data.eventId + '/listings').push(ref.key());
             });
         },
         updateListing: function(id, data) {
@@ -44,7 +44,7 @@
         },
 
         deleteUser: function (userid) {
-            var fredRef = new Firebase('https://badgerscalp.firebaseio.com/users/' + userid);
+            var fredRef = URL(U + userid);
             fredRef.remove();
         },
 		
@@ -63,11 +63,8 @@
         },
 		
 		createEvent: function(data) {
-            return $firebaseArray(URL(E))
-			.$add(data)
-			.then( function( ref ) {
-				return ref.key();
-			});
+			ref = URL(E).push(data);
+			return ref.key();
 		},
         updateEvent: function(id, data) {
             URL(E + id).update(data);

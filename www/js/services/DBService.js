@@ -14,20 +14,18 @@
         // CREATE
 
         createListing: function (post) {
-			var id;
+			var id = null;
 			
 			if (!post.eventId)
 			{
 				var eventData = {};
-				eventData.title = post.opponent? "VS" + post.opponent : post.title;
-				eventData.dateTime = post.dateTime? post.dateTime : "GAMETIME";
+				eventData.dateTime = post.dateTime? post.dateTime : "GAMEDAY";
 				eventData.sport = post.type;
 				eventData.opponent = post.opponent? post.opponent : "OPPONENT";
-				eventData.listings = [];
+				eventData.title = eventData.dateTime+" - "+eventData.sport+" VS "+eventData.opponent;
 				eventData.createdAt = Firebase.ServerValue.TIMESTAMP;
 				eventData.updatedAt = Firebase.ServerValue.TIMESTAMP;
 				id = FB.createEvent(eventData);
-				console.log("eventId: " + id);
 			}
 			else {
 				id = post.eventId;
