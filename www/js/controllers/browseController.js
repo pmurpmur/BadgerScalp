@@ -15,7 +15,10 @@ angular.module('controllers.browse', [])
 		var days = Math.floor(diff / 24);
 		var hours = Math.floor(diff % 24);
 
-		if (days == 0) {
+		if (days == 0 && hours == 0) {
+			return 'Now';
+		}
+		else if (days == 0) {
 			return hours + 'h'
 		} else {
 			return days + 'd';

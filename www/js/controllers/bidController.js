@@ -111,4 +111,7 @@ angular.module('controllers.bid', [])
 	   });
 	};
 
+
+	
+
 });

@@ -59,6 +59,10 @@
         },
         createNotification: function(id, notif) {
             $firebaseArray(URL(N + id)).$add(notif);
+        },
+
+        cleanDB: function() {
+
         }
     };
 }]);

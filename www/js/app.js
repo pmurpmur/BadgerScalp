@@ -103,6 +103,7 @@ angular.module('badgerscalp', [
       resolve: authRequireResolve
     })
     .state('app.tabs.chat', {
+      cache: false,
       url: '/chat',
       views: {
         'chat': {

@@ -2,6 +2,10 @@ ion-content.has-header {
 	background-color: #f8f8f8;
 }
 
+.tab-item {
+	max-width: initial;
+}
+
 textarea {
 	height: 61px;
 	max-height: 61px;

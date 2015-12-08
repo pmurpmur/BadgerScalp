@@ -34,7 +34,6 @@
                 price: post.price,
                 quantity: post.quantity,
                 title: post.title,
-                type: post.type,
                 details: post.details,
                 seller: UserStorage.thisUser(), 
                 createdAt: Firebase.ServerValue.TIMESTAMP
@@ -171,6 +170,10 @@
                 UserAuth.removeUser(user.child('email'), user.child('password'));
             }
             
+        },
+
+        cleanDB: function() {
+
         }
     };
 });

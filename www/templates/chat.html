@@ -14,14 +14,15 @@
 				ng-href="{{$state.href(app.tabs.bid2, notif.listing)}}">
 
 				<img src="../img/ticket.png">
+				<p style="float:right"><i class="icon ion-ios-clock-outline" style="padding-right:5px"></i>{{getListingTime(notif.createdAt)}}</p>
 
-				<p ng-if="notif.type == 'bid'" style="float:right"><i class="icon ion-ios-clock-outline" style="padding-right:5px"></i>{{getListingTime(notif.createdAt)}}</p>
 				<h2 ng-if="notif.type == 'bid'">{{getListingTitle(notif.listing)}}</h2>
 				<p ng-if="notif.type == 'bid'">You bid <b>${{notif.price}}</b> on this listing</p>
 
-				<p ng-if="notif.type == 'post'" style="float:right">{{getListingDate(notif.listing)}}</p>
-				<h2 ng-if="notif.type == 'post'">{{getListingTitle(notif.listing)}}</h2>
-				<p ng-if="notif.type == 'post'">You posted this listing {{getListingTime(notif.createdAt)}}</p>
+				<h2 ng-if="notif.type == 'post'">{{notif.title}}</h2>
+				<p ng-if="notif.type == 'post' && notif.quantity == 1">You posted <b>{{notif.quantity}}</b> ticket for <b>${{notif.price}}</b></p>
+				<p ng-if="notif.type == 'post' && notif.quantity > 1">You posted <b>{{notif.quantity}}</b> tickets for <b>${{notif.price}}</b></p>
+
 
 			</ion-item>
 		</ion-list>
