@@ -14,27 +14,36 @@
         // CREATE
 
         createListing: function (post) {
-            FB.createListing({
-                date: post.date,
-                image: post.image,
-                price: post.price,
-                quantity: post.quantity,
-                title: post.title,
-                type: post.type,
-                details: post.details,
-                seller: UserStorage.thisUser(), 
-                createdAt: Firebase.ServerValue.TIMESTAMP,
-                updatedAt: Firebase.ServerValue.TIMESTAMP
-            });
+			var id = null;
+			
+			if (!post.eventId)
+			{
+				var eventData = {};
+				eventData.dateTime = post.dateTime? post.dateTime : "GAMEDAY";
+				eventData.sport = post.type;
+				eventData.opponent = post.opponent? post.opponent : "OPPONENT";
+				eventData.title = eventData.dateTime+" - "+eventData.sport+" VS "+eventData.opponent;
+				eventData.createdAt = Firebase.ServerValue.TIMESTAMP;
+				eventData.updatedAt = Firebase.ServerValue.TIMESTAMP;
+				id = FB.createEvent(eventData);
+			}
+			else {
+				id = post.eventId;
+			}
+			
+			post.details = post.details? post.details : "" 
+			post.seller = UserStorage.thisUser();
+			post.eventId = id;
+			post.createdAt = Firebase.ServerValue.TIMESTAMP;
+            post.updatedAt = Firebase.ServerValue.TIMESTAMP;
+			FB.createListing(post);
         },
         createBid: function (post) {
-            FB.createBid({
-                price: post.price,
-                listing: post.listing,
-                buyer: UserStorage.thisUser(), 
-                status: 'ACTIVE',
-                createdAt: Firebase.ServerValue.TIMESTAMP
-            });
+            post.status = 'ACTIVE';
+			post.buyer = UserStorage.thisUser();
+			post.createdAt = Firebase.ServerValue.TIMESTAMP;
+			post.updatedAt = Firebase.ServerValue.TIMESTAMP;
+			FB.createBid(post);
         },
 
         
@@ -46,6 +55,9 @@
         readBids: function() {
             return FB.$read('bids');
         },
+		readEvents: function() {
+			return FB.$read('events');
+		},
         readPosts: function() {
             return FB.$read('users/' + UserStorage.thisUser() + '/listings');
         },
@@ -67,6 +79,9 @@
         getListingBids: function(id) {
             return FB.$get('listings/' + id + '/bids');
         },
+		getEvent: function(id) {
+			return FB.$get('events/' + id);
+		},
         getTicket: function(id) {
             var listing, seller, sData;
 
@@ -105,11 +120,25 @@
                 updatedAt: Firebase.ServerValue.TIMESTAMP
             }));
         },
+		updateEvent: function (id, post) {
+			FB.updateEvent(id, extend(post, {
+				updatedAt: Firebase.ServerValue.TIMESTAMP
+			}));
+		},
         
 
         // DELETE
 
         removeListing: function(id) {
+			
+			var listing = FB.$get('listings/' + id);
+			var eventRef = FB.$get('events/' + listing.eventId);
+			var index = eventRef.listings.indexOf(id);
+			eventRef.listings.splice(index, 1);
+			if (eventRef.listings.length < 1) {
+				FB.deleteEvent(listing.eventId)
+			}
+			
             FB.deleteListing(id);
         },
         removeUser: function (id) {
@@ -129,6 +158,12 @@
                 UserAuth.removeUser(user.child('email'), user.child('password'));
             }
             
-        }
+        },
+		removeEvent: function(id) {
+			var eventRef = FB.$get('events/' + id);
+			var listings = eventRef.child(listings);
+			
+			FB.deleteEvent(id);
+		}
     };
 });

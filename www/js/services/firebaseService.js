@@ -5,6 +5,7 @@
     var U = 'users/';
     var L = 'listings/';
     var B = 'bids/';
+	var E = 'events/';
 
     function URL(path) {
         return new Firebase(FBDB + path);
@@ -17,14 +18,17 @@
         $get: function(path) {
             return new Firebase(FBDB + path);
         },
+		
         updateUser: function(id, data) {
             URL(U + id).update(data);
         },
+		
         createListing: function(data) {
-            $firebaseArray(URL(L))
+			$firebaseArray(URL(L))
             .$add(data)
             .then(function(ref) {
                 $firebaseArray(URL(U + data.seller + '/listings')).$add(ref.key());
+				URL(E + data.eventId + '/listings').push(ref.key());
             });
         },
         updateListing: function(id, data) {
@@ -40,9 +44,10 @@
         },
 
         deleteUser: function (userid) {
-            var fredRef = new Firebase('https://badgerscalp.firebaseio.com/users/' + userid);
+            var fredRef = URL(U + userid);
             fredRef.remove();
         },
+		
         createBid: function(data) {
             URL(B).child(data.buyer).child(data.listing).set(data);
             URL(L + data.listing + '/bids').child(data.buyer).set(data.price);
@@ -55,6 +60,17 @@
             URL(B + id).remove(function() {
                 $firebaseArray(URL(U + user + '/bids')).$remove(id);
             });
+        },
+		
+		createEvent: function(data) {
+			ref = URL(E).push(data);
+			return ref.key();
+		},
+        updateEvent: function(id, data) {
+            URL(E + id).update(data);
+        },
+        deleteEvent: function(id) {
+            $firebaseArray(URL(E)).$remove(id)
         }
     };
 }]);
