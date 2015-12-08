@@ -14,7 +14,6 @@
         // CREATE
 
         createListing: function (post) {
-<<<<<<< HEAD
 			var id = null;
 			
 			if (!post.eventId)
@@ -38,26 +37,6 @@
 			post.createdAt = Firebase.ServerValue.TIMESTAMP;
             post.updatedAt = Firebase.ServerValue.TIMESTAMP;
 			FB.createListing(post);
-        },
-        createBid: function (post) {
-            post.status = 'ACTIVE';
-			post.buyer = UserStorage.thisUser();
-			post.createdAt = Firebase.ServerValue.TIMESTAMP;
-			post.updatedAt = Firebase.ServerValue.TIMESTAMP;
-			FB.createBid(post);
-=======
-            FB.createListing({
-                date: post.date,
-                image: post.image,
-                price: post.price,
-                quantity: post.quantity,
-                title: post.title,
-                type: post.type,
-                details: post.details,
-                seller: UserStorage.thisUser(), 
-                createdAt: Firebase.ServerValue.TIMESTAMP,
-                updatedAt: Firebase.ServerValue.TIMESTAMP
-            });
 
             FB.createNotification(UserStorage.thisUser(), {
                 type: 'post',
@@ -72,13 +51,11 @@
             });
         },
         createBid: function (post) {
-            FB.createBid({
-                price: post.price,
-                listing: post.listing,
-                buyer: UserStorage.thisUser(), 
-                status: 'ACTIVE',
-                createdAt: Firebase.ServerValue.TIMESTAMP
-            });
+            post.status = 'ACTIVE';
+            post.buyer = UserStorage.thisUser();
+            post.createdAt = Firebase.ServerValue.TIMESTAMP;
+            post.updatedAt = Firebase.ServerValue.TIMESTAMP;
+            FB.createBid(post);
 
             FB.createNotification(UserStorage.thisUser(), {
                 type: 'bid',
@@ -87,7 +64,6 @@
                 buyer: UserStorage.thisUser(), 
                 createdAt: Firebase.ServerValue.TIMESTAMP
             });
->>>>>>> development
         },
 
         
@@ -127,11 +103,9 @@
         getListingBids: function(id) {
             return FB.$get('listings/' + id + '/bids');
         },
-<<<<<<< HEAD
 		getEvent: function(id) {
 			return FB.$get('events/' + id);
 		},
-=======
         getListingTitle: function(id) {
             var ret = '';
             FB.$get('listings/' + id + '/title')
@@ -149,7 +123,6 @@
             return ret;
         },
 
->>>>>>> development
         getTicket: function(id) {
             var listing, seller, sData;
 
@@ -229,18 +202,15 @@
             }
             
         },
-<<<<<<< HEAD
 		removeEvent: function(id) {
 			var eventRef = FB.$get('events/' + id);
 			var listings = eventRef.child(listings);
 			
 			FB.deleteEvent(id);
-		}
-=======
+		},
 
         cleanDB: function() {
 
         }
->>>>>>> development
     };
 });
