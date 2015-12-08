@@ -103,6 +103,7 @@ angular.module('badgerscalp', [
       resolve: authRequireResolve
     })
     .state('app.tabs.chat', {
+      cache: false,
       url: '/chat',
       views: {
         'chat': {
@@ -126,6 +127,19 @@ angular.module('badgerscalp', [
       url: '/bid/:listingId',
       views: {
         'browse': {
+          templateUrl: 'templates/bid.html',
+          controller: 'BidCtrl'
+        }
+      },
+      params: {
+        listingId: null
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.tabs.bid2', {
+      url: '/bid/:listingId',
+      views: {
+        'chat': {
           templateUrl: 'templates/bid.html',
           controller: 'BidCtrl'
         }

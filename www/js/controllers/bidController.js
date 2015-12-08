@@ -13,6 +13,8 @@ angular.module('controllers.bid', [])
 	$scope.topPrice = -1;
 	getHighestBidder();
 
+	$scope.yourBid = -1;
+
 
 	function getHighestBidder() {
 		var topBuyer = {};
@@ -49,6 +51,16 @@ angular.module('controllers.bid', [])
 	});
 
 
+	function getYourBid() {
+		var result = 0;
+		DB.getOneBid(thisTicket).once('value', function(data) {
+			result = data.val();
+		});
+		$scope.yourBid = result;
+		return result;
+	};
+
+
 
 	/*Check if the bidding price is lower than the original price
 	Stored in $scope.bidding.val
@@ -56,13 +68,20 @@ angular.module('controllers.bid', [])
 	$scope.checkBid = function(bidValue){
 		if(bidValue > $scope.ticket.price){
 			var alertPopup = $ionicPopup.alert({
-				title: 'Error',
-				template: 'Your bid must be lower than the original price ($' + $scope.ticket.price.toString() + ')'
+				title: 'Sorry!',
+				template: 'You must bid lower than the asking price ($' + $scope.ticket.price.toString() + ')'
+			});
+		}
+		else if(bidValue <= $scope.topPrice ) {
+			var alertPopup = $ionicPopup.alert({
+				title: 'Sorry!',
+				template: 'You must bid higher than the top bid ($' + $scope.topPrice  + ')'
 			});
 		}
 		else {
 			DB.createBid({price:bidValue, listing:thisTicket});
 			getHighestBidder();
+			$scope.yourBid = bidValue;
 			$scope.modal1.hide();
 		}
 	}
@@ -94,6 +113,38 @@ angular.module('controllers.bid', [])
 	       return true;
 	     }
 	   });
+	};
+
+	$scope.deletePost = function() {
+		var hideSheet = $ionicActionSheet.show({
+	     destructiveText: 'Delete',
+	     titleText: 'Are you sure?',
+	     cancelText: 'Cancel',
+	     cancel: function() {
+	     	hideSheet();
+	     },
+	     destructiveButtonClicked: function(){
+	     	DB.removeListing(thisTicket);
+	     	hideSheet();
+	     	return true;
+	     }
+	 });
+	};
+
+	$scope.deleteBid = function() {
+		var hideSheet = $ionicActionSheet.show({
+	     destructiveText: 'Delete',
+	     titleText: 'Are you sure?',
+	     cancelText: 'Cancel',
+	     cancel: function() {
+	     	hideSheet();
+	     },
+	     destructiveButtonClicked: function(){
+	     	DB.removeBid();
+	     	hideSheet();
+	     	return true;
+	     }
+	 });
 	};
 
 });

@@ -2,6 +2,10 @@ ion-content.has-header {
 	background-color: #f8f8f8;
 }
 
+.tab-item {
+	max-width: initial;
+}
+
 textarea {
 	height: 61px;
 	max-height: 61px;
@@ -295,4 +299,20 @@ input[type="radio"]:checked ~ label {
 .bid_refine{
 	padding-left: 0px;
 	padding-top: 0px;
+}
+
+ion-option-button {
+	width: 70px;
+}
+
+ion-option-button .icon{
+	margin-left: 13px;
+}
+
+.top-bidder {
+	border-top: 0;
+}
+
+.current-post-item {
+	background-color: #387ef5;
 }

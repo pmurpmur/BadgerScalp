@@ -5,7 +5,11 @@
     var U = 'users/';
     var L = 'listings/';
     var B = 'bids/';
+<<<<<<< HEAD
 	var E = 'events/';
+=======
+    var N = 'notifications/';
+>>>>>>> development
 
     function URL(path) {
         return new Firebase(FBDB + path);
@@ -61,6 +65,7 @@
                 $firebaseArray(URL(U + user + '/bids')).$remove(id);
             });
         },
+<<<<<<< HEAD
 		
 		createEvent: function(data) {
 			ref = URL(E).push(data);
@@ -71,6 +76,14 @@
         },
         deleteEvent: function(id) {
             $firebaseArray(URL(E)).$remove(id)
+=======
+        createNotification: function(id, notif) {
+            $firebaseArray(URL(N + id)).$add(notif);
+        },
+
+        cleanDB: function() {
+
+>>>>>>> development
         }
     };
 }]);

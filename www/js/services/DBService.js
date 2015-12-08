@@ -14,6 +14,7 @@
         // CREATE
 
         createListing: function (post) {
+<<<<<<< HEAD
 			var id = null;
 			
 			if (!post.eventId)
@@ -44,11 +45,57 @@
 			post.createdAt = Firebase.ServerValue.TIMESTAMP;
 			post.updatedAt = Firebase.ServerValue.TIMESTAMP;
 			FB.createBid(post);
+=======
+            FB.createListing({
+                date: post.date,
+                image: post.image,
+                price: post.price,
+                quantity: post.quantity,
+                title: post.title,
+                type: post.type,
+                details: post.details,
+                seller: UserStorage.thisUser(), 
+                createdAt: Firebase.ServerValue.TIMESTAMP,
+                updatedAt: Firebase.ServerValue.TIMESTAMP
+            });
+
+            FB.createNotification(UserStorage.thisUser(), {
+                type: 'post',
+                date: post.date,
+                image: post.image,
+                price: post.price,
+                quantity: post.quantity,
+                title: post.title,
+                details: post.details,
+                seller: UserStorage.thisUser(), 
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
+        },
+        createBid: function (post) {
+            FB.createBid({
+                price: post.price,
+                listing: post.listing,
+                buyer: UserStorage.thisUser(), 
+                status: 'ACTIVE',
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
+
+            FB.createNotification(UserStorage.thisUser(), {
+                type: 'bid',
+                price: post.price,
+                listing: post.listing,
+                buyer: UserStorage.thisUser(), 
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
+>>>>>>> development
         },
 
         
         // READ
 
+        readNotifications: function() {
+            return FB.$read('notifications/' + UserStorage.thisUser());
+        },
         readTickets: function() {
             return FB.$read('listings');
         },
@@ -76,12 +123,33 @@
         getOneBid: function(id) {
             return FB.$get('listings/' + id + '/bids/' + UserStorage.thisUser());
         },
+
         getListingBids: function(id) {
             return FB.$get('listings/' + id + '/bids');
         },
+<<<<<<< HEAD
 		getEvent: function(id) {
 			return FB.$get('events/' + id);
 		},
+=======
+        getListingTitle: function(id) {
+            var ret = '';
+            FB.$get('listings/' + id + '/title')
+            .once('value', function(data) {
+                ret = data.val();
+            });
+            return ret;
+        },
+        getListingDate: function(id) {
+            var ret = '';
+            FB.$get('listings/' + id + '/date')
+            .once('value', function(data) {
+                ret = data.val();
+            });
+            return ret;
+        },
+
+>>>>>>> development
         getTicket: function(id) {
             var listing, seller, sData;
 
@@ -128,7 +196,9 @@
         
 
         // DELETE
-
+        removeBid: function(id) {
+            FB.deleteBid(id);
+        },
         removeListing: function(id) {
 			
 			var listing = FB.$get('listings/' + id);
@@ -159,11 +229,18 @@
             }
             
         },
+<<<<<<< HEAD
 		removeEvent: function(id) {
 			var eventRef = FB.$get('events/' + id);
 			var listings = eventRef.child(listings);
 			
 			FB.deleteEvent(id);
 		}
+=======
+
+        cleanDB: function() {
+
+        }
+>>>>>>> development
     };
 });

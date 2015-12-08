@@ -1,5 +1,5 @@
 angular.module('controllers.app', [])
-.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet,DB, Auth, UserStorage) {
+.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet,DB,UserAuth,UserStorage) {
 
   $scope.filtC = 'all';
   $scope.sorter = '-$id';
@@ -8,6 +8,8 @@ angular.module('controllers.app', [])
   $scope.username = full.first + ' ' + full.last;
 
   $scope.recent = {};
+
+  $scope.canPassChange = UserStorage.getEmail() !== undefined;
 
   var lastPos = 0;
   $scope.fabControl = function ($event) {
@@ -340,33 +342,52 @@ angular.module('controllers.app', [])
     }
 
     $scope.changePassword = function() { 
-        var email = UserStorage.getEmail();
-        if (email === undefined) {
-          var passwordChangeFail = $ionicPopup.alert({
-            title: 'Sorry!',
-            template: 'This account is associated with either Google or Facebook! Consult the primary account for changing your password.'
-          });
-        } else {
-          var myPopup = $ionicPopup.show({
-            template: '<input type="password" placeholder="Old Password" ng-model="oldPass"><br/><input type="password" placeholder="New Password" ng-model="newPass">',
-            title: 'Change Password',
-            subTitle: 'Please use over 5 characters',
-            scope: $scope,
-            buttons: [
-              { text: 'Cancel' },
-              { text: '<b>Save</b>',
-                type: 'button-positive',
-                onTap: function(e) {
-                  console.log($scope.oldPass)
-                  if ($scope.oldPass == UserStorage.getPassword()) {
-                    Auth.changePassword(email, $scope.oldPass, $scope.newPass); 
-                  } 
+      $scope.pop = {};
+      var email = UserStorage.getEmail();
+
+      var myPopup = $ionicPopup.show({
+        template: '<input type="password" placeholder="Current Password" ng-model="pop.oldPass"><br/><input type="password" placeholder="New Password" ng-model="pop.newPass">',
+        title: 'Change Password',
+        subTitle: 'Please use over 5 characters',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          { text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if ($scope.pop.oldPass == UserStorage.getPassword()) {
+                if ($scope.pop.newPass.length > 5) {
+                  UserAuth.changePassword(email, $scope.pop.oldPass, $scope.pop.newPass)
+                  .then(function() {
+                    DB.updateUser(UserStorage.thisUser(), { password:$scope.pop.newPass });
+                    $ionicPopup.alert({
+                        title: 'Success!',
+                        template: 'Password has been changed!'
+                    });
+                  })
+                } else {
+                  myPopup.close();
+                  var passwordChangeFail = $ionicPopup.alert({
+                    title: 'Sorry!',
+                    template: 'New password must be over 5 characters'
+                  });
                 }
+              } else {
+                myPopup.close();
+                var passwordChangeFail = $ionicPopup.alert({
+                  title: 'Sorry!',
+                  template: 'Current password was incorrect'
+                });
               }
-            ]
-          });
-        } 
-    }
+            } 
+          }
+        ]
+      });
+      
+      myPopup.then(function() {
+        angular.element(document.querySelector('.popup-container')).remove();
+      });
+    } 
 
     $scope.removeUser = function() {
       var confirmPopup = $ionicPopup.confirm({
@@ -378,7 +399,7 @@ angular.module('controllers.app', [])
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
 
-          Auth.removeUser(email, pass);
+          UserAuth.removeUser(email, pass);
           UserStorage.cleanUser();
           DB.deleteUser();
 

@@ -39,6 +39,9 @@ angular.module('services.localStorage', [])
         getPassword: function () {
             return LocalStorage.get(userKey).password;
         },
+        setPassword: function (data) {
+            return LocalStorage.set(userKey, data);
+        },
         getFullName: function () {
             var user = LocalStorage.get(userKey);
             if (user !== null) {

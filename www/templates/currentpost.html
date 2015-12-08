@@ -1,4 +1,4 @@
-<ion-view title="Current Post" hide-back-button="true">
+<ion-view title="Current Posts" hide-back-button="true">
 	
 	<ion-nav-buttons side="left">
        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -10,7 +10,7 @@
 	<ion-content class="has-header" scroll="true">
 		<ion-list>
 
-			<ion-item class="item-thumbnail-left" 
+			<ion-item class="item-thumbnail-left current-post-item" 
 			collection-repeat="ticket in tickets | thisUser:userId | orderBy:'-$id'" 
 			item-width="device" 
 			item-height="100px"
@@ -20,10 +20,12 @@
 				<span style="float:right">${{ticket.price}}</span>
 				<h2>{{ticket.title}}</h2>
 				<p>{{ticket.type}}</p>
-				<button class="button button-royal edit_btn" ng-click="EditPostModal(ticket.$id, ticket.title,ticket.price,ticket.type,ticket.quantity,toDateObj(ticket.date),ticket.details)">Edit</button>
 				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
 				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
 				<p>{{localDate(ticket.date)}}</p>
+				<ion-option-button class="button-positive" ng-click="EditPostModal(ticket.$id, ticket.title,ticket.price,ticket.type,ticket.quantity,toDateObj(ticket.date),ticket.details)">
+			    	<i class="icon ion-edit"></i>
+			    </ion-option-button>
 			</ion-item>
 		</ion-list>
 	</ion-content>
