@@ -149,7 +149,9 @@
         
 
         // DELETE
-
+        removeBid: function(id) {
+            FB.deleteBid(id);
+        },
         removeListing: function(id) {
             FB.deleteListing(id);
         },

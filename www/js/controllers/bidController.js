@@ -13,6 +13,8 @@ angular.module('controllers.bid', [])
 	$scope.topPrice = -1;
 	getHighestBidder();
 
+	$scope.yourBid = -1;
+
 
 	function getHighestBidder() {
 		var topBuyer = {};
@@ -54,6 +56,7 @@ angular.module('controllers.bid', [])
 		DB.getOneBid(thisTicket).once('value', function(data) {
 			result = data.val();
 		});
+		$scope.yourBid = result;
 		return result;
 	};
 
@@ -78,6 +81,7 @@ angular.module('controllers.bid', [])
 		else {
 			DB.createBid({price:bidValue, listing:thisTicket});
 			getHighestBidder();
+			$scope.yourBid = bidValue;
 			$scope.modal1.hide();
 		}
 	}
@@ -113,7 +117,7 @@ angular.module('controllers.bid', [])
 
 	$scope.deletePost = function() {
 		var hideSheet = $ionicActionSheet.show({
-	     destructiveText: 'Delete Post?',
+	     destructiveText: 'Delete',
 	     titleText: 'Are you sure?',
 	     cancelText: 'Cancel',
 	     cancel: function() {
@@ -129,14 +133,15 @@ angular.module('controllers.bid', [])
 
 	$scope.deleteBid = function() {
 		var hideSheet = $ionicActionSheet.show({
-	     destructiveText: 'Delete Bid?',
+	     destructiveText: 'Delete',
 	     titleText: 'Are you sure?',
 	     cancelText: 'Cancel',
 	     cancel: function() {
 	     	hideSheet();
 	     },
 	     destructiveButtonClicked: function(){
-	     	/* TODO: CONNECT TO DB */
+	     	DB.removeBid();
+	     	hideSheet();
 	     	return true;
 	     }
 	 });
