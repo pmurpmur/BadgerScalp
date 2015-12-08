@@ -111,7 +111,35 @@ angular.module('controllers.bid', [])
 	   });
 	};
 
+	$scope.deletePost = function() {
+		var hideSheet = $ionicActionSheet.show({
+	     destructiveText: 'Delete Post?',
+	     titleText: 'Are you sure?',
+	     cancelText: 'Cancel',
+	     cancel: function() {
+	     	hideSheet();
+	     },
+	     destructiveButtonClicked: function(){
+	     	DB.removeListing(thisTicket);
+	     	hideSheet();
+	     	return true;
+	     }
+	 });
+	};
 
-	
+	$scope.deleteBid = function() {
+		var hideSheet = $ionicActionSheet.show({
+	     destructiveText: 'Delete Bid?',
+	     titleText: 'Are you sure?',
+	     cancelText: 'Cancel',
+	     cancel: function() {
+	     	hideSheet();
+	     },
+	     destructiveButtonClicked: function(){
+	     	/* TODO: CONNECT TO DB */
+	     	return true;
+	     }
+	 });
+	};
 
 });
