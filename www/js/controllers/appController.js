@@ -52,10 +52,20 @@ angular.module('controllers.app', [])
 		});
 	}; postModalInitalize();
 
-  $scope.postSale = function(title, date, price, quantity, type, details) {
+  $scope.postSale = function(title, eventName, date, opponent, price, quantity, type, details) {
+	var events = DB.getEvents();
+	var eventId = undefined;
+	for (item in events) {
+		console.log(item);
+		if (item.child(name) == eventName) {
+			eventId = item.key();
+		}
+	}
     DB.createListing({
       title: title,
+	  eventId: eventId,
       date: date.toString(),
+	  opponent: opponent,
       price: price,
       quantity: quantity,
       type: type,
@@ -93,6 +103,34 @@ angular.module('controllers.app', [])
       }
     });
   };
+  
+  $scope.eventSelect = function() {
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        { text: '<i class="icon ionic ion-ios-americanfootball"></i>Football' },
+        { text: '<i class="icon ionic ion-ios-basketball"></i>Basketball' },
+        { text: '<i class="icon ionic ion-ios-baseball"></i>Baseball' },
+        { text: '<i class="icon ionic ion-ios-football"></i>Soccer' },
+        { text: '<i class="icon ionic ion-ios-tennisball"></i>Tennis' },
+        { text: '<i class="icon ionic ion-ios-musical-notes"></i>Music' },
+        { text: '<i class="icon ionic ion-plus"></i>Other' }
+      ],
+      titleText: 'Select Event',
+      buttonClicked: function(index) {
+        switch(index) {
+          case 0: $scope.eventName = 'Football'; break;
+          case 1: $scope.eventName = 'Basketball'; break;
+          case 2: $scope.eventName = 'Baseball'; break;
+          case 3: $scope.eventName = 'Soccer'; break;
+          case 4: $scope.eventName = 'Tennis'; break;
+          case 5: $scope.eventName = 'Music'; break;
+          case 6: $scope.eventName = 'Other'; break;
+        }
+        hideSheet();
+      }
+    });
+  };
+  
   $scope.close = function() {
         $scope.ticketPic = "";
         if($scope.picture_post !== undefined)$scope.picture_post = undefined;
