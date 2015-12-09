@@ -4,10 +4,19 @@
 		<div class="card">
 
 			<div class="item item-avatar">
-				<img ng-src="{{getProfilePicture()}}">
+				<img ng-src="{{seller.image}}">
+				<p style="float:right"><i class="icon ion-ios-clock-outline" style="padding-right:5px"></i>{{getTimePassed(ticket.createdAt)}}</p>
 		    	<h2>{{ticket.title}}</h2>
 		    	<p>{{localDate(ticket.date)}}</p>
 		  	</div>
+
+<!-- 		  	<div class="item item-image">
+				<img ng-if="ticket.image == ''" src="./img/ticket.png">
+                <img ng-if="ticket.image  != ''" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
+                <div class="photo-details">
+                	<h2>{{ticket.details}}</h2>
+               	</div>
+			</div> -->
 		  	<div class="item item-thumbnail-left">
 				<img ng-if="ticket.image == ''" src="./img/ticket.png">
                 <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />

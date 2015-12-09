@@ -52,7 +52,7 @@ angular.module('services.auth', [])
                                     lastName: gl.family_name,
                                     rating: 5.0,
                                     numReviews: 0,
-                                    imgUrl: gl.picture
+                                    image: gl.picture
                                 });
                             }
                             UserStorage.setUser(UsersURL.$getRecord(authData.uid));
@@ -75,7 +75,7 @@ angular.module('services.auth', [])
                                     lastName: fb.last_name,
                                     rating: 5.0,
                                     numReviews: 0,
-                                    imgUrl: fb.picture.data.url
+                                    image: fb.picture.data.url
                                 });
                             }
                             UserStorage.setUser(UsersURL.$getRecord(authData.uid));
@@ -112,7 +112,7 @@ angular.module('services.auth', [])
                             lastName: lastName,
                             rating: 5.0,
                             numReviews: 0,
-                            imgUrl: imgUrl
+                            image: imgUrl
                         });
                     }
                     UserStorage.setUser(UsersURL.$getRecord(authData.uid));
@@ -132,7 +132,8 @@ angular.module('services.auth', [])
                     rating: 5.0,
                     numReviews: 0,
                     email: email,
-                    password: password
+                    password: password,
+                    image: 'img/default_profile.jpg'
                 });
                 UserStorage.setUser(UsersURL.$getRecord(authData.uid));
             }).then(function(userData) {

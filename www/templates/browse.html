@@ -16,7 +16,7 @@
 				ui-sref="app.tabs.bid({listingId:ticket.$id})">
 
 				<img ng-if="ticket.image == ''" src="./img/ticket.png">
-                <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
+                <img ng-if="ticket.image  != ''" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
 				<span style="float:right">${{ticket.price}}</span>
 				<h2>{{ticket.title}}</h2>
 				<p>{{ticket.type}}</p>

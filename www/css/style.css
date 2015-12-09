@@ -6,6 +6,19 @@ ion-content.has-header {
 	max-width: initial;
 }
 
+.photo-details {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+	background-color: rgba(0,0,0,0.5);
+	padding: 10px;
+}
+
+.photo-details h2 {
+	color: white;
+}
+
 textarea {
 	height: 61px;
 	max-height: 61px;
