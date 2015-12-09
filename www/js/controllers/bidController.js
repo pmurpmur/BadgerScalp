@@ -116,7 +116,7 @@ angular.module('controllers.bid', [])
 	   });
 	};
 
-	$scope.deletePost = function() {
+	$scope.deletePost = function(user_id, ticket_id, title) {
 		var hideSheet = $ionicActionSheet.show({
 	     destructiveText: 'Delete',
 	     titleText: 'Are you sure?',
@@ -125,8 +125,9 @@ angular.module('controllers.bid', [])
 	     	hideSheet();
 	     },
 	     destructiveButtonClicked: function(){
-	     	DB.removeListing(thisTicket);
+	     	DB.removeListing(user_id, ticket_id, title);
 	     	hideSheet();
+	     	$location.path("/app/tabs/browse");
 	     	return true;
 	     }
 	 });

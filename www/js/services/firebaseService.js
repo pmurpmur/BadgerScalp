@@ -37,13 +37,39 @@
             URL(L + id).update(data);
 
         },
-        deleteListing: function(id) {
+        deleteListing: function(user_id, ticket_id, title) {
            // var user = URL(L + id + '/seller');
 
-            var user = UserStorage.thisUser();
-            URL(L + id).remove(function() {
-                $firebaseArray(URL(U + user + '/listings')).$remove(id);
+            //var user = UserStorage.thisUser();
+            URL(L + ticket_id).remove();
+            URL(U + user_id + '/listings').once("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    var oj = childSnapshot.val();
+                    if (oj == ticket_id){
+                        URL(U + user_id + '/listings/' + childSnapshot.key()).remove();
+                    }
+                });
             });
+            URL(N + user_id).orderByChild("type").startAt('post').endAt('post').on('value', function(snapshot) { 
+                snapshot.forEach(function(childSnapshot) {
+                    var oj = childSnapshot.val();
+                    if (oj.seller == user_id && oj.title == title) {
+                        URL(N + user_id + '/' + childSnapshot.key()).remove();
+                    }
+                });
+            });
+            URL(B).once("value", function(snapshot) {
+                snapshot.forEach(function(layer1) {
+                    layer1.forEach(function(layer2) {
+                        var oj = layer2.val();
+                        console.log(oj);
+                        if (oj.listing == ticket_id){
+                            URL(B + layer1.key() + '/' + layer2.key()).remove();
+                        }
+                    });
+                });
+            });
+
         },
 
         deleteUser: function (userid) {

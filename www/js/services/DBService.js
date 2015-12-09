@@ -181,17 +181,17 @@
         removeBid: function(id, ticket_id) {
             FB.deleteBid(id, ticket_id);
         },
-        removeListing: function(id) {
+        removeListing: function(user_id, ticket_id, title) {
 			
-			var listing = FB.$get('listings/' + id);
-			var eventRef = FB.$get('events/' + listing.eventId);
-			var index = eventRef.listings.indexOf(id);
-			eventRef.listings.splice(index, 1);
-			if (eventRef.listings.length < 1) {
-				FB.deleteEvent(listing.eventId)
-			}
+			//var listing = FB.$get('listings/' + id);
+			//var eventRef = FB.$get('events/' + listing.eventId);
+			//var index = eventRef.listings.indexOf(id);
+			//eventRef.listings.splice(index, 1);
+			//if (eventRef.listings.length < 1) {
+			//	FB.deleteEvent(listing.eventId)
+			//}
 			
-            FB.deleteListing(id);
+            FB.deleteListing(user_id, ticket_id, title);
         },
         removeUser: function (id) {
             var user = FB.$get('users/' + id);
