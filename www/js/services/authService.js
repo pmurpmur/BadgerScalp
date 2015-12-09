@@ -199,12 +199,7 @@ angular.module('services.auth', [])
                 password: password
             }).then(function() {
                 Auth.$unAuth();
-            }).catch(function(error) {
-                $ionicPopup.alert({
-                    title: 'Remove User Failed',
-                    template: 'Sorry there was an error. Please try again.'
-                });
-            });
+            })
         },
         unAuth: function() {
             Auth.$unAuth();

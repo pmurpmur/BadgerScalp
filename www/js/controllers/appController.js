@@ -4,6 +4,7 @@ angular.module('controllers.app', [])
   $scope.filtC = 'all';
   $scope.sorter = '-$id';
   $scope.ticketPic = '';
+  $scope.thisUser = UserStorage.thisUser();
 
   var full = UserStorage.getFullName();
   $scope.username = full.first + ' ' + full.last;
@@ -458,10 +459,10 @@ angular.module('controllers.app', [])
       
       myPopup.then(function() {
         angular.element(document.querySelector('.popup-container')).remove();
-      });
+      }); 
     } 
 
-    $scope.removeUser = function() {
+    $scope.removeUser = function(id) {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Delete Account',
         template: 'Are you sure you want to delete your account?'
@@ -470,10 +471,13 @@ angular.module('controllers.app', [])
         if(res) {
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
-
-          UserAuth.removeUser(email, pass);
-          UserStorage.cleanUser();
-          DB.removeUser();
+          console.log(pass);
+          if (pass !== undefined){
+            UserAuth.removeUser(email, pass);
+            UserStorage.cleanUser();
+          }
+          
+          DB.removeUser(id);
 
 
           $location.path("/login"); 

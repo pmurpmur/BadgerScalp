@@ -198,17 +198,7 @@
         },
         removeUser: function (id) {
             var user = FB.$get('users/' + id);
-            var listings = user.child(listings);
-            var bids = user.child(bids);
-
-            angular.forEach(listings, function(item) {
-                FB.deleteListing(item);
-            });
-
-            angular.forEach(bids, function(item) {
-                FB.deleteBid(item);
-            });
-
+            FB.deleteUser(id);
             if (user.child('email') !== undefined && user.child('password') !== undefined) {
                 UserAuth.removeUser(user.child('email'), user.child('password'));
             }

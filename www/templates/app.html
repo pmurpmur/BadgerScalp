@@ -30,7 +30,7 @@
                     <div id="account_setting_block">  
                         <a class="item" ng-click="logout()" ui-sref="login">Log Out</a>
                         <a ng-if="canPassChange" class="item" ng-click="changePassword()">Change Password</a>
-                        <a class="item item-assertive" ng-click="removeUser()" >Delete Account</a>
+                        <a class="item item-assertive" ng-click="removeUser(thisUser)" >Delete Account</a>
                     </div>
 
                 </div>

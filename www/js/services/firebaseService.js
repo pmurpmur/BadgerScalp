@@ -69,12 +69,25 @@
                     });
                 });
             });
-
+ 
         },
 
         deleteUser: function (userid) {
-            var fredRef = URL(U + userid);
-            fredRef.remove();
+            
+            URL(U + userid).remove();
+            URL(N + userid).remove();
+            URL(B + userid).remove();
+            URL(L).once("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+
+                    var oj = childSnapshot.val();
+                    if (oj.seller == userid){
+
+                        URL(L + childSnapshot.key()).remove();
+                    }
+                });
+            });
+
         },
 		
         createBid: function(data) {
