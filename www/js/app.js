@@ -35,13 +35,17 @@ angular.module('badgerscalp', [
 
 .constant('FBDB', 'https://badgerscalp.firebaseio.com/')
 .constant('GOOGLEKEY', '775544810012-qrsl2rrbnjtjv2fudb9prfr8jmauvgr0.apps.googleusercontent.com')
-.constant('GOOGLEAUTHSCOPE', ['email'])
+.constant('FACEBOOKKEY', '678220878944353')
+.constant('AUTHSCOPE', ['email'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
   $ionicConfigProvider.backButton.previousTitleText(false);
   $ionicConfigProvider.views.transition('platform');
   $ionicConfigProvider.navBar.alignTitle('center');
+  $ionicConfigProvider.tabs.position("top"); 
+  ionic.Platform.setPlatform('ios');
+  ionic.Platform.fullScreen();
 
   var authWaitResolve = {
     'currentAuth': ['Auth', function(Auth) {
@@ -103,6 +107,7 @@ angular.module('badgerscalp', [
       resolve: authRequireResolve
     })
     .state('app.tabs.chat', {
+      cache: false,
       url: '/chat',
       views: {
         'chat': {
@@ -126,6 +131,19 @@ angular.module('badgerscalp', [
       url: '/bid/:listingId',
       views: {
         'browse': {
+          templateUrl: 'templates/bid.html',
+          controller: 'BidCtrl'
+        }
+      },
+      params: {
+        listingId: null
+      },
+      resolve: authRequireResolve
+    })
+    .state('app.tabs.bid2', {
+      url: '/bid/:listingId',
+      views: {
+        'chat': {
           templateUrl: 'templates/bid.html',
           controller: 'BidCtrl'
         }

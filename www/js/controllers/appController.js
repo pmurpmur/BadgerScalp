@@ -1,13 +1,16 @@
 angular.module('controllers.app', [])
-.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet,DB, Auth, UserStorage) {
+.controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet,DB,UserAuth,UserStorage) {
 
   $scope.filtC = 'all';
   $scope.sorter = '-$id';
+  $scope.ticketPic = '';
 
   var full = UserStorage.getFullName();
   $scope.username = full.first + ' ' + full.last;
 
   $scope.recent = {};
+
+  $scope.canPassChange = UserStorage.getEmail() !== undefined;
 
   var lastPos = 0;
   $scope.fabControl = function ($event) {
@@ -77,6 +80,32 @@ angular.module('controllers.app', [])
     $scope.postModal.remove();
     postModalInitalize();
   };
+
+  $scope.useCamera = function() {
+        document.addEventListener("deviceready", function () {
+            var options_post = {
+              quality: 75,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.CAMERA,
+              allowEdit: true,
+              encodingType: Camera.EncodingType.JPEG,
+              targetWidth: 200,
+              targetHeight: 200,
+              popoverOptions: CameraPopoverOptions,
+              saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options_post).then(function(imgData) {
+              $scope.ticketPic = imgData;
+            }, function(err) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Sorry!',
+                    template: 'Camera failed.'
+                });
+            });
+
+        }, false);    
+    };
 
 
   $scope.typeSelect = function() {
@@ -221,7 +250,7 @@ angular.module('controllers.app', [])
 
 
     $scope.toggleSetting = function() {
-    	$("#account_setting_block").toggle(500);
+    	angular.element(document.getElementById("account_setting_block")).toggleClass('setting-toggle');
     }
 
     
@@ -352,7 +381,7 @@ angular.module('controllers.app', [])
     $scope.takePicturePost = function() {
          document.addEventListener("deviceready", function () {
             var options_post = {
-              quality: 50,
+              quality: 75,
               destinationType: Camera.DestinationType.DATA_URL,
               sourceType: Camera.PictureSourceType.CAMERA,
               allowEdit: true,
@@ -364,14 +393,11 @@ angular.module('controllers.app', [])
             };
 
             $cordovaCamera.getPicture(options_post).then(function(imageData_post) {
-              var image_post = document.getElementById('myImage');
-              //image_post.src = "data:image/jpeg;base64," + imageData_post;
-              $scope.picture_post = "data:image/jpeg;base64," + imageData_post;    
-              $scope.ticketPic = $scope.picture_post;   
+              DB.addPhoto(listingId);
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: 'Error woiii'
+                    title: 'Sorry!',
+                    template: 'Camera failure.'
                 });
             });
 
@@ -388,33 +414,52 @@ angular.module('controllers.app', [])
     }
 
     $scope.changePassword = function() { 
-        var email = UserStorage.getEmail();
-        if (email === undefined) {
-          var passwordChangeFail = $ionicPopup.alert({
-            title: 'Sorry!',
-            template: 'This account is associated with either Google or Facebook! Consult the primary account for changing your password.'
-          });
-        } else {
-          var myPopup = $ionicPopup.show({
-            template: '<input type="password" placeholder="Old Password" ng-model="oldPass"><br/><input type="password" placeholder="New Password" ng-model="newPass">',
-            title: 'Change Password',
-            subTitle: 'Please use over 5 characters',
-            scope: $scope,
-            buttons: [
-              { text: 'Cancel' },
-              { text: '<b>Save</b>',
-                type: 'button-positive',
-                onTap: function(e) {
-                  console.log($scope.oldPass)
-                  if ($scope.oldPass == UserStorage.getPassword()) {
-                    Auth.changePassword(email, $scope.oldPass, $scope.newPass); 
-                  } 
+      $scope.pop = {};
+      var email = UserStorage.getEmail();
+
+      var myPopup = $ionicPopup.show({
+        template: '<input type="password" placeholder="Current Password" ng-model="pop.oldPass"><br/><input type="password" placeholder="New Password" ng-model="pop.newPass">',
+        title: 'Change Password',
+        subTitle: 'Please use over 5 characters',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          { text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if ($scope.pop.oldPass == UserStorage.getPassword()) {
+                if ($scope.pop.newPass.length > 5) {
+                  UserAuth.changePassword(email, $scope.pop.oldPass, $scope.pop.newPass)
+                  .then(function() {
+                    DB.updateUser(UserStorage.thisUser(), { password:$scope.pop.newPass });
+                    $ionicPopup.alert({
+                        title: 'Success!',
+                        template: 'Password has been changed!'
+                    });
+                  })
+                } else {
+                  myPopup.close();
+                  var passwordChangeFail = $ionicPopup.alert({
+                    title: 'Sorry!',
+                    template: 'New password must be over 5 characters'
+                  });
                 }
+              } else {
+                myPopup.close();
+                var passwordChangeFail = $ionicPopup.alert({
+                  title: 'Sorry!',
+                  template: 'Current password was incorrect'
+                });
               }
-            ]
-          });
-        } 
-    }
+            } 
+          }
+        ]
+      });
+      
+      myPopup.then(function() {
+        angular.element(document.querySelector('.popup-container')).remove();
+      });
+    } 
 
     $scope.removeUser = function() {
       var confirmPopup = $ionicPopup.confirm({
@@ -426,9 +471,9 @@ angular.module('controllers.app', [])
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
 
-          Auth.removeUser(email, pass);
+          UserAuth.removeUser(email, pass);
           UserStorage.cleanUser();
-          DB.deleteUser();
+          DB.removeUser();
 
 
           $location.path("/login"); 

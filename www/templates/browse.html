@@ -6,6 +6,7 @@
     <ion-nav-buttons side="right">
        <button class="button button-icon icon ion-ios-search" ng-click="searchModal.show()"></button>
     </ion-nav-buttons>
+    
 	<ion-content delegate-handle="browse-scroll" class="has-header" scroll="true" on-scroll="fabControl($event)">
 		<ion-list>
 			<ion-item class="item-thumbnail-left" 
@@ -14,13 +15,16 @@
 				item-height="100px" 
 				ui-sref="app.tabs.bid({listingId:ticket.$id})">
 
-				<img src="../img/ticket.png">
+				<img ng-if="ticket.image == ''" src="./img/ticket.png">
+                <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
 				<span style="float:right">${{ticket.price}}</span>
 				<h2>{{ticket.title}}</h2>
 				<p>{{ticket.type}}</p>
 				<p ng-if="ticket.quantity > 1">{{ticket.quantity}} tickets</p>
 				<p ng-if="ticket.quantity == 1">{{ticket.quantity}} ticket</p>
+				<p style="float:right"><i class="icon ion-ios-clock-outline" style="padding-right:5px"></i>{{getTimePassed(ticket.createdAt)}}</p>
 				<p>{{localDate(ticket.date)}}</p>
+
 			</ion-item>
 		</ion-list>
 	</ion-content>

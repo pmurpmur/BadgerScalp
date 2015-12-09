@@ -15,12 +15,15 @@
 			item-height="100px"
 			ui-sref="app.bid({listingId:ticket.$id})">
 
-				<img src="../img/ticket.png">
+				<img ng-if="ticket.image == ''" src="./img/ticket.png">
+                <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
 				<p style="float:right">{{localDate(ticket.date)}}</p>
 				<h2>{{ticket.title}}</h2>
 				<p>Asking Price: <b>${{ticket.price}}</b></p>
 				<p>Current Offer: <b>${{getYourBid(ticket.$id)}}</b></p>
-
+				<ion-option-button class="button-assertive">
+			    	<i class="icon ion-trash-a"></i>
+			    </ion-option-button>
 			</ion-item>
 		</ion-list>
 	</ion-content> 

@@ -37,18 +37,41 @@
 			post.createdAt = Firebase.ServerValue.TIMESTAMP;
             post.updatedAt = Firebase.ServerValue.TIMESTAMP;
 			FB.createListing(post);
+
+            FB.createNotification(UserStorage.thisUser(), {
+                type: 'post',
+                date: post.date,
+                image: post.image,
+                price: post.price,
+                quantity: post.quantity,
+                title: post.title,
+                details: post.details,
+                seller: UserStorage.thisUser(), 
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
         },
         createBid: function (post) {
             post.status = 'ACTIVE';
-			post.buyer = UserStorage.thisUser();
-			post.createdAt = Firebase.ServerValue.TIMESTAMP;
-			post.updatedAt = Firebase.ServerValue.TIMESTAMP;
-			FB.createBid(post);
+            post.buyer = UserStorage.thisUser();
+            post.createdAt = Firebase.ServerValue.TIMESTAMP;
+            post.updatedAt = Firebase.ServerValue.TIMESTAMP;
+            FB.createBid(post);
+
+            FB.createNotification(UserStorage.thisUser(), {
+                type: 'bid',
+                price: post.price,
+                listing: post.listing,
+                buyer: UserStorage.thisUser(), 
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
         },
 
         
         // READ
 
+        readNotifications: function() {
+            return FB.$read('notifications/' + UserStorage.thisUser());
+        },
         readTickets: function() {
             return FB.$read('listings');
         },
@@ -76,6 +99,7 @@
         getOneBid: function(id) {
             return FB.$get('listings/' + id + '/bids/' + UserStorage.thisUser());
         },
+
         getListingBids: function(id) {
             return FB.$get('listings/' + id + '/bids');
         },
@@ -85,6 +109,23 @@
 		getEvent: function(id) {
 			return FB.$get('events/' + id);
 		},
+        getListingTitle: function(id) {
+            var ret = '';
+            FB.$get('listings/' + id + '/title')
+            .once('value', function(data) {
+                ret = data.val();
+            });
+            return ret;
+        },
+        getListingDate: function(id) {
+            var ret = '';
+            FB.$get('listings/' + id + '/date')
+            .once('value', function(data) {
+                ret = data.val();
+            });
+            return ret;
+        },
+
         getTicket: function(id) {
             var listing, seller, sData;
 
@@ -129,9 +170,20 @@
 			}));
 		},
         
+        acceptBid: function (buyerId, message, price, listingId) {
+            FB.acceptBid(listingId);
+
+            FB.createNotification(buyerId, {
+                type: 'sold',
+                message: message,
+                price: price
+            });
+        },
 
         // DELETE
-
+        removeBid: function(id, ticket_id) {
+            FB.deleteBid(id, ticket_id);
+        },
         removeListing: function(id) {
 			
 			var listing = FB.$get('listings/' + id);
@@ -167,6 +219,10 @@
 			var listings = eventRef.child(listings);
 			
 			FB.deleteEvent(id);
-		}
+		},
+
+        addPhoto: function(listingId) {
+            FB.addPhoto(listingId);
+        }
     };
 });

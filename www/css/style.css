@@ -2,6 +2,10 @@ ion-content.has-header {
 	background-color: #f8f8f8;
 }
 
+.tab-item {
+	max-width: initial;
+}
+
 textarea {
 	height: 61px;
 	max-height: 61px;
@@ -145,8 +149,20 @@ label.item.has-error {
 	display: inline;
 }
 
-#account_setting_block{
-	display: none;
+#account_setting_block {
+	position: absolute;
+	top: 100px;
+	z-index: 1;
+	width: 100%;
+	transition: top 0.3s ease-in-out;
+}
+
+#account_setting_block.setting-toggle {
+	top: 270px;
+}
+
+.snav {
+	z-index: 100;
 }
 
 .edit_btn{
@@ -215,12 +231,25 @@ input[type="radio"]:checked ~ label {
 	margin: 5px;
 }
 
+.photo {
+	margin-left: -5px;
+	margin-top: -5px;
+	width: 100px;
+	height: 100px;
+	max-width: 100px;
+	max-height: 100px;
+}
+
 .photoThumb .icon {
 	font-size: 48px;
 	opacity: 0.8;
 	position: relative;
 	top: 20px;
 	left: 29%;
+}
+
+.photoThumb .icon.active {
+	color: white;
 }
 
 .floatingPrice {
@@ -295,4 +324,20 @@ input[type="radio"]:checked ~ label {
 .bid_refine{
 	padding-left: 0px;
 	padding-top: 0px;
+}
+
+ion-option-button {
+	width: 70px;
+}
+
+ion-option-button .icon{
+	margin-left: 13px;
+}
+
+.top-bidder {
+	border-top: 0;
+}
+
+.current-post-item {
+	background-color: #387ef5;
 }

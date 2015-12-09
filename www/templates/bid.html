@@ -9,7 +9,8 @@
 		    	<p>{{localDate(ticket.date)}}</p>
 		  	</div>
 		  	<div class="item item-thumbnail-left">
-				<img src="../img/ticket.png">
+				<img ng-if="ticket.image == ''" src="./img/ticket.png">
+                <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
 				<p>{{seller.firstName}} {{seller.lastName}} is selling</p>
 				<p ng-if="ticket.quantity > 1"><b>{{ticket.quantity}}</b> tickets for <b>${{ticket.price}}</b></p>
 				<p ng-if="ticket.quantity == 1"><b>{{ticket.quantity}}</b> ticket for <b>${{ticket.price}}</b></p>
@@ -20,7 +21,7 @@
 			<div class="item item-text-wrap">
 				<h2>{{ticket.details}}</h2>
 				<br><br>
-				<div ng-if="topPrice > 0" class="item item-avatar">
+				<div ng-if="topPrice > 0" class="top-bidder item item-avatar">
 					<img ng-src="{{topBuyer.imgUrl}}">
 					<h2>{{topBuyer.firstName}} {{topBuyer.lastName}}</h2>
 		    		<p>Highest Bid: ${{topPrice}}</p>
@@ -30,6 +31,8 @@
 		</div>
 
 		<button ng-if="thisUser != ticket.seller" class="button button-block button-royal" ng-click="modal1.show()">BID</button>
-		<button ng-if="thisUser == ticket.seller" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
+		<button ng-if="thisUser != ticket.seller && yourBid != -1" class="button button-block button-assertive" ng-click="deleteBid(thisUser, ticket_id)">DELETE BID</button>
+		<button ng-if="thisUser == ticket.seller" ng-disabled="topPrice < 0" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
+		<!-- <button ng-if="thisUser == ticket.seller" class="button button-block button-assertive" ng-click="deletePost()">DELETE POST</button> -->
 	</ion-content>
 </ion-view>

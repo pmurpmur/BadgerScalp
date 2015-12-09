@@ -5,31 +5,31 @@
             <ion-content scroll="false">
                 <div class="list">
 
-                    <ion-item class="item item-avatar">
+                    <ion-item class="item item-avatar snav">
                         <img ng-click="modal2.show()" ng-src="{{getProfilePicture()}}">
                         <h2>{{username}}</h2>
                         <p>Welcome to BadgerScalp!</p>
                     </ion-item>
 
-                    <a class="item item-icon-left" ng-click="closeMenu(false)" nav-direction="enter" ui-sref="app.tabs.browse">
+                    <a class="item item-icon-left snav" ng-click="closeMenu(false)" nav-direction="enter" ui-sref="app.tabs.browse">
                         <i class="icon ion-ios-home"></i>
                         Home
                     </a>
 
-                    <a class="item item-icon-left" ng-click="closeMenu(true)" nav-direction="enter" ui-sref="app.currentbid">
+                    <a class="item item-icon-left snav" ng-click="closeMenu(true)" nav-direction="enter" ui-sref="app.currentbid">
                         <i class="icon ion-social-usd"></i>
                         Current Bids
                     </a>
 
-                    <a class="item item-icon-left" ng-click="closeMenu(true)" nav-direction="enter" ui-sref="app.currentpost">
+                    <a class="item item-icon-left snav" ng-click="closeMenu(true)" nav-direction="enter" ui-sref="app.currentpost">
                         <i class="icon ion-ios-compose"></i>
                         Current Posts
                     </a>
 
-                    <div class="item item-divider" ng-click="toggleSetting()">Account</div>
+                    <div class="item item-divider snav" ng-click="toggleSetting()">Account</div>
                     <div id="account_setting_block">  
                         <a class="item" ng-click="logout()" ui-sref="login">Log Out</a>
-                        <a class="item" ng-click="changePassword()">Change Password</a>
+                        <a ng-if="canPassChange" class="item" ng-click="changePassword()">Change Password</a>
                         <a class="item item-assertive" ng-click="removeUser()" >Delete Account</a>
                     </div>
 
