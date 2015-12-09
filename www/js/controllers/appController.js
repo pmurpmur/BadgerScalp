@@ -107,9 +107,8 @@ angular.module('controllers.app', [])
   };
   
   $scope.eventSelect = function() {
-	var buttonArr = [{ text: '<i class="icon ionic ion-plus"></i>New Event' }];
 	var eventsRef = DB.getEvents();
-	
+	var buttonArr = [{ text: '<i class="icon ionic ion-plus"></i>New Event' }];
 	eventsRef.on('value', function(snapshot) {
 		snapshot.forEach(function(item) {
 			buttonArr.push(
@@ -121,24 +120,24 @@ angular.module('controllers.app', [])
 				}
 			);
 		});
-		
-		var hideSheet = $ionicActionSheet.show({
-			buttons : buttonArr,
-			titleText: 'Select Event',
-			buttonClicked: function(index) {
-				switch(index) {
-					case 0:
-						$scope.eventName = "New Event";
-						break;
-					default:
-						$scope.eventName = buttonArr[index].text;
-						$scope.eventDate = buttonArr[index].date;
-						$scope.opponent =  buttonArr[index].opponent;
-						$scope.eventType = buttonArr[index].sport;
-				}
-				hideSheet();
+	});
+	
+	var hideSheet = $ionicActionSheet.show({
+		buttons : buttonArr,
+		titleText: 'Select Event',
+		buttonClicked: function(index) {
+			switch(index) {
+				case 0:
+					$scope.eventName = "New Event";
+					break;
+				default:
+					$scope.eventName = buttonArr[index].text;
+					$scope.eventDate = buttonArr[index].date;
+					$scope.opponent =  buttonArr[index].opponent;
+					$scope.eventType = buttonArr[index].sport;
 			}
-		});
+			hideSheet();
+		}
 	});
   };
   
