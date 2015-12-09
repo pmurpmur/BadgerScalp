@@ -31,5 +31,7 @@ angular.module('controllers.browse', [])
 			return (new Date(date)).toLocaleDateString();
 		}
 	}
+
+	
 	
 });

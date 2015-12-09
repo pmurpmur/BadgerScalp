@@ -231,12 +231,25 @@ input[type="radio"]:checked ~ label {
 	margin: 5px;
 }
 
+.photo {
+	margin-left: -5px;
+	margin-top: -5px;
+	width: 100px;
+	height: 100px;
+	max-width: 100px;
+	max-height: 100px;
+}
+
 .photoThumb .icon {
 	font-size: 48px;
 	opacity: 0.8;
 	position: relative;
 	top: 20px;
 	left: 29%;
+}
+
+.photoThumb .icon.active {
+	color: white;
 }
 
 .floatingPrice {

@@ -9,7 +9,8 @@
 		    	<p>{{localDate(ticket.date)}}</p>
 		  	</div>
 		  	<div class="item item-thumbnail-left">
-				<img src="../img/ticket.png">
+				<img ng-if="ticket.image == ''" src="./img/ticket.png">
+                <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
 				<p>{{seller.firstName}} {{seller.lastName}} is selling</p>
 				<p ng-if="ticket.quantity > 1"><b>{{ticket.quantity}}</b> tickets for <b>${{ticket.price}}</b></p>
 				<p ng-if="ticket.quantity == 1"><b>{{ticket.quantity}}</b> ticket for <b>${{ticket.price}}</b></p>
