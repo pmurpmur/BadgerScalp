@@ -76,9 +76,15 @@
         createNotification: function(id, notif) {
             $firebaseArray(URL(N + id)).$add(notif);
         },
-
         cleanDB: function() {
 
+        },
+        acceptBid: function (bidId, listingId) {
+            var listing = URL(L + listingId);
+            listing.update({
+                status: 'SOLD',
+                winningBid: bidId
+            });
         }
     };
 }]);

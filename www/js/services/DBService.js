@@ -167,6 +167,15 @@
 			}));
 		},
         
+        acceptBid: function (buyerId, message, price, listingId) {
+            FB.acceptBid(listingId);
+
+            FB.createNotification(buyerId, {
+                type: 'sold',
+                message: message,
+                price: price
+            });
+        },
 
         // DELETE
         removeBid: function(id) {

@@ -175,7 +175,7 @@ angular.module('controllers.app', [])
 
 
     $scope.toggleSetting = function() {
-    	$("#account_setting_block").toggle(500);
+    	angular.element(document.getElementById("account_setting_block")).toggleClass('setting-toggle');
     }
 
     

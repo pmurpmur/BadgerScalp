@@ -14,7 +14,7 @@ angular.module('services.auth', [])
     }
 ])
 
-.factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, UserStorage, Utils, $timeout) {
+.factory('UserAuth', function ($state, $ionicPopup, Auth, UsersURL, UserStorage, Utils, $timeout, $cordovaOauth, GOOGLEKEY, FACEBOOKKEY, AUTHSCOPE) {
     Auth.$onAuth(function(authData) {
         if (authData) {
             $timeout(function() {
@@ -40,36 +40,86 @@ angular.module('services.auth', [])
             });
         },
         authViaOAuth: function(provider) {
-            Auth.$authWithOAuthPopup(provider).then(function(authData) {
-                if (UsersURL.$getRecord(authData.uid) == null) {
-                    var firstName, lastName;
-                    switch (provider) {
-                        case 'google':
-                            var gl = authData.google.cachedUserProfile;
-                            firstName = gl.given_name;
-                            lastName = gl.family_name;
-                            imgUrl = gl.picture;
-                            break;
-                        case 'facebook':
-                            var fb = authData.facebook.cachedUserProfile;
-                            firstName = fb.first_name;
-                            lastName = fb.last_name;
-                            imgUrl = fb.picture.data.url;
-                            break;
-                    }
+            if (ionic.Platform.isWebView()) {
+                switch (provider) {
+                    case 'google':
+                    $cordovaOauth.google(GOOGLEKEY, AUTHSCOPE).then(function(result) {
+                        Auth.$authWithOAuthToken(provider, result.access_token).then(function(authData) {
+                            if (UsersURL.$getRecord(authData.uid) == null) {
+                                var gl = authData.google.cachedUserProfile;
+                                UsersURL.$ref().child(authData.uid).set({
+                                    firstName: gl.given_name,
+                                    lastName: gl.family_name,
+                                    rating: 5.0,
+                                    numReviews: 0,
+                                    imgUrl: gl.picture
+                                });
+                            }
+                            UserStorage.setUser(UsersURL.$getRecord(authData.uid));
 
-                    UsersURL.$ref().child(authData.uid).set({
-                        firstName: firstName,
-                        lastName: lastName,
-                        rating: 5.0,
-                        numReviews: 0,
-                        imgUrl: imgUrl
-                    });
+                        }).catch(function(error) {
+                            Utils.errMessage('Authentication Failed', error);
+                        });
+                    }, function(error) {
+                        Utils.errMessage('Authentication Failed', error);
+                    })
+                    break;
+
+                    case 'facebook':
+                    $cordovaOauth.facebook(FACEBOOKKEY, AUTHSCOPE).then(function(result) {
+                        Auth.$authWithOAuthToken(provider, result.access_token).then(function(authData) {
+                            if (UsersURL.$getRecord(authData.uid) == null) {
+                                var fb = authData.facebook.cachedUserProfile;
+                                UsersURL.$ref().child(authData.uid).set({
+                                    firstName: fb.first_name,
+                                    lastName: fb.last_name,
+                                    rating: 5.0,
+                                    numReviews: 0,
+                                    imgUrl: fb.picture.data.url
+                                });
+                            }
+                            UserStorage.setUser(UsersURL.$getRecord(authData.uid));
+
+                        }).catch(function(error) {
+                            Utils.errMessage('Authentication Failed', error);
+                        });
+                    }, function(error) {
+                        Utils.errMessage('Authentication Failed', error);
+                    })
+                    break;
                 }
-                UserStorage.setUser(UsersURL.$getRecord(authData.uid));
-            }).catch(function(error) {
-                Utils.errMessage('Authentication Failed', error);
-            });
+            } else { // browser support
+                Auth.$authWithOAuthPopup(provider).then(function(authData) {
+                    if (UsersURL.$getRecord(authData.uid) == null) {
+                        var firstName, lastName;
+                        switch (provider) {
+                            case 'google':
+                                var gl = authData.google.cachedUserProfile;
+                                firstName = gl.given_name;
+                                lastName = gl.family_name;
+                                imgUrl = gl.picture;
+                                break;
+                            case 'facebook':
+                                var fb = authData.facebook.cachedUserProfile;
+                                firstName = fb.first_name;
+                                lastName = fb.last_name;
+                                imgUrl = fb.picture.data.url;
+                                break;
+                        }
+
+                        UsersURL.$ref().child(authData.uid).set({
+                            firstName: firstName,
+                            lastName: lastName,
+                            rating: 5.0,
+                            numReviews: 0,
+                            imgUrl: imgUrl
+                        });
+                    }
+                    UserStorage.setUser(UsersURL.$getRecord(authData.uid));
+                }).catch(function(error) {
+                    Utils.errMessage('Authentication Failed', error);
+                });
+            }
         },
         createUser: function(firstName, lastName, email, password) {
             Auth.$createUser({
