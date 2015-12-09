@@ -470,7 +470,6 @@ angular.module('controllers.app', [])
         if(res) {
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
-          console.log(pass);
           if (pass !== undefined){
             UserAuth.removeUser(email, pass);
             UserStorage.cleanUser();

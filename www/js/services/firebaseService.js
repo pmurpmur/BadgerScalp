@@ -62,7 +62,6 @@
                 snapshot.forEach(function(layer1) {
                     layer1.forEach(function(layer2) {
                         var oj = layer2.val();
-                        console.log(oj);
                         if (oj.listing == ticket_id){
                             URL(B + layer1.key() + '/' + layer2.key()).remove();
                         }
@@ -73,7 +72,6 @@
         },
 
         deleteUser: function (userid) {
-            
             URL(U + userid).remove();
             URL(N + userid).remove();
             URL(B + userid).remove();
@@ -82,9 +80,16 @@
 
                     var oj = childSnapshot.val();
                     if (oj.seller == userid){
-
                         URL(L + childSnapshot.key()).remove();
                     }
+                    
+                    URL(L + childSnapshot.key() + '/bids').once("value", function(layer1) {
+                        layer1.forEach(function(layer2) {
+                            if (layer2.key() == userid){
+                                URL(L + childSnapshot.key() + '/bids/' + layer2.key()).remove();
+                            }
+                        });
+                    });
                 });
             });
 
