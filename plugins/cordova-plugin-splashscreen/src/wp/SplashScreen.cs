@@ -105,7 +105,6 @@ namespace WPCordovaClassLib.Cordova.Commands
                     XDocument configFile = XDocument.Parse(sr.ReadToEnd());
 
                     string configAutoHide = configFile.Descendants()
-                                        .Where(x => x.Name.LocalName == "preference")
                                         .Where(x => (string)x.Attribute("name") == "AutoHideSplashScreen")
                                         .Select(x => (string)x.Attribute("value"))
                                         .FirstOrDefault();
@@ -114,7 +113,6 @@ namespace WPCordovaClassLib.Cordova.Commands
                     prefAutoHide = bool.TryParse(configAutoHide, out bVal) ? bVal : prefAutoHide;
 
                     string configDelay = configFile.Descendants()
-                                      .Where(x => x.Name.LocalName == "preference")
                                       .Where(x => (string)x.Attribute("name") == "SplashScreenDelay")
                                       .Select(x => (string)x.Attribute("value"))
                                       .FirstOrDefault();
@@ -122,7 +120,6 @@ namespace WPCordovaClassLib.Cordova.Commands
                     prefDelay = int.TryParse(configDelay, out nVal) ? nVal : prefDelay;
 
                     string configImage = configFile.Descendants()
-                                        .Where(x => x.Name.LocalName == "preference")
                                         .Where(x => (string)x.Attribute("name") == "SplashScreen")
                                         .Select(x => (string)x.Attribute("value"))
                                         .FirstOrDefault();

@@ -35,15 +35,13 @@ angular.module('badgerscalp', [
 
 .constant('FBDB', 'https://badgerscalp.firebaseio.com/')
 .constant('GOOGLEKEY', '775544810012-qrsl2rrbnjtjv2fudb9prfr8jmauvgr0.apps.googleusercontent.com')
-.constant('FACEBOOKKEY', '678220878944353')
-.constant('AUTHSCOPE', ['email'])
+.constant('GOOGLEAUTHSCOPE', ['email'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
   $ionicConfigProvider.backButton.previousTitleText(false);
   $ionicConfigProvider.views.transition('platform');
   $ionicConfigProvider.navBar.alignTitle('center');
-  $ionicConfigProvider.tabs.position("top"); 
 
   var authWaitResolve = {
     'currentAuth': ['Auth', function(Auth) {

@@ -14,7 +14,7 @@
     __weak IonicKeyboard* weakSelf = self;
 
     //set defaults
-    self.hideKeyboardAccessoryBar = YES;
+    self.hideKeyboardAccessoryBar = NO;
     self.disableScroll = NO;
     //self.styleDark = NO;
     
@@ -68,14 +68,14 @@
 }
 
 - (void)setHideKeyboardAccessoryBar:(BOOL)hideKeyboardAccessoryBar {
-    if (hideKeyboardAccessoryBar == _hideKeyboardAccessoryBar || ![self.webView isKindOfClass:[UIWebView class]]) {
+    if (hideKeyboardAccessoryBar == _hideKeyboardAccessoryBar) {
         return;
     }
     if (hideKeyboardAccessoryBar) {
-        ((UIWebView*)self.webView).hackishlyHidesInputAccessoryView = YES;
+        self.webView.hackishlyHidesInputAccessoryView = YES;
     }
     else {
-        ((UIWebView*)self.webView).hackishlyHidesInputAccessoryView = NO;
+        self.webView.hackishlyHidesInputAccessoryView = NO;
     }
 
     _hideKeyboardAccessoryBar = hideKeyboardAccessoryBar;

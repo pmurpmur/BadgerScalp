@@ -33,7 +33,7 @@ angular.module('filters', [])
     
     var out = [];
     angular.forEach(tickets, function(ticket) {
-      if (ticket.status != 'SOLD' && (new Date(ticket.date)) > yesterday) {
+      if ((new Date(ticket.date)) > yesterday) {
         out.push(ticket);
       }
     });

@@ -364,7 +364,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             long[] results = new long[items.length];
             for (int i = 0; i < items.length; i++) {
                 try {
-                    results[i] = Long.parseLong(items[i].trim());
+                    results[i] = Long.parseLong(items[i]);
                 } catch (NumberFormatException nfe) {}
             }
             mBuilder.setVibrate(results);
@@ -471,7 +471,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             int[] results = new int[items.length];
             for (int i = 0; i < items.length; i++) {
                 try {
-                    results[i] = Integer.parseInt(items[i].trim());
+                    results[i] = Integer.parseInt(items[i]);
                 } catch (NumberFormatException nfe) {}
             }
             if (results.length == 4) {

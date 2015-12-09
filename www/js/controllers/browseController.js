@@ -5,7 +5,6 @@ angular.module('controllers.browse', [])
 	$scope.device = window.screen.width;
 	
 	$scope.tickets = DB.readTickets();
-	console.log($scope.tickets);
 
 	$scope.getTimePassed = function(time) {
 		var then = new Date(time);

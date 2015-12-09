@@ -1,7 +1,7 @@
 angular.module('controllers.auth', [])
 
 .controller('AuthCtrl', function($scope, Auth, UserAuth, Utils) {
-    Auth.$unauth(); 
+    Auth.$unauth();  
 
     $scope.loginVia = function(provider) {
     	UserAuth.authViaOAuth(provider);
@@ -18,4 +18,5 @@ angular.module('controllers.auth', [])
 	$scope.resetPassword = function(email) {
     	UserAuth.resetPassword(email);
     }
+
 });
