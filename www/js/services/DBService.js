@@ -57,13 +57,99 @@
             post.updatedAt = Firebase.ServerValue.TIMESTAMP;
             FB.createBid(post);
 
+            var image;
+            FB.$get('listings/' + post.listing + '/image')
+            .once('value', function(data) {
+                image = data.val();
+            });
+
             FB.createNotification(UserStorage.thisUser(), {
                 type: 'bid',
                 price: post.price,
                 listing: post.listing,
-                image: FB.$get('listings/' + post.listing + '/image'),
+                image: image,
                 buyer: UserStorage.thisUser(), 
                 createdAt: Firebase.ServerValue.TIMESTAMP
+            });
+        },
+
+        notifyUserBid: function (sellerId, title, image, price) {
+            var buyerId = UserStorage.thisUser();
+            var sellerFirst, sellerLast, buyerFirst, buyerLast;
+
+            FB.$get('users/' + sellerId + '/firstName')
+            .once('value', function(data) {
+                sellerFirst = data.val();
+            }); 
+
+            FB.$get('users/' + sellerId + '/lastName')
+            .once('value', function(data) {
+                sellerLast = data.val();
+            }); 
+            
+            FB.$get('users/' + buyerId + '/firstName')
+            .once('value', function(data) {
+                buyerFirst = data.val();
+            }); 
+
+            FB.$get('users/' + buyerId + '/lastName')
+            .once('value', function(data) {
+                buyerLast = data.val();
+            }); 
+
+            FB.createNotification(sellerId, {
+                type: 'accept-bidder',
+                price: price,
+                title: title,
+                image: image,
+                sellerFirst: sellerFirst,
+                sellerLast: sellerLast,
+                buyerFirst: buyerFirst,
+                buyerLast: buyerLast,
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
+        },
+
+        notifyUserAccept: function (buyerId, buyerFirst, buyerLast, listingId, price, message) {
+            var sellerId = UserStorage.thisUser();
+            var sellerFirst, sellerLast, buyerFirst, buyerLast, image, title;
+
+            FB.$get('listings/' + listingId + '/title')
+            .once('value', function(data) {
+                title = data.val();
+            });
+
+            FB.$get('listings/' + listingId + '/image')
+            .once('value', function(data) {
+                image = data.val();
+            });
+
+            FB.$get('users/' + sellerId + '/firstName')
+            .once('value', function(data) {
+                sellerFirst = data.val();
+            }); 
+
+            FB.$get('users/' + sellerId + '/lastName')
+            .once('value', function(data) {
+                sellerLast = data.val();
+            }); 
+
+            FB.createNotification(buyerId, {
+                type: 'accept-buyer',
+                price: price,
+                title: title,
+                image: image,
+                sellerFirst: sellerFirst,
+                sellerLast: sellerLast,
+                buyerFirst: buyerFirst,
+                buyerLast: buyerLast,
+                message: message,
+                createdAt: Firebase.ServerValue.TIMESTAMP
+            });
+
+            FB.updateListing(listingId, {
+                status: 'SOLD',
+                updatedAt: Firebase.ServerValue.TIMESTAMP
             });
         },
 

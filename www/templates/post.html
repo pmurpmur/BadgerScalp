@@ -31,14 +31,14 @@
             <div class="row">
 				<div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventType.$invalid && postForm.$submitted }">
-                        <span class="input-label">Sport</span>
-                        <input ng-click="typeSelect()" name="eventType" type="text" ng-model="eventType" placeholder="Sport" required readonly>
+                        <span class="input-label">Type</span>
+                        <input ng-click="typeSelect()" name="eventType" type="text" ng-model="eventType" placeholder="Type" required readonly>
                     </label>
                 </div>
                 <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
                         <span class="input-label">Date</span>
-                        <input name="Date" type="date" placeholder="Date (YYYY-MM-DD)" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
+                        <input name="Date" type="date" placeholder="Date" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
                     </label>
                 </div> 
                 <div class="col">

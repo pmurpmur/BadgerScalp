@@ -16,6 +16,7 @@ angular.module('controllers.bid', [])
 	getHighestBidder();
 
 	$scope.yourBid = -1;
+	getYourBid();
 
 
 	function getHighestBidder() {
@@ -25,6 +26,7 @@ angular.module('controllers.bid', [])
             if (price > $scope.topPrice) {
                 $scope.topPrice = price;
                  
+                $scope.topBuyer_id = data.key();
                 DB.getUser(data.key())
 				.once('value', function(data) {
                 	$scope.topBuyer = data.val();
@@ -99,6 +101,7 @@ angular.module('controllers.bid', [])
 		}
 		else {
 			DB.createBid({price:bidValue, listing:thisTicket});
+			DB.notifyUserBid($scope.ticket.seller, $scope.ticket.title, $scope.ticket.image, bidValue);
 			getHighestBidder();
 			$scope.yourBid = bidValue;
 			$scope.modal1.hide();
@@ -121,17 +124,38 @@ angular.module('controllers.bid', [])
   	};
 
   	$scope.confirmSale = function() {
-		var hideSheet = $ionicActionSheet.show({
-	     destructiveText: 'Accept Offer For $' + $scope.topPrice,
-	     titleText: 'Are you sure?',
-	     cancelText: 'Cancel',
-	     cancel: function() {
-	     	hideSheet();
-	     },
-	     destructiveButtonClicked: function() {
-	       return true;
-	     }
-	   });
+  		$scope.confirm = {};
+  		var myPopup = $ionicPopup.show({
+		    template: '<textarea name="details" placeholder="Explain buyer how to reach you in order to finish transaction..." ng-model="confirm.message"></textarea> ',
+		    title: 'Confirm Sale!',
+		    subTitle: 'Please use a minimum of 10 characters',
+		    scope: $scope,
+		    buttons: [
+		      { text: 'CANCEL' },
+		      {
+		        text: '<b>SELL</b>',
+		        type: 'button-assertive',
+		        onTap: function(e) {
+		          if ($scope.confirm.message.length >= 10) {
+		        	DB.notifyUserAccept($scope.topBuyer_id, $scope.topBuyer.firstName, $scope.topBuyer.lastName, thisTicket, $scope.topPrice, $scope.confirm.message);
+		          }
+		        }
+		      }
+		    ]
+		  });
+
+		// var hideSheet = $ionicActionSheet.show({
+	 //     destructiveText: 'Accept Offer For $' + $scope.topPrice,
+	 //     titleText: 'Are you sure?',
+	 //     cancelText: 'Cancel',
+	 //     cancel: function() {
+	 //     	hideSheet();
+	 //     },
+	 //     destructiveButtonClicked: function() {
+	 //       DB.notifyUserAccept();
+	 //       return true;
+	 //     }
+	 //   });
 	};
 
 	$scope.deletePost = function(user_id, ticket_id, title) {

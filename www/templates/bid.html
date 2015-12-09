@@ -9,14 +9,6 @@
 		    	<h2>{{ticket.title}}</h2>
 		    	<p>{{localDate(ticket.date)}}</p>
 		  	</div>
-
-<!-- 		  	<div class="item item-image">
-				<img ng-if="ticket.image == ''" src="./img/ticket.png">
-                <img ng-if="ticket.image  != ''" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
-                <div class="photo-details">
-                	<h2>{{ticket.details}}</h2>
-               	</div>
-			</div> -->
 		  	<div class="item item-thumbnail-left">
 				<img ng-if="ticket.image == ''" src="./img/ticket.png">
                 <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
@@ -31,19 +23,19 @@
 				<h2>{{ticket.details}}</h2>
 				<br><br>
 				<div ng-if="topPrice > 0" class="top-bidder item item-avatar">
-					<img ng-src="{{topBuyer.imgUrl}}">
-					<h2>{{topBuyer.firstName}} {{topBuyer.lastName}}</h2>
+					<img ng-src="{{topBuyer.image}}">
+					<h2>{{topBuyer.firstName}} {{topBuyer.lastName}}  <span ng-if="ticket.status == 'SOLD'" class="assertive">SOLD</span></h2>
 		    		<p>Highest Bid: ${{topPrice}}</p>
 				</div>
 			</div>
 
 		</div>
 
-		<button ng-if="thisUser != ticket.seller" class="button button-block button-royal" ng-click="modal1.show()">BID</button>
-		<button ng-if="thisUser != ticket.seller && yourBid != -1" class="button button-block button-assertive" ng-click="deleteBid(thisUser, ticket_id)">DELETE BID</button>
-		<button ng-if="thisUser == ticket.seller" ng-disabled="topPrice < 0" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
+		<button ng-if="thisUser != ticket.seller" ng-disabled="ticket.status == 'SOLD'"  class="button button-block button-royal" ng-click="modal1.show()">BID</button>
+		<button ng-if="thisUser != ticket.seller && yourBid > 0" ng-disabled="ticket.status == 'SOLD'"  class="button button-block button-assertive" ng-click="deleteBid(thisUser, ticket_id)">DELETE BID</button>
+		<button ng-if="thisUser == ticket.seller" ng-disabled="topPrice < 0 || ticket.status == 'SOLD'" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
 
-		<button ng-if="thisUser == ticket.seller" class="button button-block button-assertive" ng-click="deletePost(thisUser, ticket_id, ticket.title)">DELETE POST</button>
+		<button ng-if="thisUser == ticket.seller" ng-disabled="ticket.status == 'SOLD'" class="button button-block button-assertive" ng-click="deletePost(thisUser, ticket_id, ticket.title)">DELETE POST</button>
 
 	</ion-content>
 </ion-view>

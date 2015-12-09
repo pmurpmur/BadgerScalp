@@ -10,7 +10,7 @@
 	<ion-content delegate-handle="browse-scroll" class="has-header" scroll="true" on-scroll="fabControl($event)">
 		<ion-list>
 			<ion-item class="item-avatar" 
-				collection-repeat="notif in notifications | orderBy:'-$id'"
+				collection-repeat="notif in notifications | orderBy:'$id'"
 				ng-href="{{$state.href(app.tabs.bid2, notif.listing)}}">
 
 				<img ng-if="notif.image === undefined || notif.image == ''" src="./img/ticket.png">
@@ -24,6 +24,11 @@
 				<p ng-if="notif.type == 'post' && notif.quantity == 1">You posted <b>{{notif.quantity}}</b> ticket for <b>${{notif.price}}</b></p>
 				<p ng-if="notif.type == 'post' && notif.quantity > 1">You posted <b>{{notif.quantity}}</b> tickets for <b>${{notif.price}}</b></p>
 
+				<h2 ng-if="notif.type == 'accept-buyer'">{{notif.sellerFirst}} {{notif.sellerLast}} accepts bid!</h2>
+				<p ng-if="notif.type == 'accept-buyer'" style="overflow:scroll;text-overflow:initial;">{{notif.message}}</p>
+
+				<h2 ng-if="notif.type == 'accept-bidder'">{{notif.buyerFirst}} {{notif.buyerLast}}</h2>
+				<p ng-if="notif.type == 'accept-bidder'">just bid <b>${{notif.price}}</b> on {{notif.title}}</p>
 
 			</ion-item>
 		</ion-list>
