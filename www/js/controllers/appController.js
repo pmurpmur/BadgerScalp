@@ -2,7 +2,7 @@ angular.module('controllers.app', [])
 .controller('AppCtrl', function($scope,$state,$ionicModal,$ionicScrollDelegate,$location, $ionicSideMenuDelegate,$ionicModal,$ionicPopup,$cordovaCamera,$ionicActionSheet,DB,UserAuth,UserStorage) {
 
   $scope.filtC = 'all';
-  $scope.sorter = '-$id';
+  $scope.sorter = '$id';
 
   var full = UserStorage.getFullName();
   $scope.username = full.first + ' ' + full.last;
@@ -143,7 +143,7 @@ angular.module('controllers.app', [])
       $scope.filtD = undefined;
       $scope.filtMinP = undefined;
       $scope.filtMaxP = undefined;
-      $scope.sorter = '-$id';
+      $scope.sorter = '$id';
     });
   }
 
@@ -154,7 +154,7 @@ angular.module('controllers.app', [])
     $scope.filtMinP = minPrice;
     $scope.filtMaxP = maxPrice;
 
-    if (sorting == 'recent')            { $scope.sorter = '-$id'; }
+    if (sorting == 'recent')            { $scope.sorter = '$id'; }
     else if (sorting == 'next')         { $scope.sorter = $scope.orderByDate; }
     else if (sorting == 'lowPrice')     { $scope.sorter = 'price'; }
     else if (sorting == 'highPrice')    { $scope.sorter = '-price'; }

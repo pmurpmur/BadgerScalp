@@ -44,6 +44,8 @@ angular.module('badgerscalp', [
   $ionicConfigProvider.views.transition('platform');
   $ionicConfigProvider.navBar.alignTitle('center');
   $ionicConfigProvider.tabs.position("top"); 
+  ionic.Platform.setPlatform('ios');
+  ionic.Platform.fullScreen();
 
   var authWaitResolve = {
     'currentAuth': ['Auth', function(Auth) {
