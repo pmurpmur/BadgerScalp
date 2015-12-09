@@ -167,10 +167,19 @@
 			}));
 		},
         
+        acceptBid: function (buyerId, message, price, listingId) {
+            FB.acceptBid(listingId);
+
+            FB.createNotification(buyerId, {
+                type: 'sold',
+                message: message,
+                price: price
+            });
+        },
 
         // DELETE
-        removeBid: function(id) {
-            FB.deleteBid(id);
+        removeBid: function(id, ticket_id) {
+            FB.deleteBid(id, ticket_id);
         },
         removeListing: function(id) {
 			

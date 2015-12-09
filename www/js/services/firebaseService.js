@@ -1,6 +1,6 @@
  angular.module('services.fire', [])
 
-.factory('FB', ['FBDB', '$firebaseArray', function (FBDB, $firebaseArray) {
+.factory('FB', ['FBDB', '$firebaseArray', function (FBDB, $firebaseArray, UserStorage) {
 
     var U = 'users/';
     var L = 'listings/';
@@ -38,7 +38,9 @@
 
         },
         deleteListing: function(id) {
-            var user = URL(L + id + '/seller');
+           // var user = URL(L + id + '/seller');
+
+            var user = UserStorage.thisUser();
             URL(L + id).remove(function() {
                 $firebaseArray(URL(U + user + '/listings')).$remove(id);
             });
@@ -56,10 +58,22 @@
         updateBid: function(id, data) {
             URL(B + id).update(data);
         },
-        deleteBid: function(id) {
+        deleteBid: function(id, ticket_id) {
             var user = URL(B + id + '/buyer');
-            URL(B + id).remove(function() {
-                $firebaseArray(URL(U + user + '/bids')).$remove(id);
+            // URL(B + id).remove(function() {
+            //     $firebaseArray(URL(U + user + '/bids')).$remove(id);
+            URL(B + id + '/' + ticket_id).remove(function() {
+                //$firebaseArray(URL(U + user + '/bids')).$remove(id);
+            });
+            URL(L + ticket_id + '/bids/' +  id).remove();
+            URL(N + id).orderByChild("type").startAt('bid').endAt('bid').on('value', function(snapshot) { 
+                snapshot.forEach(function(childSnapshot) {
+                    var oj = childSnapshot.val();
+                    if (oj.buyer == id && oj.listing == ticket_id) {
+                        console.log(childSnapshot.key());
+                        URL(N + id + '/' + childSnapshot.key()).remove();
+                    }
+                });
             });
         },
 		
@@ -76,9 +90,15 @@
         createNotification: function(id, notif) {
             $firebaseArray(URL(N + id)).$add(notif);
         },
-
         cleanDB: function() {
 
+        },
+        acceptBid: function (bidId, listingId) {
+            var listing = URL(L + listingId);
+            listing.update({
+                status: 'SOLD',
+                winningBid: bidId
+            });
         }
     };
 }]);
