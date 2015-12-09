@@ -166,15 +166,15 @@
 				updatedAt: Firebase.ServerValue.TIMESTAMP
 			}));
 		},
-        
+         
 
         // DELETE
-        removeBid: function(id) {
-            FB.deleteBid(id);
+        removeBid: function(id, ticket_id) {
+            FB.deleteBid(id, ticket_id);
         },
         removeListing: function(id) {
-			
 			var listing = FB.$get('listings/' + id);
+            console.log(listing.path.o[1].eventId);
 			var eventRef = FB.$get('events/' + listing.eventId);
 			var index = eventRef.listings.indexOf(id);
 			eventRef.listings.splice(index, 1);

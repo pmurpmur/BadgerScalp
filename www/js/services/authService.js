@@ -144,9 +144,11 @@ angular.module('services.auth', [])
             }); 
         },
         removeUser: function(email, password) {
+            
             Auth.$removeUser({
                 email: email,
                 password: password
+
             }).then(function() {
                 Auth.$unAuth();
             }).catch(function(error) {
