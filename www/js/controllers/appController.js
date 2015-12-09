@@ -112,31 +112,31 @@ angular.module('controllers.app', [])
 	
 	eventsRef.on('value', function(snapshot) {
 		snapshot.forEach(function(item) {
-			buttonArr.push({ text: item.child('name').val() })
+			buttonArr.push(
+				{ 
+					text: item.child('name').val(), 
+					date: new Date(item.child('date').val()),
+					opponent: item.child('opponent').val(),
+					sport: item.child('sport').val()
+				}
+			);
 		});
-	});
-	
-    var hideSheet = $ionicActionSheet.show({
-      buttons : buttonArr,
-      titleText: 'Select Event',
-      buttonClicked: function(index) {
-		switch(index) {
-			case 0:
-				$scope.eventName = "New Event";
-				break;
-			default:
-				$scope.eventName = buttonArr[index].text;
-		}
-        hideSheet();
-      }
-    });
-	
-	eventsRef.on('value', function(snapshot) {
-		snapshot.forEach(function(item) {
-			if (item.child('name').val() == $scope.eventName) {
-				$scope.eventDate = new Date(item.child('date').val());
-				$scope.opponent = item.child('opponent').val();
-				$scope.eventType = item.child('sport').val();
+		
+		var hideSheet = $ionicActionSheet.show({
+			buttons : buttonArr,
+			titleText: 'Select Event',
+			buttonClicked: function(index) {
+				switch(index) {
+					case 0:
+						$scope.eventName = "New Event";
+						break;
+					default:
+						$scope.eventName = buttonArr[index].text;
+						$scope.eventDate = buttonArr[index].date;
+						$scope.opponent =  buttonArr[index].opponent;
+						$scope.eventType = buttonArr[index].sport;
+				}
+				hideSheet();
 			}
 		});
 	});
