@@ -19,10 +19,10 @@
 			if (!post.eventId)
 			{
 				var eventData = {};
-				eventData.dateTime = post.dateTime? post.dateTime : "GAMEDAY";
+				eventData.date = post.date.substring(0,15);
 				eventData.sport = post.type;
 				eventData.opponent = post.opponent? post.opponent : "OPPONENT";
-				eventData.title = eventData.dateTime+" - "+eventData.sport+" VS "+eventData.opponent;
+				eventData.name = eventData.date+" - "+eventData.sport+" VS "+eventData.opponent;
 				eventData.createdAt = Firebase.ServerValue.TIMESTAMP;
 				eventData.updatedAt = Firebase.ServerValue.TIMESTAMP;
 				id = FB.createEvent(eventData);
@@ -103,6 +103,9 @@
         getListingBids: function(id) {
             return FB.$get('listings/' + id + '/bids');
         },
+		getEvents: function() {
+			return FB.$get('events');
+		},
 		getEvent: function(id) {
 			return FB.$get('events/' + id);
 		},

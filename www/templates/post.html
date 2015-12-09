@@ -8,24 +8,45 @@
     <div class="header-hover post-hover"></div>
 
 	<ion-content scroll="true">
-        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(eventTitle, eventDate, eventPrice, eventQuantity, eventType, eventDetails)">
+        <form novalidate name="postForm" title="Post" ng-submit="postForm.$valid && postSale(eventTitle, eventName, eventDate, opponent, eventPrice, eventQuantity, eventType, eventDetails)">
 
             <div class="row">
-                <div class="col col-56">
+                <div class="col col-50">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventTitle.$invalid && postForm.$submitted }">
-                        <span class="input-label">Event</span>
-                        <input name="eventTitle" type="text" ng-model="eventTitle" placeholder="Event Title" ng-maxlength="30" required>
+                        <span class="input-label">Title</span>
+                        <input name="eventTitle" type="text" ng-model="eventTitle" placeholder="Title" ng-maxlength="30" required>
                     </label>
                     <div class="form-errors" ng-messages="postForm.eventTitle.$error" ng-if="postForm.$submitted">
     				    <div class="form-error" ng-message="maxlength">Keep event title under 30 characters</div>
     				</div>
                 </div>
-                <div class="col col-43">
-                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
-                        <span class="input-label">Date</span>
-                        <input name="eventDate" type="date" placeholder="Date" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
+                <div class="col col-50">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventName.$invalid && postForm.$submitted }">
+                        <span class="input-label">Event</span>
+                        <input ng-click="eventSelect()" name="eventName" type="text" ng-model="eventName" placeholder="Choose Event" required readonly>
                     </label>
                 </div> 
+            </div>
+			
+            <div class="row">
+				<div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventType.$invalid && postForm.$submitted }">
+                        <span class="input-label">Sport</span>
+                        <input ng-click="typeSelect()" name="eventType" type="text" ng-model="eventType" placeholder="Sport" required readonly>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
+                        <span class="input-label">Date</span>
+                        <input name="Date" type="date" placeholder="Date (YYYY-MM-DD)" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
+                    </label>
+                </div> 
+                <div class="col">
+                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.opponent.$invalid && postForm.$submitted }">
+                        <span class="input-label">Opponent</span>
+                        <input name="Opponent" type="text" ng-model="opponent" placeholder="Opponent" ng-maxlength="30" required>
+                    </label>
+                </div>
             </div>
 
             <div class="row">
@@ -44,15 +65,6 @@
             </div>
 
             <div class="row">
-                <div class="col">
-                    <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventType.$invalid && postForm.$submitted }">
-                        <span class="input-label">Type</span>
-                        <input ng-click="typeSelect()" name="eventType" type="text" ng-model="eventType" placeholder="Event Type" required readonly>
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
                 <div ng-click="useCamera()"  class="col photoThumb">
                     <i ng-if="ticketPic == ''" class="postIcon icon ion-camera"></i>
                     <img ng-if="ticketPic != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticketPic}}" />
@@ -66,7 +78,6 @@
                         <div class="form-error" ng-message="maxlength">Keep details under 100 characters</div>
                     </div>
                 </div>
-                
             </div>
 
                 

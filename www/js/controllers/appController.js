@@ -55,10 +55,22 @@ angular.module('controllers.app', [])
 		});
 	}; postModalInitalize();
 
-  $scope.postSale = function(title, date, price, quantity, type, details) {
+  $scope.postSale = function(title, eventName, date, opponent, price, quantity, type, details) {
+	var eventsRef = DB.getEvents();
+	var eventId = undefined;
+	eventsRef.on('value', function(snapshot) {
+		snapshot.forEach(function(item) {
+			if (item.child('name') == eventName) {
+				eventId = item.ref().key();
+			}
+		});
+	});
+	
     DB.createListing({
       title: title,
+	  eventId: eventId,
       date: date.toString(),
+	  opponent: opponent,
       price: price,
       quantity: quantity,
       type: type,
@@ -122,6 +134,42 @@ angular.module('controllers.app', [])
       }
     });
   };
+  
+  $scope.eventSelect = function() {
+	var eventsRef = DB.getEvents();
+	var buttonArr = [{ text: '<i class="icon ionic ion-plus"></i>New Event' }];
+	eventsRef.on('value', function(snapshot) {
+		snapshot.forEach(function(item) {
+			buttonArr.push(
+				{ 
+					text: item.child('name').val(), 
+					date: new Date(item.child('date').val()),
+					opponent: item.child('opponent').val(),
+					sport: item.child('sport').val()
+				}
+			);
+		});
+	});
+	
+	var hideSheet = $ionicActionSheet.show({
+		buttons : buttonArr,
+		titleText: 'Select Event',
+		buttonClicked: function(index) {
+			switch(index) {
+				case 0:
+					$scope.eventName = "New Event";
+					break;
+				default:
+					$scope.eventName = buttonArr[index].text;
+					$scope.eventDate = buttonArr[index].date;
+					$scope.opponent =  buttonArr[index].opponent;
+					$scope.eventType = buttonArr[index].sport;
+			}
+			hideSheet();
+		}
+	});
+  };
+  
   $scope.close = function() {
         $scope.ticketPic = "";
         if($scope.picture_post !== undefined)$scope.picture_post = undefined;
