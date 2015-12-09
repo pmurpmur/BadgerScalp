@@ -28,23 +28,20 @@
                 </div> 
             </div>
 			
-			<div class="row">
-                <div class="col">
+            <div class="row">
+				<div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventType.$invalid && postForm.$submitted }">
                         <span class="input-label">Sport</span>
                         <input ng-click="typeSelect()" name="eventType" type="text" ng-model="eventType" placeholder="Sport" required readonly>
                     </label>
                 </div>
-            </div>
-			
-            <div class="row">
-                <div class="col col-50">
+                <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
                         <span class="input-label">Date</span>
                         <input name="Date" type="date" placeholder="Date (YYYY-MM-DD)" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
                     </label>
                 </div> 
-                <div class="col col-50">
+                <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.opponent.$invalid && postForm.$submitted }">
                         <span class="input-label">Opponent</span>
                         <input name="Opponent" type="text" ng-model="opponent" placeholder="Opponent" ng-maxlength="30" required>

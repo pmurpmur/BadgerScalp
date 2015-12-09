@@ -122,7 +122,8 @@ angular.module('controllers.app', [])
       buttonClicked: function(index) {
 		switch(index) {
 			case 0:
-				$scope.eventName = buttonArr[index].text.substring(35);
+				$scope.eventName = "New Event";
+				break;
 			default:
 				$scope.eventName = buttonArr[index].text;
 		}
