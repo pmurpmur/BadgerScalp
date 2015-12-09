@@ -218,8 +218,8 @@
 			FB.deleteEvent(id);
 		},
 
-        cleanDB: function() {
-
+        addPhoto: function(listingId) {
+            FB.addPhoto(listingId);
         }
     };
 });

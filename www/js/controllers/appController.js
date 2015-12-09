@@ -3,6 +3,7 @@ angular.module('controllers.app', [])
 
   $scope.filtC = 'all';
   $scope.sorter = '-$id';
+  $scope.ticketPic = '';
 
   var full = UserStorage.getFullName();
   $scope.username = full.first + ' ' + full.last;
@@ -67,6 +68,32 @@ angular.module('controllers.app', [])
     $scope.postModal.remove();
     postModalInitalize();
   };
+
+  $scope.useCamera = function() {
+        document.addEventListener("deviceready", function () {
+            var options_post = {
+              quality: 75,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.CAMERA,
+              allowEdit: true,
+              encodingType: Camera.EncodingType.JPEG,
+              targetWidth: 200,
+              targetHeight: 200,
+              popoverOptions: CameraPopoverOptions,
+              saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options_post).then(function(imgData) {
+              $scope.ticketPic = imgData;
+            }, function(err) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Sorry!',
+                    template: 'Camera failed.'
+                });
+            });
+
+        }, false);    
+    };
 
 
   $scope.typeSelect = function() {
@@ -306,7 +333,7 @@ angular.module('controllers.app', [])
     $scope.takePicturePost = function() {
          document.addEventListener("deviceready", function () {
             var options_post = {
-              quality: 50,
+              quality: 75,
               destinationType: Camera.DestinationType.DATA_URL,
               sourceType: Camera.PictureSourceType.CAMERA,
               allowEdit: true,
@@ -318,14 +345,11 @@ angular.module('controllers.app', [])
             };
 
             $cordovaCamera.getPicture(options_post).then(function(imageData_post) {
-              var image_post = document.getElementById('myImage');
-              //image_post.src = "data:image/jpeg;base64," + imageData_post;
-              $scope.picture_post = "data:image/jpeg;base64," + imageData_post;    
-              $scope.ticketPic = $scope.picture_post;   
+              DB.addPhoto(listingId);
             }, function(err) {
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: 'Error woiii'
+                    title: 'Sorry!',
+                    template: 'Camera failure.'
                 });
             });
 

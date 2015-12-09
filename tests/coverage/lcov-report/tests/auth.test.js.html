@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tests\auth.test.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">tests/</a> auth.test.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.15% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/87</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.15% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/87</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">describe('During authorization', <span class="fstat-no" title="function not covered" >function() {  </span>
+<span class="cstat-no" title="statement not covered" >    var forgotPassword, register, newEmail;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    beforeEach(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        browser.get('/#/');</span>
+<span class="cstat-no" title="statement not covered" >        forgotPassword = element(by.id('fPasswordLink'));</span>
+<span class="cstat-no" title="statement not covered" >        register = element(by.id('registerLink'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var newEmail = '';</span>
+<span class="cstat-no" title="statement not covered" >        var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        for(var i = 0; i &lt; 23; i++) { </span>
+<span class="cstat-no" title="statement not covered" >            newEmail += possible.charAt(Math.floor(Math.random() * possible.length));</span>
+        } <span class="cstat-no" title="statement not covered" >newEmail += '@bs.io';</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it('should start at login page', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        expect(browser.getLocationAbsUrl()).toMatch('/login');</span>
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it('should send user to register account if email and password do not exist', <span class="fstat-no" title="function not covered" >function() {</span></span>
+        // grab form fields by id
+<span class="cstat-no" title="statement not covered" >        var username = element(by.model('user.email'));</span>
+<span class="cstat-no" title="statement not covered" >        var password = element(by.model('user.password'));</span>
+&nbsp;
+        // send input to respective form fields
+<span class="cstat-no" title="statement not covered" >        username.sendKeys('unlikelyemailtohave@bs.io');</span>
+<span class="cstat-no" title="statement not covered" >        password.sendKeys('badgerscalp');</span>
+&nbsp;
+        // click the login button
+<span class="cstat-no" title="statement not covered" >        var loginButton = element(by.id('loginButton'));</span>
+<span class="cstat-no" title="statement not covered" >        loginButton.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                expect(browser.getLocationAbsUrl()).toMatch('/register');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var popup = element(by.css('.popup-container.popup-showing.active'));</span>
+<span class="cstat-no" title="statement not covered" >                expect(popup.isDisplayed()).toBeTruthy();</span>
+            }, 2000);
+        });
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it('should signup, logout, and login with newly created account', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        register.click();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var pass = 'badgerscalp';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var firstName = element(by.model('user.firstName'));</span>
+<span class="cstat-no" title="statement not covered" >        var lastName = element(by.model('user.lastName'));</span>
+<span class="cstat-no" title="statement not covered" >        var username = element(by.model('user.email'));</span>
+<span class="cstat-no" title="statement not covered" >        var password = element(by.model('user.password'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        firstName.sendKeys('Buckingham');</span>
+<span class="cstat-no" title="statement not covered" >        lastName.sendKeys('Badger');</span>
+<span class="cstat-no" title="statement not covered" >        username.sendKeys(newEmail);</span>
+<span class="cstat-no" title="statement not covered" >        password.sendKeys(pass);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var registerButton = element(by.id('registerButton'));</span>
+<span class="cstat-no" title="statement not covered" >        registerButton.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                expect(browser.getLocationAbsUrl()).toMatch('/browse');</span>
+            }, 2000);
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var registerButton = element(by.id('menuButton'));</span>
+<span class="cstat-no" title="statement not covered" >        menuButton.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                var logoutButton = element(by.id('logButton'));</span>
+<span class="cstat-no" title="statement not covered" >                logoutButton.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                    expect(browser.getLocationAbsUrl()).toMatch('/login');</span>
+                })
+            }, 2000);
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var username = element(by.model('user.email'));</span>
+<span class="cstat-no" title="statement not covered" >        var password = element(by.model('user.password'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        username.sendKeys(newEmail);</span>
+<span class="cstat-no" title="statement not covered" >        password.sendKeys(pass);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var loginButton = element(by.id('loginButton'));</span>
+<span class="cstat-no" title="statement not covered" >        loginButton.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                expect(browser.getLocationAbsUrl()).toMatch('/register');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var popup = element(by.css('.popup-container.popup-showing.active'));</span>
+<span class="cstat-no" title="statement not covered" >                expect(popup.isDisplayed()).toBeTruthy();</span>
+            }, 2000);
+        });
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it('should initialize the local storage with current user info', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        var username = element(by.model('user.email'));</span>
+<span class="cstat-no" title="statement not covered" >        var password = element(by.model('user.password'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        username.sendKeys('register@imp.io');</span>
+<span class="cstat-no" title="statement not covered" >        password.sendKeys('register');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var loginButton = element(by.id('loginButton'));</span>
+<span class="cstat-no" title="statement not covered" >        loginButton.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                expect(browser.getLocationAbsUrl()).toMatch('/browse');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var user = JSON.parse(localStorage.getItem('user'));</span>
+<span class="cstat-no" title="statement not covered" >                console.log(user);</span>
+<span class="cstat-no" title="statement not covered" >                expect(user).toBeDefined();</span>
+            }, 2000);
+        });
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it('should signup/login via google', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        var gl = element(by.id('googleButton'));</span>
+<span class="cstat-no" title="statement not covered" >        gl.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                expect(browser.getLocationAbsUrl()).toMatch('/browse');</span>
+            }, 3000);
+        });
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it('should signup/login via facebook', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        var fb = element(by.id('facebookButton'));</span>
+<span class="cstat-no" title="statement not covered" >        fb.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                expect(browser.getLocationAbsUrl()).toMatch('/browse');</span>
+            }, 3000);
+        });
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it('should display error if invalid email is entered into forgot password field', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        forgotPassword.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                var email = element(by.model('user.email'));</span>
+<span class="cstat-no" title="statement not covered" >                email.sendKeys('unlikelyemailtohaveimp.io');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var retrieveButton = element(by.id('retrieveButton'));</span>
+<span class="cstat-no" title="statement not covered" >                retrieveButton.click().then(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                    setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >                        var popup = element(by.css('.popup-container.popup-showing.active'));</span>
+<span class="cstat-no" title="statement not covered" >                        expect(popup.isDisplayed()).toBeTruthy();</span>
+                    }, 2000);
+                });
+            }, 2000);
+        });
+    });
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Dec 07 2015 21:25:55 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
