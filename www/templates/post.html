@@ -23,7 +23,7 @@
                 <div class="col col-50">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventName.$invalid && postForm.$submitted }">
                         <span class="input-label">Event</span>
-                        <input ng-click="eventSelect()" name="eventName" type="text" ng-model="eventName" placeholder="Event" required readonly>
+                        <input ng-click="eventSelect()" name="eventName" type="text" ng-model="eventName" placeholder="Choose Event" required readonly>
                     </label>
                 </div> 
             </div>
@@ -41,7 +41,7 @@
                 <div class="col col-50">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.eventDate.$invalid && postForm.$submitted }">
                         <span class="input-label">Date</span>
-                        <input name="eventDate" type="date" placeholder="Date (YYYY-MM-DD)" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
+                        <input name="Date" type="date" placeholder="Date (YYYY-MM-DD)" ng-model="eventDate" min="{{yesterday}}" max="{{oneYear}}" required>
                     </label>
                 </div> 
                 <div class="col col-50">

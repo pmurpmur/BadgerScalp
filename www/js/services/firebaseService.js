@@ -16,7 +16,7 @@
             return $firebaseArray(new Firebase(FBDB + path));
         },
         $get: function(path) {
-            return new Firebase(FBDB + path);
+            return new URL(path);
         },
 		
         updateUser: function(id, data) {

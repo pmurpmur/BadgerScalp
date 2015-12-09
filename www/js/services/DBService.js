@@ -19,7 +19,7 @@
 			if (!post.eventId)
 			{
 				var eventData = {};
-				eventData.date = post.date;
+				eventData.date = post.date.substring(0,15);
 				eventData.sport = post.type;
 				eventData.opponent = post.opponent? post.opponent : "OPPONENT";
 				eventData.name = eventData.date+" - "+eventData.sport+" VS "+eventData.opponent;
