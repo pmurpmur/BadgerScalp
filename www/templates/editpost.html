@@ -53,8 +53,9 @@
             </div>
 
             <div class="row">
-                <div ng-click="modal3.show()"  class="col photoThumb">
-                    <i class="postIcon icon ion-camera"></i>
+                <div ng-click="useCamera()"  class="col photoThumb">
+                    <i ng-if="ticketPic == ''" class="postIcon icon ion-camera"></i>
+                    <img ng-if="ticketPic != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticketPic}}" />
                 </div>
                 <div class="col">
                     <label class="item item-input item-floating-label" ng-class="{ 'has-error' : postForm.details.$invalid }">

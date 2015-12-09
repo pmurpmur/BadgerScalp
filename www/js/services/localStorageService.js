@@ -50,18 +50,7 @@ angular.module('services.localStorage', [])
             return { first:'No User', last:''};
         },
         getProfilePicture: function () {
-            var defaultImg = 'img/default_profile.jpg';
-
-            var user = LocalStorage.get(userKey);
-            if (user !== null) {
-                var img = user.profImg;
-                var imgUrl = user.imgUrl;
-
-                if (img !== undefined) { return img; } 
-                else if (imgUrl !== undefined) { return imgUrl; }
-                else { return defaultImg; }
-            }
-            return defaultImg;
+            return LocalStorage.get(userKey).image;
         },
         cleanUser: function () {
             return LocalStorage.remove(userKey);

@@ -12,6 +12,9 @@ angular.module('controllers.app', [])
 
   $scope.canPassChange = UserStorage.getEmail() !== undefined;
 
+  $scope.profilePic = UserStorage.getProfilePicture();
+  console.log($scope.profilePic);
+
   var lastPos = 0;
   $scope.fabControl = function ($event) {
       var elem = event.target.attributes['delegate-handle'].value;
@@ -38,7 +41,7 @@ angular.module('controllers.app', [])
   };
 
   $scope.getProfilePicture = function() {
-    return UserStorage.getProfilePicture();
+    $scope.profilePic = UserStorage.getProfilePicture();
   };
 
   /** POST MODAL **/
@@ -89,19 +92,14 @@ angular.module('controllers.app', [])
               sourceType: Camera.PictureSourceType.CAMERA,
               allowEdit: true,
               encodingType: Camera.EncodingType.JPEG,
-              targetWidth: 200,
-              targetHeight: 200,
+              targetWidth: 500,
+              targetHeight: 500,
               popoverOptions: CameraPopoverOptions,
               saveToPhotoAlbum: false
             };
 
             $cordovaCamera.getPicture(options_post).then(function(imgData) {
               $scope.ticketPic = imgData;
-            }, function(err) {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Sorry!',
-                    template: 'Camera failed.'
-                });
             });
 
         }, false);    
@@ -175,6 +173,61 @@ angular.module('controllers.app', [])
         if($scope.picture_post !== undefined)$scope.picture_post = undefined;
         $scope.modal.hide();
     }
+
+    $scope.choosePicture = function() {
+      var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        { text: 'Choose Picture' },
+        { text: 'Take Picture' },
+      ],
+      titleText: 'Event Type',
+      cancelText: 'Cancel',
+      buttonClicked: function(index) {
+        switch(index) {
+          case 0: 
+          document.addEventListener("deviceready", function () {
+            var options = {
+              quality: 75,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+              targetWidth: 200,
+              targetHeight: 200
+            };
+
+            $cordovaCamera.getPicture(options).then(function(imageData) {
+              $scope.profilePic = "data:image/jpeg;base64," + imageData;  
+              DB.updateUser(UserStorage.thisUser(), {image:$scope.profilePic});
+            });
+
+          }, false);  
+          break;
+
+          case 1: 
+          document.addEventListener("deviceready", function () {
+            var options = {
+              quality: 75,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.CAMERA,
+              allowEdit: true,
+              encodingType: Camera.EncodingType.JPEG,
+              targetWidth: 200,
+              targetHeight: 200,
+              popoverOptions: CameraPopoverOptions,
+              saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options).then(function(imageData) { 
+              $scope.profilePic = "data:image/jpeg;base64," + imageData;
+              DB.updateUser(UserStorage.thisUser(), {image:$scope.profilePic}); 
+            });
+
+          }, false);    
+          break;
+        }
+        hideSheet();
+      }
+    });
+  };
 
 
  
@@ -282,60 +335,6 @@ angular.module('controllers.app', [])
         $scope.modal3.hide();
     }
 
-    $scope.choosePicture = function() {
-         document.addEventListener("deviceready", function () {
-            var options = {
-              quality: 50,
-              destinationType: Camera.DestinationType.DATA_URL,
-              sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-              targetWidth: 200,
-              targetHeight: 200
-            };
-
-            $cordovaCamera.getPicture(options).then(function(imageData) {
-              var image = document.getElementById('myImage');
-              //image.src = "data:image/jpeg;base64," + imageData;
-              $scope.picture = "data:image/jpeg;base64," + imageData;       
-              $scope.ProfilePic = $scope.picture;
-            }, function(err) {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: 'Error'
-                });
-            });
-
-          }, false);       
-    
-    }
-
-    $scope.takePicture = function() {
-         document.addEventListener("deviceready", function () {
-            var options = {
-              quality: 50,
-              destinationType: Camera.DestinationType.DATA_URL,
-              sourceType: Camera.PictureSourceType.CAMERA,
-              allowEdit: true,
-              encodingType: Camera.EncodingType.JPEG,
-              targetWidth: 200,
-              targetHeight: 200,
-              popoverOptions: CameraPopoverOptions,
-              saveToPhotoAlbum: false
-            };
-
-            $cordovaCamera.getPicture(options).then(function(imageData) {
-              var image = document.getElementById('myImage');
-              //image.src = "data:image/jpeg;base64," + imageData;
-              $scope.picture = "data:image/jpeg;base64," + imageData;    
-              $scope.ProfilePic = $scope.picture;   
-            }, function(err) {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: 'Camera did not work'
-                });
-            });
-
-          }, false);       
-    }
 
     $scope.confirm = function() {
         if($scope.ProfilePic === ""){

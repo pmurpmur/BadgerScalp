@@ -13,8 +13,8 @@
 				collection-repeat="notif in notifications | orderBy:'-$id'"
 				ng-href="{{$state.href(app.tabs.bid2, notif.listing)}}">
 
-				<img ng-if="ticket.image == ''" src="./img/ticket.png">
-                <img ng-if="ticket.image  != ''" class="photo" ng-src="data:image/jpeg;base64,{{ticket.image}}" />
+				<img ng-if="notif.image === undefined || notif.image == ''" src="./img/ticket.png">
+                <img ng-if="notif.image !== undefined && notif.image != ''" ng-src="data:image/jpeg;base64,{{notif.image}}" />
 				<p style="float:right"><i class="icon ion-ios-clock-outline" style="padding-right:5px"></i>{{getListingTime(notif.createdAt)}}</p>
 
 				<h2 ng-if="notif.type == 'bid'">{{getListingTitle(notif.listing)}}</h2>

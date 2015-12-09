@@ -61,6 +61,7 @@
                 type: 'bid',
                 price: post.price,
                 listing: post.listing,
+                image: FB.$get('listings/' + post.listing + '/image'),
                 buyer: UserStorage.thisUser(), 
                 createdAt: Firebase.ServerValue.TIMESTAMP
             });
@@ -89,6 +90,9 @@
         },
         getUser: function(id) {
             return FB.$get('users/' + id);
+        },
+        getUserPic: function(id) {
+            return FB.$get('users/' + id + '/image');
         },
         getBids: function() {
             return FB.$get('bids');
