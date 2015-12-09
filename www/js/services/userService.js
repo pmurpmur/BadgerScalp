@@ -9,7 +9,7 @@
             var user = UserStorage.getUserId();
             var data = UsersOBJ(user + '/listings');
             data.$add(id);
-        },
+        }
 
         removeListing: function(id) {
             var user = UserStorage.getUserId();

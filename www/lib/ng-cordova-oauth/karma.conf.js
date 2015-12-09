@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Tue Dec 08 2015 09:58:41 GMT-0600 (Central Standard Time)
+// Generated on Thu Nov 05 2015 21:52:19 GMT-0300 (BRT)
 
 module.exports = function(config) {
   config.set({
@@ -15,25 +15,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../www/lib/ionic/js/ionic.bundle.js',
-      '../www/lib/ngCordova/dist/ng-cordova.js',
-      '../www/lib/firebase/firebase.js',
-      '../www/lib/angularfire/dist/angularfire.min.js',
-      '../www/lib/angular-messages/angular-messages.min.js',
-      '../www/lib/angular-mocks/angular-mocks.js',
-      '../tests/unit-tests/chatController.unit.js',
-      // '../tests/unit-tests/**/*.js',
-      '../www/js/controllers/*.js',
-      '../www/js/app.js/',
-      '../www/js/services/*.js',
-      '../www/templates/*.html',
-      '../www/templates/auth/*.html',
-      '../www/index.html'
-      // '../www/lib/ionic/js/ionic.bundle.js',
-      // '../www/lib/angular-mocks/angular-mocks.js',
-      //'**/*.html',
-      //'**/*.js'
-      // '../tests/unit-tests/**/*.js'
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/jssha/src/sha.js',
+      'src/*.js',
+      'tests/mocks/*.mock.js',
+      'tests/*.test.js'
     ],
 
 
@@ -45,20 +32,20 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/*.js': 'coverage'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress','coverage'],
+    reporters: ['progress', 'coverage'],
 
-  // optionally, configure the reporter
-coverageReporter: {
-type: 'html',
-dir: 'tests/coverage/',
-file: 'coverage.txt'
-},
+    coverageReporter: {
+      type : 'html',
+      // output coverage reports
+      dir : 'coverage/'
+    },
 
 
     // web server port
@@ -80,7 +67,7 @@ file: 'coverage.txt'
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode

@@ -87,6 +87,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushNotification\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -96,6 +100,12 @@
                     "NSLocationWhenInUseUsageDescription": [
                         {
                             "xml": "<string />",
+                            "count": 1
+                        }
+                    ],
+                    "UIBackgroundModes": [
+                        {
+                            "xml": "<array><string>remote-notification</string></array>",
                             "count": 1
                         }
                     ]
@@ -126,6 +136,9 @@
             "PACKAGE_NAME": "com.ionicframework.badgerscalp870450"
         },
         "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.badgerscalp870450"
+        },
+        "phonegap-plugin-push": {
             "PACKAGE_NAME": "com.ionicframework.badgerscalp870450"
         }
     },

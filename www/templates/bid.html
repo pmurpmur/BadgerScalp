@@ -26,11 +26,11 @@
 		    		<p>Highest Bid: ${{topPrice}}</p>
 				</div>
 			</div>
- 
+
 		</div>
 
 		<button ng-if="thisUser != ticket.seller" class="button button-block button-royal" ng-click="modal1.show()">BID</button>
-		<button ng-if="thisUser != ticket.seller && yourBid != 0" class="button button-block button-assertive" ng-click="deleteBid(thisUser, ticket_id)">DELETE BID</button>
+		<button ng-if="thisUser != ticket.seller && yourBid != 0" class="button button-block button-assertive" ng-click="deleteBid()">DELETE BID</button>
 		<button ng-if="thisUser == ticket.seller" ng-disabled="topPrice < 0" class="button button-block button-assertive" ng-click="confirmSale()">SELL</button>
 		<button ng-if="thisUser == ticket.seller" class="button button-block button-assertive" ng-click="deletePost()">DELETE POST</button>
 	</ion-content>

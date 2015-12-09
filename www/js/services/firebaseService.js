@@ -1,6 +1,6 @@
  angular.module('services.fire', [])
 
-.factory('FB', ['FBDB', '$firebaseArray', function (FBDB, $firebaseArray, UserStorage) {
+.factory('FB', ['FBDB', '$firebaseArray', function (FBDB, $firebaseArray) {
 
     var U = 'users/';
     var L = 'listings/';
@@ -17,7 +17,6 @@
             return $firebaseArray(new Firebase(FBDB + path));
         },
         $get: function(path) {
-
             return new Firebase(FBDB + path);
         },
 		
@@ -36,15 +35,14 @@
         updateListing: function(id, data) {
 
             URL(L + id).update(data);
- 
-        }, 
+
+        },
         deleteListing: function(id) {
-            
-            var user = UserStorage.thisUser();
+            var user = URL(L + id + '/seller');
             URL(L + id).remove(function() {
                 $firebaseArray(URL(U + user + '/listings')).$remove(id);
             });
-        }, 
+        },
 
         deleteUser: function (userid) {
             var fredRef = URL(U + userid);
@@ -58,21 +56,10 @@
         updateBid: function(id, data) {
             URL(B + id).update(data);
         },
-        deleteBid: function(id, ticket_id) {
+        deleteBid: function(id) {
             var user = URL(B + id + '/buyer');
-            URL(B + id + '/' + ticket_id).remove(function() {
-                //$firebaseArray(URL(U + user + '/bids')).$remove(id);
-            });
-            URL(L + ticket_id + '/bids/' +  id).remove();
-            URL(N + id).orderByChild("type").startAt('bid').endAt('bid').on('value', function(snapshot) { 
-                
-                snapshot.forEach(function(childSnapshot) {
-                    var oj = childSnapshot.val();
-                    if (oj.buyer == id && oj.listing == ticket_id) {
-                        console.log(childSnapshot.key());
-                      URL(N + id + '/' + childSnapshot.key()).remove();
-                    }
-                });
+            URL(B + id).remove(function() {
+                $firebaseArray(URL(U + user + '/bids')).$remove(id);
             });
         },
 		
@@ -89,9 +76,15 @@
         createNotification: function(id, notif) {
             $firebaseArray(URL(N + id)).$add(notif);
         },
-
         cleanDB: function() {
 
+        },
+        acceptBid: function (bidId, listingId) {
+            var listing = URL(L + listingId);
+            listing.update({
+                status: 'SOLD',
+                winningBid: bidId
+            });
         }
     };
 }]);

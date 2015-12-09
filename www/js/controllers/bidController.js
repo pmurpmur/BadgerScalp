@@ -1,13 +1,12 @@
 angular.module('controllers.bid', [])
 
-.controller('BidCtrl', function($location,$stateParams,$ionicModal,$ionicActionSheet,$scope,$ionicPopup,DB,UserStorage,Utils) {
+.controller('BidCtrl', function($stateParams,$ionicModal,$ionicActionSheet,$scope,$ionicPopup,DB,UserStorage,Utils) {
 	angular.element(document.querySelector('.bs-fab')).addClass('fab-hide');
 
 	var thisTicket = $stateParams.listingId;
 	$scope.thisUser = UserStorage.thisUser();
 
 	var view = DB.getTicket(thisTicket);
-	$scope.ticket_id = thisTicket;
 	$scope.ticket = view.listing;
 	$scope.seller = view.seller;
 
@@ -113,7 +112,7 @@ angular.module('controllers.bid', [])
 	     destructiveButtonClicked: function() {
 	       return true;
 	     }
-	   }); 
+	   });
 	};
 
 	$scope.deletePost = function() {
@@ -132,7 +131,7 @@ angular.module('controllers.bid', [])
 	 });
 	};
 
-	$scope.deleteBid = function(id, ticket_id) {
+	$scope.deleteBid = function() {
 		var hideSheet = $ionicActionSheet.show({
 	     destructiveText: 'Delete',
 	     titleText: 'Are you sure?',
@@ -141,9 +140,8 @@ angular.module('controllers.bid', [])
 	     	hideSheet();
 	     },
 	     destructiveButtonClicked: function(){
-	     	DB.removeBid(id, ticket_id);
+	     	DB.removeBid();
 	     	hideSheet();
-	     	$location.path("/app/tabs/browse"); 
 	     	return true;
 	     }
 	 });

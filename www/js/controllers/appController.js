@@ -175,7 +175,7 @@ angular.module('controllers.app', [])
 
 
     $scope.toggleSetting = function() {
-    	$("#account_setting_block").toggle(500);
+    	angular.element(document.getElementById("account_setting_block")).toggleClass('setting-toggle');
     }
 
     
@@ -398,11 +398,11 @@ angular.module('controllers.app', [])
         if(res) {
           var email = UserStorage.getEmail();
           var pass = UserStorage.getPassword();
-          console.log(email);
+
           UserAuth.removeUser(email, pass);
           UserStorage.cleanUser();
-          DB.removeUser();
- 
+          DB.deleteUser();
+
 
           $location.path("/login"); 
           $scope.toggleSetting();
