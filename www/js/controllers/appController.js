@@ -401,7 +401,7 @@ angular.module('controllers.app', [])
 
           UserAuth.removeUser(email, pass);
           UserStorage.cleanUser();
-          DB.deleteUser();
+          DB.removeUser();
 
 
           $location.path("/login"); 

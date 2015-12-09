@@ -178,8 +178,8 @@
         },
 
         // DELETE
-        removeBid: function(id) {
-            FB.deleteBid(id);
+        removeBid: function(id, ticket_id) {
+            FB.deleteBid(id, ticket_id);
         },
         removeListing: function(id) {
 			
